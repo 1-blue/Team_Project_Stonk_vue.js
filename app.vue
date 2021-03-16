@@ -22,9 +22,13 @@
   body{
     margin: 0px;
     padding: 0px;
-    margin: 130px 300px 0px;
+    margin: 20px 140px 0px;
+    overflow-y: scroll;
   }
   .shadow{
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 20%);
+  }
+  .margin-rigth-left{
+    margin: 0px 50px;
   }
 </style>
