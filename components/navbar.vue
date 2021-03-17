@@ -8,6 +8,8 @@
 			<li><span @click="onAuth" class="link-style">회원가입</span></li>
 		</ul>
 
+		<router-view class="show-element"></router-view>
+
 		<!-- 로그인창 -->
 		<app-modal v-if="isLogin" @close="isLogin = false">
 		<h1 slot="header" class="modal-title">
@@ -51,8 +53,6 @@
 					</form>
 				</div>
 		</app-modal>
-
-		<router-view class="text-align-left margin-rigth-left"></router-view>
 	</nav>
 </template>
 
@@ -81,8 +81,8 @@ export default {
 			this.isAuth = false
 		},
 	},
-  components:{
-  	"app-modal": appModal,
+  	components:{
+  		"app-modal": appModal,
 	}
 }
 </script>
@@ -97,10 +97,10 @@ export default {
     	left: 220px;
 		display: inline-block;
 		background-color: pink;
-		width: 1200px;
+		width: 1500px;
 		height: 100px;
 		line-height: 100px;
-		border-radius: 0px 40px 0px 40px;
+		border-radius: 30px;
 		font-size: 20px;
 		margin-top: 0px;
 	}
@@ -113,9 +113,9 @@ export default {
 		margin-top: 0px;
 	}
 	.close-modal-btn{
-    float: right;
-    cursor: pointer;
-    color: lightslategrey;
+		float: right;
+		cursor: pointer;
+		color: lightslategrey;
   	}
 	.modal-input{
 		margin-top: 15px;
