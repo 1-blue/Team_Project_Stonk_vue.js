@@ -1,8 +1,6 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-
-    <!-- <div id="main-tag">STONK</div> -->
   </div>
 </template>
 
@@ -15,7 +13,7 @@
     },
     created(){
       document.querySelector('html').style.background = "seashell";
-    }
+    },
   }
 </script>
 
@@ -36,22 +34,4 @@
   .show-element{
     margin: 0px 50px 100px;
   }
-  /* #main-tag{
-    position:absolute;
-    top: 8%;
-    left: 3%;
-    animation-name: test;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-fill-mode: forwards;
-  }
-  @-webkit-keyframes test {
-    0% {
-      transform: rotate(0turn);
-    }
-    100% {
-      transform: rotate(1turn);
-    }
-  } */
 </style>

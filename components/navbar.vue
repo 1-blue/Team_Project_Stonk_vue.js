@@ -4,8 +4,11 @@
 			<li><router-link to="/pages/main" class="float-left link-style">메인로고</router-link></li>
 			<li><router-link to="/pages/info" class="float-left link-style">정보</router-link></li>
 			<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
-			<li><span @click="onLogin" class="link-style">로그인</span></li>
-			<li><span @click="onAuth" class="link-style">회원가입</span></li>
+
+			<span>
+				<li><span @click="onLogin" class="link-style">로그인</span></li>
+				<li><span @click="onAuth" class="link-style">회원가입</span></li>
+			</span>
 		</ul>
 
 		<router-view class="show-element"></router-view>
@@ -97,17 +100,21 @@ export default {
     	left: 220px;
 		display: inline-block;
 		background-color: pink;
-		width: 1500px;
-		height: 100px;
+		width: 100%;
+		height: 10%;
 		line-height: 100px;
 		border-radius: 30px;
 		font-size: 20px;
 		margin-top: 0px;
 	}
-	ul > li {
+	ul li {
 		display: inline-block;
 		list-style: none;
 		margin-right: 30px;
+	}
+	/* nav에서 오른쪽정렬 */
+	ul > span > li {
+		float:right
 	}
 	.modal-title{
 		margin-top: 0px;

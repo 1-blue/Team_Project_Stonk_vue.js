@@ -1,26 +1,37 @@
 <template>
 	<div id="item-table">
-        <form class="search-form-style shadow">
-            <input type="text" placeholder="아이템검색" class="search-input-style" v-model="searchItem" v-on:keydown.enter.prevent="onSearch"/>
-            <span class="search-button-style" @click="onSearch">
-                <i class="fas fa-search"></i>
-            </span>
+		<form class="search-form-style shadow">
+			<input type="text" placeholder="아이템검색" class="search-input-style" v-model="searchItem" v-on:keydown.enter.prevent="onSearch"/>
+			<span class="search-button-style" @click="onSearch">
+				<i class="fas fa-search"></i>
+			</span>
 			<span class="cancel-button-style" @click="onSearchCancel">
 				<i class="fas fa-redo"></i>
 			</span>
-        </form>
+		</form>
+
 
 		<div id="table-header">
 			<div class="table-gride image">이미지</div>
-			<div class="table-gride name">아이템명</div>
-			<div class="table-gride price">가격</div>
+			<div class="table-gride name">
+				아이템명
+				<i class="fas fa-sort-alpha-up sort-button" @click="onOrderByNameAsc"></i>
+				<i class="fas fa-sort-alpha-down sort-button" @click="onOrderByNameDesc"></i>
+			</div>
+			<div class="table-gride price">
+				가격
+				<i class="fas fa-sort-numeric-up sort-button" @click="onOrderByPriceAsc"></i>
+				<i class="fas fa-sort-numeric-down sort-button" @click="onOrderByPriceDesc"></i>
+			</div>
 		</div>
 
 		<div id="table-body">
-			<div v-for="(imageName, index) in imageList" :key="index" id="items">
-				<div class="table-gride image" v-show="onSearchFind(imageName) || !isSearch"><img :src="getPath(imageName)" alt=""></div>
-				<div class="table-gride name" v-show="onSearchFind(imageName)  || !isSearch">{{getImageName(imageName)}}</div>
-				<div class="table-gride price" v-show="onSearchFind(imageName)  || !isSearch">가격받아서넣기</div>
+			<div v-for="(imageName, index) in itemNameList" :key="index">
+				<span v-show="!isSearch || onSearchFind(imageName)" id="items">
+					<div class="table-gride image" ><img :src="getPath(imageName)" alt=""></div>
+					<div class="table-gride name">{{ imageName }}</div>
+					<div class="table-gride price">{{ getPrice(imageName) }}</div>
+				</span>
 			</div>
 		</div>
 		
@@ -28,58 +39,155 @@
 </template>
 
 <script>
+// import axios from "axios";
 
-const imageList = [
-	'계란후라이.png',
-	'딸기.png',
-	'딸기씨앗.png',
-	'생존식버거.png',
-	'씨앗모음.png',
-	'아이스크림.png',
-	'치즈콜리플라워.png',
-	'콜리플라워.png',
-	'콜리플라워씨앗.png',
-	'파스닙.png',
-	'파스닙씨앗.png'
-]
+let reloadTimerId = 0;
 
 export default {	
 	data(){
 		return{
 			imagePath: "../../image/items/",
-			imageList,
+			items: {},
+			itemNameList: [],
 			searchItem: "",
 			targetItem: "",
 			isSearch: false,
+			isOrderByNameDesc: false,
+			isOrderByPriceDesc: false,
 		}
 	},
 	methods: {
+		// item의 path가져오기
 		getPath(imageName){
-			return this.imagePath + imageName;
+			return this.imagePath + imageName + '.png';
 		},
-		getImageName(imageName){
-			return imageName.split('.')[0];
-		},
-		getPrice: async function(imageName){
-			/**
-			 * const name = this.getImageName(imageName);
-			 * const itemPrice = await axios.get('/price')
-			 * 이런느낌으로다가 받으면 되는건가
-			 */
-		},
+
+		// 검색기능 ON
 		onSearch(){
 			this.targetItem = this.searchItem;
 			this.searchItem = "";
 			this.isSearch = true;
 		},
+
+		// 검색에서 해당하는것만 화면에 띄워주기
 		onSearchFind(imageName){
-			return this.targetItem === this.getImageName(imageName);
+			// 문자열을 내부에 하지않으면 -1리턴
+			if(imageName.toLowerCase().indexOf(this.targetItem.toLowerCase()) !== -1){
+				return true;
+			} else {
+				return false;
+			}
 		},
+
+		// 검색기능 OFF
 		onSearchCancel(){
 			this.isSearch = false;
 			this.searchItem = "";
 			this.targetItem = "";
+		},
+
+		// 아이템 가격 가져오기
+		getPrice(imageName){
+			return this.items[imageName];
+		},
+
+		// 이름 오름차순 정렬
+		onOrderByNameAsc(){
+			this.items = Object.keys(this.items)
+			.sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
+			.reduce(
+				(obj, key) => { 
+					obj[key] = this.items[key];
+
+					return obj;
+				}, {});
+
+			this.itemNameList = Object.keys(this.items);
+		},
+
+		// 이름 내림차순 정렬
+		onOrderByNameDesc(){
+			this.items = Object.keys(this.items)
+			.sort((a, b) => a > b ? -1 : a < b ? 1 : 0)
+			.reduce(
+				(obj, key) => { 
+					obj[key] = this.items[key];
+					return obj;
+				}, {});
+
+			this.itemNameList = Object.keys(this.items);
+		},
+
+		// 가격 오름차순 정렬
+		onOrderByPriceAsc(){
+			const arr = [];
+
+			// 객체 배열로 만들고
+			for(const item in this.items){
+				arr.push([item, this.items[item]]);
+			}
+
+			// 가격기준으로 정렬하고
+			arr.sort((x, y) => {
+				return x[1] - y[1];
+			});
+
+			//다시 객체로 만들고
+			this.items = Object.fromEntries(arr);
+
+			// 적용
+			this.itemNameList = Object.keys(this.items);
+		},
+
+		// 가격 내림차순 정렬
+		onOrderByPriceDesc(){
+			let arr = [];
+
+			for(const item in this.items){
+				arr.push([item, this.items[item]]);
+			}
+
+			arr.sort((x, y) => {
+				return y[1] - x[1];
+			});
+
+			this.items = Object.fromEntries(arr);
+
+			this.itemNameList = Object.keys(this.items);
 		}
+	},
+	computed: {
+
+	},
+	created(){
+		// 5분에 한번씩 새로고침
+		reloadTimerId = setTimeout(() => {
+			window.location.reload()
+		}, 1000 * 60 * 5);
+
+		// (async function(){
+		// 	this.items = await axios.get('http://203.232.193.178:443/price');
+		// })()
+
+		// 잠시 대체 서버에서 받아왔다고 가정하고 실행
+		this.items = {
+			"cauliflower": 100,
+			"cauliflowerSeed": 5,
+			"cheeseCauliflower": 30,
+			"friedEgg": 50,
+			"icecream": 150,
+			"parsnip": 300,
+			"parsnipSeed": 10,
+			"seeds": 20,
+			"strawberry": 500,
+			"strawberrySeed": 50,
+			"survivalHamburger": 80
+		};
+
+		this.itemNameList = Object.keys(this.items); //.map((value, index, array) => array[index] + '.png');
+	},
+	beforeDestroy(){
+		clearTimeout(reloadTimerId);
 	}
 }
 </script>
@@ -117,7 +225,7 @@ export default {
 
 	/* 테이블에 마우스 올렸을때 한라인 색변화 (테이블제목전용) */
 	#table-header:hover > .table-gride{
-		background: rgb(54, 51, 51);
+		background: rgb(175, 135, 135);
 	}
 
 	/* 테이블에 마우스 올렸을때 한라인 색변화 */
@@ -191,5 +299,14 @@ export default {
         float: right;
         border-radius: 0px 5px 5px 0px;
         cursor: pointer;
+	}
+
+	/* 정렬버튼 */
+	.sort-button{
+		float: right;
+		margin-top: 18px;
+		margin-right: 10px;
+		cursor: pointer;
+		color: white;
 	}
 </style>
