@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import router from '../routes/router.js';
+import router from '../routes/index.js';
 import appModal from './common/app-modal.vue';
 
 export default {
@@ -94,6 +94,12 @@ export default {
 	a{
 		text-decoration: none;
 	}
+
+	/* 현재 페이지 a태그 색변경 */
+	.router-link-exact-active {
+		color: white;
+	}
+
 	ul{
 		position: sticky;
 		top: 0px;

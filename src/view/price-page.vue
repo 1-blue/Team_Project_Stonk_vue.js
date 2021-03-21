@@ -28,7 +28,7 @@
 		<div id="table-body">
 			<div v-for="(imageName, index) in itemNameList" :key="index">
 				<span v-show="!isSearch || onSearchFind(imageName)" id="items">
-					<div class="table-gride image" ><img :src="getPath(imageName)" alt=""></div>
+					<div class="table-gride image" ><img :src="getPath(imageName)" :alt="imageName"></div>
 					<div class="table-gride name">{{ imageName }}</div>
 					<div class="table-gride price">{{ getPrice(imageName) }}</div>
 				</span>
@@ -46,7 +46,7 @@ let reloadTimerId = 0;
 export default {	
 	data(){
 		return{
-			imagePath: "../../image/items/",
+			imagePath: "../image/items/",
 			items: {},
 			itemNameList: [],
 			searchItem: "",
@@ -59,6 +59,7 @@ export default {
 	methods: {
 		// item의 path가져오기
 		getPath(imageName){
+			console.log(this.imagePath + imageName + '.png');
 			return this.imagePath + imageName + '.png';
 		},
 

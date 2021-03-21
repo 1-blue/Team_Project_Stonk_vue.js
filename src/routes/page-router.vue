@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import mainPage from '../components/page/main-page.vue';
-import infoPage from '../components/page/info-page.vue';
-import pricePage from '../components/page/price-page.vue';
+import mainPage from '../view/main-page.vue';
+import infoPage from '../view/info-page.vue';
+import pricePage from '../view/price-page.vue';
 
 export default({
     components:{
