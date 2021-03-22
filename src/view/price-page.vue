@@ -39,7 +39,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+
 
 let reloadTimerId = 0;
 
@@ -166,11 +166,10 @@ export default {
 			window.location.reload()
 		}, 1000 * 60 * 5);
 
-		// (async function(){
-		// 	this.items = await axios.get('http://203.232.193.178:443/price');
-		// })()
+		//this.$store.dispatch('FETCH_ITEMS');
+		//this.items = this.$store.state.items;
 
-		// 잠시 대체 서버에서 받아왔다고 가정하고 실행
+		// 잠시 대체   ==== 서버에서 받아왔다고 가정하고 실행
 		this.items = {
 			"cauliflower": 100,
 			"cauliflowerSeed": 5,
