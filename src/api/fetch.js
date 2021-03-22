@@ -2,10 +2,11 @@ import axios from "axios";
 
 const config = {
     rootUrl: 'http://203.232.193.178:443/',
+    url: 'http://localhost:3000/',
 }
 
-function fetchItems(){
-	return axios.get(`${config.rootUrl}price`);
+async function fetchItems(){
+	return await axios.get(`${config.url}price`);
 }
 
 export {

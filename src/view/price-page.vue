@@ -39,7 +39,7 @@
 </template>
 
 <script>
-
+import { fetchItems } from '../api/fetch.js';
 
 let reloadTimerId = 0;
 
@@ -160,29 +160,34 @@ export default {
 	computed: {
 
 	},
-	created(){
+	async created(){
 		// 5분에 한번씩 새로고침
 		reloadTimerId = setTimeout(() => {
+			this.$store.dispatch('FETCH_ITEMS');
 			window.location.reload()
 		}, 1000 * 60 * 5);
 
-		//this.$store.dispatch('FETCH_ITEMS');
-		//this.items = this.$store.state.items;
+		let { data } = await fetchItems();
+		this.items = data;
+
+		// vuex적용하는건데 데이터 전송받기전에 실행해버려서 초기에 이미지값이없음...
+		// this.$store.dispatch('FETCH_ITEMS');
+		// this.items = this.$store.state.items;
 
 		// 잠시 대체   ==== 서버에서 받아왔다고 가정하고 실행
-		this.items = {
-			"cauliflower": 100,
-			"cauliflowerSeed": 5,
-			"cheeseCauliflower": 30,
-			"friedEgg": 50,
-			"icecream": 150,
-			"parsnip": 300,
-			"parsnipSeed": 10,
-			"seeds": 20,
-			"strawberry": 500,
-			"strawberrySeed": 50,
-			"survivalHamburger": 80
-		};
+		// this.items = {
+		// 	"cauliflower": 100,
+		// 	"cauliflowerSeed": 5,
+		// 	"cheeseCauliflower": 30,
+		// 	"friedEgg": 50,
+		// 	"icecream": 150,
+		// 	"parsnip": 300,
+		// 	"parsnipSeed": 10,
+		// 	"seeds": 20,
+		// 	"strawberry": 500,
+		// 	"strawberrySeed": 50,
+		// 	"survivalHamburger": 80
+		// };
 
 		this.itemNameList = Object.keys(this.items); //.map((value, index, array) => array[index] + '.png');
 	},
