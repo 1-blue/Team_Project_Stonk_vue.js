@@ -59,7 +59,6 @@ export default {
 	methods: {
 		// item의 path가져오기
 		getPath(imageName){
-			console.log(this.imagePath + imageName + '.png');
 			return this.imagePath + imageName + '.png';
 		},
 
@@ -162,7 +161,7 @@ export default {
 	},
 	async created(){
 		// 5분에 한번씩 새로고침
-		reloadTimerId = setTimeout(() => {
+		reloadTimerId = setInterval(() => {
 			this.$store.dispatch('FETCH_ITEMS');
 			window.location.reload()
 		}, 1000 * 60 * 5);

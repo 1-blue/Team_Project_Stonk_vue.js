@@ -11,8 +11,9 @@
 			</span>
 		</ul>
 
-		<router-view class="show-element"></router-view>
-
+		<transition name="page">
+			<router-view class="show-element"></router-view>
+		</transition>
 		<!-- 로그인창 -->
 		<app-modal v-if="isLogin" @close="isLogin = false">
 		<h1 slot="header" class="modal-title">

@@ -34,4 +34,12 @@
   .show-element{
     margin: 0px 50px 100px;
   }
+
+  /* 페이지 이동시 transition부여 */
+  .page-enter-active, .page-leave-active {
+    transition: opacity .5s;
+  }
+  .page-enter, .page-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
 </style>

@@ -1,13 +1,19 @@
 <template>
     <div> 
         <div v-if="currentPage === 'main' ">
-            <main-page></main-page>
+            <transition name="page">
+                <main-page></main-page>
+			</transition> 
         </div>
         <div v-else-if="currentPage === 'info' ">
-            <info-page></info-page>
+            <transition name="page">
+                <info-page></info-page>
+            </transition>
         </div>
         <div v-else-if="currentPage === 'price' ">
-            <price-page></price-page>
+            <transition name="page">
+                <price-page></price-page>
+            </transition>
         </div>
         <div v-else>일치하는 페이지가 없습니다.</div>
     </div>
