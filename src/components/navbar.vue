@@ -1,39 +1,19 @@
 <template>
 	<nav>
 		<ul class="shadow">
-			<li><router-link to="/pages/main" class="float-left link-style">메인로고</router-link></li>
-			<li><router-link to="/pages/info" class="float-left link-style">정보</router-link></li>
-			<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
-
-			<span>
+			<div>
+				<li><router-link to="/pages/main" class="float-left link-style">메인로고</router-link></li>
+				<li><router-link to="/pages/info" class="float-left link-style">정보</router-link></li>
+				<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
+			</div>
+			
+			<div>
 				<li><span @click="onLogin" class="link-style">로그인</span></li>
 				<li><span @click="onAuth" class="link-style">회원가입</span></li>
-			</span>
+			</div>
 		</ul>
 
 		<router-view class="show-element"></router-view>
-
-		<!-- 로그인창 -->
-		<app-modal v-if="isLogin" @close="isLogin = false">
-		<h1 slot="header" class="modal-title">
-			로그인
-			<i class="fas fa-times close-modal-btn" @click="modalExit"></i>
-		</h1>
-		
-		<div slot="body">
-					<form action="post">
-						<button class="modal-btn">로그인</button>
-						<label for="id">아이디 : </label>
-						<input type="text" name="id" class="modal-input"/>
-						<br />
-						<label for="pw">비밀번호 : </label>
-						<input type="password" name="pw" class="modal-input"/>
-					</form>
-
-					<span @click="onAuth" class="modal-span">회원가입하러가기</span>
-					<span class="modal-span">비밀번호찾기</span>
-				</div>
-		</app-modal>
 
 		<!-- 회원가입창 -->
 		<app-modal v-if="isAuth" @close="isAuth = false">
@@ -42,20 +22,69 @@
 			<i class="fas fa-times close-modal-btn" @click="modalExit"></i>
 		</h1>
 		
-		<div slot="body">
+		<div class="modal-body" slot="body">
 					<form action="post">
+						<div class="modal-input-holder">
+							<div>
+								<label for="id">아이디 : </label>
+								<input type="text" name="id" class="modal-input"/>
+							</div>
+							<div>
+								<label for="pw">비밀번호 : </label>
+								<input type="password" name="pw" class="modal-input"/>
+							</div>
+							<div>
+								<label for="pw">비밀번호확인 : </label>
+								<input type="password" name="pw" class="modal-input"/>
+							</div>
+						</div>
+
+						
 						<button class="modal-btn">회원가입</button>
-						<label for="id">아이디 : </label>
-						<input type="text" name="id" class="modal-input"/>
-						<br />
-						<label for="pw">비밀번호 : </label>
-						<input type="password" name="pw" class="modal-input"/>
-						<br />
-						<label for="pw">비밀번호확인 : </label>
-						<input type="password" name="pw" class="modal-input"/>
 					</form>
 				</div>
 		</app-modal>
+
+
+		<!-- 로그인창 -->
+		<app-modal v-if="isLogin" @close="isLogin = false">
+		<h1 slot="header" class="modal-title">
+			로그인
+			<i class="fas fa-times close-modal-btn" @click="modalExit"></i>
+		</h1>
+		
+		<div slot="body" class="modal-body">
+			<div class="modal-input">
+				<form action="post">
+						<div class="modal-input-holder">
+							<div>
+								<label for="id">아이디 : </label>
+								<input type="text" name="id" class="modal-input" size=15;/>
+							</div>
+							<div>
+								<label for="pw">비밀번호 : </label>
+								<input type="password" name="pw" class="modal-input" size=15/>
+							</div>
+						</div>
+
+						<button class="modal-btn">로그인</button>
+					</form>
+			</div>
+
+			<div class="modal-link">
+				<div>
+					<span @click="onAuth" class="modal-span">회원가입하러가기</span>
+				</div>
+				<div>
+					<span class="modal-span">비밀번호찾기</span>
+				</div>
+			</div>
+					
+					
+					
+				</div>
+		</app-modal>
+
 	</nav>
 </template>
 
@@ -101,29 +130,39 @@ export default {
 	}
 
 	ul{
-		position: sticky;
-		top: 0px;
-    	left: 220px;
+		padding: 0;
 		display: inline-block;
 		background-color: pink;
 		width: 100%;
-		height: 10%;
-		line-height: 100px;
+		line-height: 80px;
 		border-radius: 30px;
 		font-size: 20px;
-		margin-top: 0px;
+		margin: 0px 0px 10px 0px;
+	}
+	ul > div{
+		width: 40%;
+		margin: 0% 5%;
+		float: left;
 	}
 	ul li {
 		display: inline-block;
 		list-style: none;
-		margin-right: 30px;
+		margin:0px 15px;
 	}
 	/* nav에서 오른쪽정렬 */
-	ul > span > li {
+	ul > div:first-child+div > li {
 		float:right
 	}
 	.modal-title{
 		margin-top: 0px;
+	}
+	.modal-body{
+		height: 130px;
+		display: flex;
+		flex-direction: column;
+	}
+	.modal-body > form{
+		height: 100%;
 	}
 	.close-modal-btn{
 		float: right;
@@ -131,17 +170,25 @@ export default {
 		color: lightslategrey;
   	}
 	.modal-input{
-		margin-top: 15px;
+		margin-bottom: 10px;
+		margin-right: 10px;
+		float: right;
+		font-size: 18px;
 	}
+	.modal-input-holder{
+		float: left;
+		width: 75%;
+		height: 70px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		}
 	.modal-btn{
 		float: right;
 		width: 90px;
-		height: 100px;
+		height: 70px;
 	}
-	.modal-span{
-		display: inline-block;
-		margin-top: 111px;
-		margin-left: 68px;
+	.modal-span{		
 		font-size: 12px;
 		cursor: pointer;
 	}

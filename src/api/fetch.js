@@ -5,8 +5,10 @@ const config = {
     url: 'http://localhost:3000/',
 }
 
+
 async function fetchItems(){
-	return await axios.get(`${config.url}price`);
+    console.log(`${config.url}price`)
+	return await axios.get(`${config.url}price`, {withCredentials: true,});
 }
 
 export {

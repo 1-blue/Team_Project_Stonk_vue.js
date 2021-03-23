@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
+    <nav-bar/>
   </div>
 </template>
 
@@ -25,7 +25,7 @@
   body{
     margin: 0px;
     padding: 0px;
-    margin: 20px 200px 0px;
+    margin: 20px 20px 0px;
     overflow-y: scroll;
   }
   .shadow{
