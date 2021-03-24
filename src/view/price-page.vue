@@ -163,8 +163,8 @@ export default {
 		// 5분에 한번씩 새로고침
 		reloadTimerId = setInterval(() => {
 			this.$store.dispatch('FETCH_ITEMS');
+			
 			window.location.reload()
-		// }, 1000);
 		}, 1000 * 60 * 5);
 
 		let { data } = await fetchItems();

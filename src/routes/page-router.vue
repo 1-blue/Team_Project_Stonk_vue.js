@@ -15,21 +15,27 @@
                 <price-page></price-page>
             </transition>
         </div>
+        <div v-else-if="currentPage === 'register' ">
+            <transition name="page">
+                <register-page></register-page>
+            </transition>
+        </div>
         <div v-else>일치하는 페이지가 없습니다.</div>
     </div>
-
 </template>
 
 <script>
 import mainPage from '../view/main-page.vue';
 import communityPage from '../view/community-page.vue';
 import pricePage from '../view/price-page.vue';
+import registerPage from '../view/register-page.vue';
 
 export default({
     components:{
         mainPage,
         communityPage,
-        pricePage
+        pricePage,
+        registerPage
     },
     computed:{
         currentPage(){

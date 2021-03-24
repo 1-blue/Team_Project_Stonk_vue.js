@@ -4,28 +4,28 @@ var router = express.Router();
 let requestCounter = 1;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.send("ok")
 });
 
-const unorderedItem = {"parsnip": 300, "parsnipSeed": 10, "cauliflower": 100,"cauliflowerSeed": 5,"strawberry": 500,"strawberrySeed": 50,"seeds": 20,"icecream": 150,"survivalHamburger": 80,"friedEgg": 50,"cheeseCauliflower": 30};
+const unorderedItem = { "parsnip": 300, "parsnipSeed": 10, "cauliflower": 100, "cauliflowerSeed": 5, "strawberry": 500, "strawberrySeed": 50, "seeds": 20, "icecream": 150, "survivalHamburger": 80, "friedEgg": 50, "cheeseCauliflower": 30 };
 
 const items = Object.keys(unorderedItem).sort().reduce(
-  (obj, key) => { 
+  (obj, key) => {
     obj[key] = unorderedItem[key];
     return obj;
-  }, 
+  },
   {}
 );
 
 /* GET Item priece list */
-router.get('/price', function(req, res, next) {
+router.get('/price', function (req, res, next) {
   res.setHeader("access-control-allow-origin", "*");
   if (requestCounter) {
     res.json(items)
     requestCounter--;
   }
-  else{
+  else {
     res.json(items)
     requestCounter++;
   }
@@ -79,25 +79,25 @@ const users = [
 ]
 
 // 게시글전체에대한 정보 전달
-router.get('/postInfo', function(req, res, next) {
+router.get('/postInfo', function (req, res, next) {
   res.setHeader("access-control-allow-origin", "*");
   if (requestCounter) {
     res.send(postInfo)
     requestCounter--;
   }
-  else{
+  else {
     res.send(postInfo)
     requestCounter++;
   }
 });
 
 // 게시글 세부내용 전달
-router.get('/post/:title', function(req, res, next) {
+router.get('/post/:title', function (req, res, next) {
   res.setHeader("access-control-allow-origin", "*");
 
   // db에서 req.params.title값으로 title값과 같은 게시글 존재하는지 찾고
-  for(let i = 0; i< posts.length; i++){
-    if(posts[i].title === req.params.title){
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i].title === req.params.title) {
       return res.send(posts[i]);
     }
   }
@@ -107,12 +107,12 @@ router.get('/post/:title', function(req, res, next) {
 });
 
 // 유저 세부내용 전달
-router.get('/user/:name', function(req, res, next) {
+router.get('/user/:name', function (req, res, next) {
   res.setHeader("access-control-allow-origin", "*");
 
   // db에서 req.params.title값으로 title값과 같은 게시글 존재하는지 찾고
-  for(let i = 0; i< posts.length; i++){
-    if(users[i].name === req.params.name){
+  for (let i = 0; i < posts.length; i++) {
+    if (users[i].name === req.params.name) {
       return res.send(users[i]);
     }
   }
@@ -121,8 +121,30 @@ router.get('/user/:name', function(req, res, next) {
   return res.send("일치하는 유저 없음");
 });
 
+
+
+//======================로그인정보=======================
+router.post('/login', function (req, res, next) {
+  const {id, password} = req.body;
+
+  // 일치하면 뭘리턴해줘야할까?
+  return res.send(`로그인요.. id : ${id} | password : ${password}`);
+});
+
+router.post('/auth', function (req, res, next) {
+  const {id, password, passwordCheck, comment} = req.body;
+
+  // 일치하면 뭘리턴해줘야할까?
+  return res.send(`회원가입요  id : ${id} | password : ${password} | passwordCheck : ${passwordCheck} | comment : ${comment}  `);
+});
+
+
+
+
+
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 

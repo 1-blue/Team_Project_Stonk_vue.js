@@ -13,7 +13,7 @@
 			</form>
 
 			<!-- 게시글추가기능 -->
-			<router-link to="/post/append">게시글추가하기</router-link>
+			<router-link to="/post/append" class="append-post-link">게시글추가하기</router-link>
 		</section>
 
 		<!-- 게시글 -->
@@ -26,13 +26,15 @@
 						<router-link :to="`/post/${post.title}`" class="post-title">
 							{{ post.title }}
 						</router-link>
-						<router-link :to="`/user/${post.user}`" class="post-user">
-							<i class="fas fa-user"></i>
-							{{ post.user }}
-						</router-link>
-						<span class="post-time-ago">
-							<i class="far fa-clock"></i>
-							{{ post.time_ago }}
+						<span class="float-right">
+							<router-link :to="`/user/${post.user}`" class="post-user">
+								<i class="fas fa-user"></i>
+								{{ post.user }}
+							</router-link>
+							<span class="post-time-ago">
+								<i class="far fa-clock"></i>
+								{{ post.time_ago }}
+							</span>
 						</span>
 					</div>
 					<hr />
@@ -72,49 +74,50 @@ import { fetchPostInfo } from '../api/fetch.js';
 <style scoped>
 	/* =============검색창 css=========== */
 	.search-form-style{
-        background-color: white;
-        width: 400px;
-        height: 50px;
-        line-height: 50px;
-        border-radius: 5px 5px 5px 5px;
+		display: inline-block;
+    background-color: white;
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px 5px 5px 5px;
 		text-align: center;
 		margin-bottom: 40px;
 	}
 	/* 검색인풋태그 */
 	.search-input-style{
-        border: 0px;
-        margin: 7px 0px;
-        font-size: 18px;
-        width: 200px;
+    border: 0px;
+    margin: 7px 0px;
+    font-size: 18px;
+    width: 200px;
 	}
 	/* 검색인풋태그기본 스타일없애기 */
 	.search-input-style:focus{
-        outline: 0px;
+    outline: 0px;
   }
 	/* 검색버튼태그 */
 	.search-button-style{
-        background: linear-gradient(to right, #6478FB, #8763FB);
-        height: 50px;
-        width: 50px;
-        display: block;
-        float: right;
-        border-radius: 0px 5px 5px 0px;
-        cursor: pointer;
+  	background: linear-gradient(to right, #6478FB, #8763FB);
+  	height: 50px;
+  	width: 50px;
+  	display: block;
+  	float: right;
+  	border-radius: 0px 5px 5px 0px;
+  	cursor: pointer;
 	}
 	.cancel-button-style{
-        height: 50px;
-        width: 50px;
-        display: block;
-        float: right;
-        border-radius: 0px 5px 5px 0px;
-        cursor: pointer;
+    height: 50px;
+    width: 50px;
+    display: block;
+    float: right;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
 	}
 
 	/* =============게시글 css=========== */
 	#post-section{
 		width: 100%;
 		height: 1000px;
-		border: 2px solid gray;
+		border: 3mm ridge rgba(50, 75, 220, 0.6);
 	}
 	.posts{
 		margin: 0px 20px;
@@ -123,8 +126,13 @@ import { fetchPostInfo } from '../api/fetch.js';
 		font-size: 25px;
 		font-weight: bold;
 	}
-	.post-user{
-
+	.post-title:hover{
+		color: rgb(255, 56, 99);
+		transition: all 1s;
+	}
+	.post-user:hover{
+		color: rgb(17, 0, 255);
+		transition: all 1s;
 	}
 	.post-time-ago{
 		font-size: 10px;
@@ -138,9 +146,26 @@ import { fetchPostInfo } from '../api/fetch.js';
 	.post-inner-margin{
 		margin: 0px 10px;
 	}
-	a {
+	a{
 		text-decoration: none;
 		color: black;
+		transition: all 3s;
+	}
+	.append-post-link{
+		float: right;
+		font-weight: bold;
+		font-size: 30px;
+		position: relative;
+		top: 20px;
+		transition: all 3s;
+	}
+	.append-post-link:hover{
+		transition: all 1.5s;
+		color: rgb(0, 238, 255);
+	}
+
+	.float-right{
+		float: right;
 	}
 
 </style>

@@ -12,7 +12,7 @@
   	  'nav-bar': navbar,
     },
     created(){
-      document.querySelector('html').style.background = "seashell";
+      // document.querySelector('html').style.background = "seashell";
     },
   }
 </script>
@@ -21,6 +21,7 @@
 <style>
   html{
     transition: all 3s;
+    background: url("https://ko.stardewvalleywiki.com/mediawiki/extensions/StardewValley/images/stardewbackground.png") no-repeat fixed center center / cover;
   }
   body{
     margin: 0px;

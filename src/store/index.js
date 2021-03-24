@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+        isLogin: false,			// 로그인상태일때
         items: [],
     },
     mutations,
