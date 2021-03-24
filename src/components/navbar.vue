@@ -25,19 +25,19 @@
 			</h1>
 			
 			<div slot="body" class="modal-body">
-				<div class="modal-input">
+				<div class="modal">
 					<form :action="loginUrl" method="post">
 							<div class="modal-input-holder">
-								<div>
-									<label for="id">아이디 : </label>
-									<input type="text" name="id" class="modal-input" size=15;/>
+								<div class="modal-input-id">
+									<input type="text" placeholder="아이디" name="id" class="modal-input" size=15 />
 								</div>
-								<div>
-									<label for="pw">비밀번호 : </label>
-									<input type="password" name="pw" class="modal-input" size=15/>
+								<div class="modal-input-password">
+									<input :type="checkPasswordShow" placeholder="비밀번호" name="pw" class="modal-input" size=15 />
+									<i class="fas fa-eye password-icon" v-show="showPassword" @click="onShowPassword"></i>
+									<i class="fas fa-eye-slash password-icon" v-show="!showPassword" @click="onShowPassword"></i>
 								</div>
 							</div>
-							<button class="modal-btn">로그인</button>
+							<button class="modal-btn button"> <h3 class="button-text">로그인</h3></button>
 						</form>
 				</div>
 
@@ -65,6 +65,7 @@ export default {
 		return{
 			loginUrl: "http://localhost:3000/login",
 			tryLogin: false,		// 로그인시도중일때
+			showPassword: false,
 		}
 	},
 	methods:{
@@ -74,6 +75,19 @@ export default {
 		modalExit(){
 			this.tryLogin = false
 		},
+		onShowPassword(){
+			this.showPassword = !this.showPassword;
+		}
+	},
+	computed: {
+		checkPasswordShow(){
+			if(this.showPassword){
+				return "text";
+			}
+			else{
+				return "password";
+			}
+		}
 	},
   components:{
   	"app-modal": appModal,
@@ -82,6 +96,16 @@ export default {
 </script>
 
 <style scoped>
+	input:focus{
+		outline: none;
+	}
+
+	.search-input-style{
+    border: 0px;
+    margin: 7px 0px;
+    font-size: 18px;
+    width: 200px;
+	}
 	.main-icon{
 		width: 100px;
     margin-top: 0px;
@@ -115,6 +139,7 @@ export default {
 	}
 	.modal-title{
 		margin-top: 0px;
+		text-align: center;
 	}
 	.modal-body{
 		height: 130px;
@@ -129,11 +154,54 @@ export default {
 		cursor: pointer;
 		color: lightslategrey;
   }
+	.button{
+		border: 2px solid rgb(143, 143, 143);
+	}
+	.button::after{
+		background: rgb(143, 143, 143);
+		transform: scale(0, 1);
+    transform-origin: 50% 0%;
+	}
+	.button-text{
+		color: gray;
+	}
+	.close-modal-btn:hover{
+		color: black;
+	}
 	.modal-input{
-		margin-bottom: 10px;
-		margin-right: 10px;
-		float: right;
-		font-size: 18px;
+		font-size: 15px;
+		border: 0px;
+		background: lightgray;
+	}
+	.modal-input::placeholder{
+		color: gray;
+		font-size: 10px;
+		position: absolute;
+		left: 10px;
+	}
+	.modal-input:focus{
+		top: 0;
+		left: 0;
+		width: 300px;
+		height: 30px;
+		border: 1px solid black;
+		background-color: white;
+		border-radius: 5px;
+		z-index: 1;
+	}
+	.modal-input-id, .modal-input-password{
+		width: 100%;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		border-radius: 5px;
+		background: lightgray;
+		position: relative;
+	}
+	.password-icon{
+		position: absolute;
+		right: 10px;
+		z-index: 3;
 	}
 	.modal-input-holder{
 		float: left;
@@ -148,8 +216,11 @@ export default {
 		width: 90px;
 		height: 70px;
 	}
-	.modal-span{		
+	.modal-span{
 		font-size: 12px;
+		cursor: pointer;
+	}
+	.password-icon{
 		cursor: pointer;
 	}
 	.link-style{

@@ -11,7 +11,7 @@
         <input type="password" placeholder="비밀번호확인" name="passwordCheck" />
         <input type="text" placeholder="간단한 자기소개" name="comment" />
         <div>
-          <button type="submit">
+          <button type="submit" class="button">
             <h1 class="button-text">회원가입</h1>
           </button>
         </div>
@@ -58,40 +58,7 @@ export default {
   input:focus{
     border-bottom: 2px solid rgb(74, 74, 226);
   }
-  button{
+  .button{
     margin: 40px 0px;
-    position: relative;
-    width: 150px;
-    height: 75px;
-    border: 2px solid rgb(113, 87, 231);
-    border-radius: 10px;
-    background: white;
-    cursor: pointer;
-    overflow: hidden;
-  }
-  button::after{
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background: rgb(159, 140, 245);
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transform: translateY(100%);
-    transition: transform 0.35s;
-  }
-  .button-text{
-    position: relative;
-    z-index: 2;
-    color: rgb(113, 87, 231);
-    transition: 0.35s;
-  }
-  button:hover::after{
-    transform: scale(1, 1);
-  }
-  button:hover .button-text{
-    color: black;
   }
 </style>

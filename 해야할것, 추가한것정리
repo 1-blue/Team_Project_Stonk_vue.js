@@ -29,9 +29,9 @@
 build할 때 이미지 dist폴더에 넣게만들기
 
 =====================추가한거======================
-전체적으로 css지정
-background 스타듀밸리홈페이지에서 가져옴
-community, navbar css 적용
-auth => register-page이름변경
-register-page구현
+로그인모달창 수정
+게임로그인창 보고 비슷하게 구현함
+password show/blind 할수있게 구현함 (이거때문에 모달창 전체적으로 바꿈)
+.button / .button-text 전역css로 만들어서 버튼에 적용하면 css효과적용됨
+
 
