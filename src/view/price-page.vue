@@ -13,15 +13,15 @@
 
 		<div id="table-header">
 			<div class="table-gride image">이미지</div>
-			<div class="table-gride name">
+			<div class="table-gride name" style="position: relative;">
 				아이템명
-				<i class="fas fa-sort-alpha-up sort-button" @click="onOrderByNameAsc"></i>
-				<i class="fas fa-sort-alpha-down sort-button" @click="onOrderByNameDesc"></i>
+				<i class="fas fa-sort-alpha-up sort-button icon-1" @click="onOrderByNameAsc"/>
+				<i class="fas fa-sort-alpha-down sort-button  icon-2" @click="onOrderByNameDesc"/>
 			</div>
-			<div class="table-gride price">
+			<div class="table-gride price" style="position: relative;">
 				가격
-				<i class="fas fa-sort-numeric-up sort-button" @click="onOrderByPriceAsc"></i>
-				<i class="fas fa-sort-numeric-down sort-button" @click="onOrderByPriceDesc"></i>
+				<i class="fas fa-sort-numeric-up sort-button icon-1" @click="onOrderByPriceAsc"/>
+				<i class="fas fa-sort-numeric-down sort-button icon-2" @click="onOrderByPriceDesc"/>
 			</div>
 		</div>
 
@@ -164,6 +164,7 @@ export default {
 		reloadTimerId = setInterval(() => {
 			this.$store.dispatch('FETCH_ITEMS');
 			window.location.reload()
+		// }, 1000);
 		}, 1000 * 60 * 5);
 
 		let { data } = await fetchItems();
@@ -172,21 +173,6 @@ export default {
 		// vuex적용하는건데 데이터 전송받기전에 실행해버려서 초기에 이미지값이없음...
 		// this.$store.dispatch('FETCH_ITEMS');
 		// this.items = this.$store.state.items;
-
-		// 잠시 대체   ==== 서버에서 받아왔다고 가정하고 실행
-		// this.items = {
-		// 	"cauliflower": 100,
-		// 	"cauliflowerSeed": 5,
-		// 	"cheeseCauliflower": 30,
-		// 	"friedEgg": 50,
-		// 	"icecream": 150,
-		// 	"parsnip": 300,
-		// 	"parsnipSeed": 10,
-		// 	"seeds": 20,
-		// 	"strawberry": 500,
-		// 	"strawberrySeed": 50,
-		// 	"survivalHamburger": 80
-		// };
 
 		this.itemNameList = Object.keys(this.items); //.map((value, index, array) => array[index] + '.png');
 	},
@@ -226,12 +212,7 @@ export default {
 		line-height: 60px;
 		background-color: lightgray;
 	}
-
-	/* 테이블에 마우스 올렸을때 한라인 색변화 (테이블제목전용) */
-	#table-header:hover > .table-gride{
-		background: rgb(175, 135, 135);
-	}
-
+	
 	/* 테이블에 마우스 올렸을때 한라인 색변화 */
 	#items:hover > .table-gride{
 		background: lightslategray;
@@ -259,6 +240,16 @@ export default {
 	.created_at{
 		width: 250px;
 		flex-grow: 3;
+	}
+	.icon-1{
+		position: absolute;
+		right: 0px;
+		top: 0px
+	}
+	.icon-2{
+		position: absolute;
+		right: 34px;
+		top: px
 	}
 
 	/* ================검색기능스타일=================== */

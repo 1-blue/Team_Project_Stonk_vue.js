@@ -9,11 +9,9 @@
                         </slot>
                     </div>
 
-                    <div class="modal-body">
-                        <slot name="body">
-                        default body
-                        </slot>
-                    </div>
+                    <slot name="body">
+                    default body
+                    </slot>
                 </div>
             </div>
         </div>
@@ -46,7 +44,7 @@ export default {
 
     .modal-container {
         width: 400px;
-        height: 250px;
+        height: 180px;
         margin: 0px auto;
         padding: 10px 15px;
         background-color: white;
@@ -54,10 +52,11 @@ export default {
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
         transition: all .3s ease;
         font-family: Helvetica, Arial, sans-serif;
+        position:static;
     }
-
-    .modal-body {
-        margin: 20px 0;
+    .modal-header{
+        width: 100%;
+        height: 50px;
     }
 
     .modal-default-button {

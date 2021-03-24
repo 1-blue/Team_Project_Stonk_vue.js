@@ -5,9 +5,9 @@
                 <main-page></main-page>
 			</transition> 
         </div>
-        <div v-else-if="currentPage === 'info' ">
+        <div v-else-if="currentPage === 'community' ">
             <transition name="page">
-                <info-page></info-page>
+                <community-page></community-page>
             </transition>
         </div>
         <div v-else-if="currentPage === 'price' ">
@@ -22,14 +22,14 @@
 
 <script>
 import mainPage from '../view/main-page.vue';
-import infoPage from '../view/info-page.vue';
+import communityPage from '../view/community-page.vue';
 import pricePage from '../view/price-page.vue';
 
 export default({
     components:{
         mainPage,
-        infoPage,
-        pricePage,
+        communityPage,
+        pricePage
     },
     computed:{
         currentPage(){
