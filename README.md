@@ -17,7 +17,7 @@ webpack적용
 ● price검색취소기능추가
 ● 검색시 문자가 자동으로 추가되는 버그수정해야함
 
-[Getting Started]
+# Getting Started
 
 ```vs
 npm run runDev
