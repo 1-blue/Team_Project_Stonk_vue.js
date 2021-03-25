@@ -38,3 +38,16 @@ clearImmediate는 non-standard이니 사용 ㄴㄴ
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 참고바람
 이미지 슬라이드 따로 컴포넌트로 제작했음
+nav바 디자인 새로함
+Home으로 가는 링크 이미지에서 텍스트로 대체
+active router일때 색상 변경(시안성)
+nav바 fixed로 만들고 위에서 내릴때 숨김으로 제작(현재 어떤 페이지인지는 언더바로 표시됨)
+main 페이지 nav 태그 밑에 있길래 바깥으로 뺌
+webpack proxy 설정 완료. /api/*로 오는 요청은 자동으로 nodejs 서버로 돌려줌
+npm package script 재설정, concurrently 패키지 활용해서 웹팩 데브 서버랑 nodejs서버랑 한번에 실행하게 변경
+npm install 하고 npm run runDev 커맨드로 실행하면 됩니다
+padding과 margin 전체적으로 재설정
+학교에 디비 서버로 만들어놓은거 정전때 서버가 고장남 ㅜ -> 컴퓨터 교체 필요 -> 언제쯤? 해주긴 하나
+메인페이지에 쓸 이미지 구해야함 적당한거 3장 정도 구해봅시다
+모바일 페이지 대응 해야함. 미디어쿼리로 될라나 모르겠는데 일단 해봐야겠음
+
