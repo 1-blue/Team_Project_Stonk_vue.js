@@ -16,3 +16,11 @@ webpack적용
 ● price검색기능추가
 ● price검색취소기능추가
 ● 검색시 문자가 자동으로 추가되는 버그수정해야함
+
+[Getting Started]
+
+```vs
+npm run runDev
+```
+nodejs와 webpack dev server 동시 실행
+프록시를 통해 /api/*로 포워딩 해주기 때문에 cors 정책에 대해 신경쓸 필요 x
