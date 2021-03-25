@@ -1,19 +1,34 @@
 <template>
   <div>
     <nav-bar/>
+	  <transition name="page">
+	  	<router-view class="show-element" style="margin-top:80px"></router-view>
+  	</transition>
   </div>
 </template>
 
 <script>
 	import navbar from './src/components/navbar.vue';
+  import router from './src/routes/index.js';
 
   export default{
+    router,
     components:{
   	  'nav-bar': navbar,
     },
     created(){
       // document.querySelector('html').style.background = "seashell";
     },
+  }
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("navbar").style.top = "0";
+    } else {
+      document.getElementById("navbar").style.top = "-50px";
+    }
+    prevScrollpos = currentScrollPos;
   }
 </script>
 
@@ -26,11 +41,11 @@
   body{
     margin: 0px;
     padding: 0px;
-    margin: 20px 20px 0px;
+    margin: 0px;
     overflow-y: scroll;
   }
   .shadow{
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 20%);
+    /* box-shadow: 5px 10px 10px rgba(0, 0, 0, 20%); */
   }
   .show-element{
     margin: 0px 50px 100px;

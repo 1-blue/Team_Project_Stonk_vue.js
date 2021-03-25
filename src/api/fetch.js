@@ -1,24 +1,19 @@
 import axios from "axios";
 
-const config = {
-    rootUrl: 'http://203.232.193.178:443/api/',
-    testUrl: 'http://localhost:8080/api/',
-}
-
 async function fetchItems(){
-	return await axios.get(`${config.testUrl}price`);
+    return await axios.get(`/api/price`);
 }
 
 async function fetchPostInfo(){
-	return await axios.get(`${config.testUrl}postInfo`);
+    return await axios.get(`/api/postInfo`);
 }
 
 async function fetchPost(title){
-	return await axios.get(`${config.testUrl}post/${title}`);
+    return await axios.get(`/api/post/${title}`);
 }
 
 async function fetchUser(name){
-	return await axios.get(`${config.testUrl}user/${name}`);
+    return await axios.get(`/api/user/${name}`);
 }
 
 

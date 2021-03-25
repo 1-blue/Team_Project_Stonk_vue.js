@@ -1,14 +1,14 @@
 <template>
 	<main>
 		<!-- 이미지슬라이드영역 -->
-		<section id="image-slide" class="shadow">
+		<!-- <section id="image-slide" class="shadow">
 			<img :src="currentImage" alt="">
 			<i class="fas fa-chevron-left icon-left" @click="previousImage"></i>
 			<i class="fas fa-chevron-right icon-right" @click="nextImage"></i>
-		</section>
+		</section> -->
 
 		<!-- 이미지슬라이밑에 이미지선택할 수 있는 circle영역 -->
-		<section id="image-order-circle">
+		<!-- <section id="image-order-circle">
 			<ul>
 				<li v-for="(image, index) in images" :key="index">
 					<template v-if="currentImageIndex !== index">
@@ -19,9 +19,24 @@
 					</template>
 				</li>
 			</ul>
+		</section> -->
+		<section id="game-info" class="shadow" style="background: rgb(0 0 0 / 0%)">
+			<img src="../assets/main_logo.png"/>
 		</section>
 
+		<!-- inserted -->
+		<Carousel :cards="cards" />
+		<!-- insert end -->
+
 		<!-- 게임소개 및 설명 -->
+		<section id="game-info" class="shadow">
+			<h1 class="info-title">STONK</h1>
+			<p>이 게임은 스타듀벨리를 모델로 만든 농사경제게임입니다.</p>
+			<p>일단 게임에 대한 설명</p>
+			<p>일단 조작방법</p>
+			<p>뭐 각종 추가할 내용들추가</p>
+		</section>
+
 		<section id="game-info" class="shadow">
 			<h1 class="info-title">STONK</h1>
 			<p>이 게임은 스타듀벨리를 모델로 만든 농사경제게임입니다.</p>
@@ -34,7 +49,12 @@
 </template>
 
 <script>
+//inserted
+import Carousel from "../components/Carousel.vue";
+//insert end
+
   export default {
+	  components: { Carousel },
 		data(){
 			return{
 				images: [
@@ -45,8 +65,30 @@
 				],
 				currentImage: "",
 				currentImageIndex: 0,
-				timeInterval: 5000,
+				timeInterval: 500,
 				timerId: 0,
+				//inserted
+				cards: [
+      			  {
+      			    headline: "Makes App available Offline",
+      			    text:
+      			      "By using the CachingAPI all static elements on an app can be pre-cached",
+      			    imgName: "setting.svg"
+      			  },
+      			  {
+      			    headline: "Use background sync to defer actions",
+      			    text:
+      			      "User inputs entered when offline are sent in the background once they get connectivity.",
+      			    imgName: "cloud.svg"
+      			  },
+      			  {
+      			    headline: "Send Push Notifications",
+      			    text:
+      			      "The Notifications API lets us send push notifications to re-engage users.",
+      			    imgName: "antenna.svg"
+      			  }
+      			]
+	  			//insert end
 			}
 		},
 		methods: {
@@ -71,16 +113,6 @@
 		},
 		computed: {
 
-		},
-		created(){
-			this.currentImage = this.images[this.currentImageIndex];
-
-			this.timerId = setInterval(() => {
-				this.nextImage();
-			}, this.timeInterval);
-		},
-		beforeDestroy(){
-			clearImmediate(this.timerId);
 		}
   }
 </script>

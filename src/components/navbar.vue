@@ -1,8 +1,8 @@
 <template>
-	<nav>
+	<nav id="navbar">
 		<ul class="shadow">
 			<div>
-				<li><router-link to="/pages/main" class="float-left link-style"><img src="https://stardewvalleywiki.com/mediawiki/images/6/68/Main_Logo.png" class="main-icon" /></router-link></li>
+				<li><router-link to="/pages/main" class="float-left link-style">Home</router-link></li>
 				<li><router-link to="/pages/community" class="float-left link-style">커뮤니티</router-link></li>
 				<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
 			</div>
@@ -13,9 +13,6 @@
 			</div>
 		</ul>
 
-		<transition name="page">
-			<router-view class="show-element"></router-view>
-		</transition>
 
 		<!-- 로그인창 -->
 		<app-modal v-if="tryLogin" @close="tryLogin = false">
@@ -53,6 +50,7 @@
 		</app-modal>
 
 	</nav>
+
 </template>
 
 <script>
@@ -96,6 +94,15 @@ export default {
 </script>
 
 <style scoped>
+	#navbar{
+		position: fixed;
+		top: 0px;
+		left: 0px;
+    	width: 100%;
+    	height: 60px;
+		z-index: 2;
+  		transition: top 0.3s;
+	}
 	input:focus{
 		outline: none;
 	}
@@ -108,17 +115,18 @@ export default {
 	}
 	.main-icon{
 		width: 100px;
-    margin-top: 0px;
-    position: relative;
-    top: 12px;
+    	margin-top: 0px;
+    	position: relative;
+    	top: 12px;
 	}
 	ul{
 		padding: 0;
 		display: inline-block;
-		background: linear-gradient(to bottom, #8e2de2, #4a00e0);
+		/* background: linear-gradient(to bottom, #8e2de2, #4a00e0); */
+		background: #0e2163;
 		width: 100%;
-		line-height: 80px;
-		border-radius: 30px;
+		line-height: 60px;
+		/* border-radius: 30px; */
 		font-size: 20px;
 		margin: 0px 0px 10px 0px;
 	}
@@ -229,17 +237,17 @@ export default {
 		color: white;
 	}
 	.link-style:hover{
-		padding-bottom: 22px;
+		padding-bottom: 10px;
 		border-bottom: 5px solid;
-		color: black;
+		color: #E6BA43;
 	}
 	.link-style:active{
 		color: blue;
 	}
 	/* 현재 페이지 a태그 색변경 */
 	.router-link-exact-active {
-		color: black;
-		padding-bottom: 22px;
+		color: #E6BA43;
+		padding-bottom: 10px;
 		border-bottom: 5px solid;
 	}
 	.register-router-link{

@@ -1,5 +1,5 @@
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
-const path = require('path');
+const path = require('path');s
 
 module.exports = {  
     entry: {
@@ -16,7 +16,7 @@ module.exports = {
           'css-loader',
         ]
       }, {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|svg)$/,
         use: [{
           loader: 'file-loader',
           options:{

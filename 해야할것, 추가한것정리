@@ -23,9 +23,18 @@
 build할때 해야할것
 1. 이미지 경로가 안맞기때문에 price-page.vue에서 imagePath : "./image/items/"로 변경 (dev로 실행할때는 "../image/items/"로 실행)
 2. fetch.js에서 메소드들이 사용하는 axios값 => config.rootUrl로 변경 (dev로 실행할때는 config.testUrl로 사용하고 server실행하면됨)
+   -> webpack에서 프록시 구성해서 따로 rootUrl로 바꿀 필요 없음. 그래서 url config지웠습니다
 
 =====================추가한거======================
 회원가입페이지 password blind처리
 로그인모달창에서 회원가입페이지로 이동 구현
 메인페이지 이미지슬라이드
 메인페이지 내용
+
+
+0326 전달사항
+clearImmediate는 non-standard이니 사용 ㄴㄴ
+커뮤니티 텍스트 에디터는 tiptap 사용 예정
+https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
+참고바람
+이미지 슬라이드 따로 컴포넌트로 제작했음
