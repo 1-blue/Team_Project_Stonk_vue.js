@@ -46,7 +46,7 @@ let reloadTimerId = 0;
 export default {	
 	data(){
 		return{
-			imagePath: "../image/items/",
+			imagePath: "./image/items/",
 			items: {},
 			itemNameList: [],
 			searchItem: "",
@@ -162,7 +162,7 @@ export default {
 	async created(){
 		// 5분에 한번씩 새로고침
 		reloadTimerId = setInterval(() => {
-			this.$store.dispatch('FETCH_ITEMS');
+			//this.$store.dispatch('FETCH_ITEMS');
 			
 			window.location.reload()
 		}, 1000 * 60 * 5);

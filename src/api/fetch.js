@@ -6,7 +6,7 @@ const config = {
 }
 
 async function fetchItems(){
-	return await axios.get(`${config.testUrl}price`);
+	return await axios.get(`${config.rootUrl}price`);
 }
 
 async function fetchPostInfo(){
