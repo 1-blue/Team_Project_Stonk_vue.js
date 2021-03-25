@@ -5,11 +5,20 @@
       <h3>회원가입</h3>
     </section>
     <section id="">
-      <form action="http://localhost:3000/auth" method="post" id="register-form">
-        <input type="text" placeholder="아이디입력" name="id" />
-        <input type="password" placeholder="비밀번호입력" name="password" />
-        <input type="password" placeholder="비밀번호확인" name="passwordCheck" />
-        <input type="text" placeholder="간단한 자기소개" name="comment" />
+      <form action="http://localhost:3000/auth" method="post" id="register-form" class="shadow">
+        <input type="text" placeholder="아이디입력" name="id" size=15 />
+        <div class="input-password">
+          <input :type="checkPasswordShow" placeholder="비밀번호입력" name="password" size=15 />
+          <i class="fas fa-eye password-icon" v-show="showPassword" @click="onShowPassword"></i>
+          <i class="fas fa-eye-slash password-icon" v-show="!showPassword" @click="onShowPassword"></i>
+        </div>
+        <div class="input-password-check">
+          <input :type="checkPasswordCheckShow" placeholder="비밀번호확인" name="passwordCheck" size=15 />
+          <i class="fas fa-eye password-icon" v-show="showPasswordCheck" @click="onShowPasswordCheck"></i>
+          <i class="fas fa-eye-slash password-icon" v-show="!showPasswordCheck" @click="onShowPasswordCheck"></i>
+        </div>
+        <input type="text" placeholder="간단한 자기소개" name="comment" size=15 />
+
         <div>
           <button type="submit" class="button">
             <h1 class="button-text">회원가입</h1>
@@ -23,7 +32,38 @@
 
 <script>
 export default {
-
+  data(){
+    return{
+      showPassword: false,
+      showPasswordCheck: false,
+    }
+  },
+  methods:{
+    onShowPassword(){
+      this.showPassword = !this.showPassword;
+    },
+    onShowPasswordCheck(){
+      this.showPasswordCheck = !this.showPasswordCheck;
+    },
+  },
+  computed: {
+    checkPasswordShow(){
+			if(this.showPassword){
+				return "text";
+			}
+			else{
+				return "password";
+			}
+		},
+    checkPasswordCheckShow(){
+			if(this.showPasswordCheck){
+				return "text";
+			}
+			else{
+				return "password";
+			}
+		},
+  }
 }
 </script>
 
@@ -34,7 +74,7 @@ export default {
     border: 2px solid black;
     background: white;
     border-radius: 20px;
-    width: 30%;
+    width: 400px;
     height: 100%;
     float: right;
   }
@@ -61,4 +101,14 @@ export default {
   .button{
     margin: 40px 0px;
   }
+  .input-password, .input-password-check{
+    position: relative;
+  }
+
+  .password-icon{
+		position: absolute;
+    right: 60px;
+    top: 25px;
+		z-index: 3;
+	}
 </style>

@@ -43,7 +43,7 @@
 
 				<div class="modal-link">
 					<div>
-						<span class="modal-span">회원가입하러가기</span>
+						<router-link to="/pages/register" class="modal-span register-router-link" @click.native="modalExit">회원가입하러가기</router-link>
 					</div>
 					<div>
 						<span class="modal-span">비밀번호찾기</span>
@@ -226,20 +226,26 @@ export default {
 	.link-style{
 		cursor: pointer;
 		text-decoration: none;
-		color: black;
+		color: white;
 	}
 	.link-style:hover{
-		padding-bottom: 21px;
+		padding-bottom: 22px;
 		border-bottom: 5px solid;
-		color: white;
+		color: black;
 	}
 	.link-style:active{
 		color: blue;
 	}
 	/* 현재 페이지 a태그 색변경 */
 	.router-link-exact-active {
-		color: white;
-		padding-bottom: 21px;
+		color: black;
+		padding-bottom: 22px;
 		border-bottom: 5px solid;
+	}
+	.register-router-link{
+		text-decoration: none;
+		color: black;
+		padding-bottom: 0px;
+    border-bottom: 0px;
 	}
 </style>
