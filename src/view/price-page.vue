@@ -46,7 +46,7 @@ let reloadTimerId = 0;
 export default {	
 	data(){
 		return{
-			imagePath: "./image/items/",
+			imagePath: "../image/items/",
 			items: {},
 			itemNameList: [],
 			searchItem: "",
