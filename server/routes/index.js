@@ -5,6 +5,7 @@ let requestCounter = 1;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+
   res.send("ok")
 });
 
@@ -20,7 +21,7 @@ const items = Object.keys(unorderedItem).sort().reduce(
 
 /* GET Item priece list */
 router.get('/price', function (req, res, next) {
-  res.setHeader("access-control-allow-origin", "*");
+  // res.setHeader("access-control-allow-origin", "*");
   if (requestCounter) {
     res.json(items)
     requestCounter--;

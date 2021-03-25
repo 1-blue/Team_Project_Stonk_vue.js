@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const config = {
-    rootUrl: 'http://203.232.193.178:443/',
-    testUrl: 'http://localhost:3000/',
+    rootUrl: 'http://203.232.193.178:443/api/',
+    testUrl: 'http://localhost:8080/api/',
 }
 
 async function fetchItems(){
-	return await axios.get(`${config.rootUrl}price`);
+	return await axios.get(`${config.testUrl}price`);
 }
 
 async function fetchPostInfo(){

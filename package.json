@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve --env development",
+    "runDev": "concurrently -k \"node ./server/app.js\"  \"webpack serve --env development\"",
+    "dev": "node ./server/app.js & webpack serve --env development",
     "build": "webpack"
   },
   "author": "1-blue",
