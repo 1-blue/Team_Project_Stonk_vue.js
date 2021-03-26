@@ -1,5 +1,5 @@
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
-const path = require('path');s
+const path = require('path');
 
 module.exports = {  
     entry: {
@@ -21,7 +21,7 @@ module.exports = {
           loader: 'file-loader',
           options:{
             esModule: false,
-            name: "[name].[ext]"
+            name: "[path][name].[ext]"
           }
         }]
       }],
@@ -32,7 +32,7 @@ module.exports = {
     output: {
       filename: '[name].js',
       path: path.join(__dirname, 'dist'),
-      publicPath: '/dist',
+      publicPath: '/dist/',
     },
     mode: 'development',
     devtool: 'eval',

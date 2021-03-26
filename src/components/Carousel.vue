@@ -18,12 +18,13 @@
         @click.native="showNextElement"
         :disabled="this.reachedMaxRight"
       />
+      <Indicators
+        :elements="this.cards"
+        :currentElementIndex="this.currentElementIndex"
+        :showElement="this.showElement"
+      />
     </div>
-    <!-- <Indicators
-      :elements="this.cards"
-      :currentElementIndex="this.currentElementIndex"
-      :showElement="this.showElement"
-    /> -->
+
 </template>
 <script>
 import Card from "./Card.vue";
@@ -75,11 +76,8 @@ export default {
     }
   },
 	created(){
-		// this.currentImage = this.images[this.currentImageIndex];
-
 		this.timerId = setInterval(() => {
       this.showNextElement()
-			// this.nextImage();
 		}, this.timeInterval);
 	},
 	beforeDestroy(){

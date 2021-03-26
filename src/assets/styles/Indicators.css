@@ -1,3 +1,17 @@
+/* insert-start */
+ul{
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li{
+  list-style: none;
+  margin: 0px 10px;
+}
+/* insert-end */
+
 .dot {
   height: 10px;
   width: 10px;
