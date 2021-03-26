@@ -13,7 +13,6 @@
 			</div>
 		</ul>
 
-
 		<!-- 로그인창 -->
 		<app-modal v-if="tryLogin" @close="tryLogin = false">
 			<h1 slot="header" class="modal-title">

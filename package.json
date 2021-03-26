@@ -12,6 +12,7 @@
   "author": "1-blue",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "css-loader": "^5.1.1",
     "file-loader": "^6.2.0",
     "vue-loader": "^15.9.6",
