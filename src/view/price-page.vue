@@ -1,48 +1,50 @@
 <template>
 	<div id="item-table">
-		<form class="search-form-style shadow">
-			<input type="text" placeholder="아이템검색" class="search-input-style" v-model="searchItem" v-on:keydown.enter.prevent="onSearch"/>
-			<span class="search-button-style" @click="onSearch">
-				<i class="fas fa-search"></i>
-			</span>
-			<span class="cancel-button-style" @click="onSearchCancel">
-				<i class="fas fa-redo"></i>
-			</span>
-		</form>
+		<template v-if="error">
+			<h1>{{ error.message }}</h1>
+			<p>{{ error.error }}</p>
+		</template>
 
-
-		<div id="table-header">
-			<div class="table-gride image">이미지</div>
-			<div class="table-gride name" style="position: relative;">
-				아이템명
-				<i class="fas fa-sort-alpha-up sort-button icon-1" @click="onOrderByNameAsc"/>
-				<i class="fas fa-sort-alpha-down sort-button  icon-2" @click="onOrderByNameDesc"/>
-			</div>
-			<div class="table-gride price" style="position: relative;">
-				가격
-				<i class="fas fa-sort-numeric-up sort-button icon-1" @click="onOrderByPriceAsc"/>
-				<i class="fas fa-sort-numeric-down sort-button icon-2" @click="onOrderByPriceDesc"/>
-			</div>
-		</div>
-
-		<div id="table-body">
-			<div v-for="(imageName, index) in itemNameList" :key="index">
-				<span v-show="!isSearch || onSearchFind(imageName)" id="items">
-					<div class="table-gride image" ><img :src="getPath(imageName)" :alt="imageName"></div>
-					<div class="table-gride name">{{ imageName }}</div>
-					<div class="table-gride price">{{ getPrice(imageName) }}</div>
+		<template v-else>
+			<form class="search-form-style shadow">
+				<input type="text" placeholder="아이템검색" class="search-input-style" v-model="searchItem" v-on:keydown.enter.prevent="onSearch"/>
+				<span class="search-button-style" @click="onSearch">
+					<i class="fas fa-search"></i>
 				</span>
+				<span class="cancel-button-style" @click="onSearchCancel">
+					<i class="fas fa-redo"></i>
+				</span>
+			</form>
+
+
+			<div id="table-header">
+				<div class="table-gride image">이미지</div>
+				<div class="table-gride name" style="position: relative;">
+					아이템명
+					<i class="fas fa-sort-alpha-up sort-button icon-1" @click="onOrderByNameAsc"/>
+					<i class="fas fa-sort-alpha-down sort-button  icon-2" @click="onOrderByNameDesc"/>
+				</div>
+				<div class="table-gride price" style="position: relative;">
+					가격
+					<i class="fas fa-sort-numeric-up sort-button icon-1" @click="onOrderByPriceAsc"/>
+					<i class="fas fa-sort-numeric-down sort-button icon-2" @click="onOrderByPriceDesc"/>
+				</div>
 			</div>
-		</div>
-		
+
+			<div id="table-body">
+				<div v-for="(imageName, index) in itemNameList" :key="index">
+					<span v-show="!isSearch || onSearchFind(imageName)" id="items">
+						<div class="table-gride image" ><img :src="getPath(imageName)" :alt="imageName"></div>
+						<div class="table-gride name">{{ imageName }}</div>
+						<div class="table-gride price">{{ getPrice(imageName) }}</div>
+					</span>
+				</div>
+			</div>
+		</template>
 	</div>
 </template>
 
 <script>
-import { fetchItems } from '../api/fetch.js';
-
-let reloadTimerId = 0;
-
 export default {	
 	data(){
 		return{
@@ -54,6 +56,8 @@ export default {
 			isSearch: false,
 			isOrderByNameDesc: false,
 			isOrderByPriceDesc: false,
+			reloadTimerId: 0,
+			error: "",
 		}
 	},
 	methods: {
@@ -160,24 +164,30 @@ export default {
 
 	},
 	async created(){
-		// 5분에 한번씩 새로고침
-		reloadTimerId = setInterval(() => {
-			//this.$store.dispatch('FETCH_ITEMS');
-			
-			window.location.reload()
+		// 5분에 한번씩 데이터만 새로고침
+		this.reloadTimerId = setInterval(async () => {
+			let test = await this.$store.dispatch('FETCH_ITEMS');
 		}, 1000 * 60 * 5);
 
-		let { data } = await fetchItems();
-		this.items = data;
+		// 기존에사용하던거
+		// let { data } = await fetchItems();
+		// this.items = data;
 
-		// vuex적용하는건데 데이터 전송받기전에 실행해버려서 초기에 이미지값이없음...
-		// this.$store.dispatch('FETCH_ITEMS');
-		// this.items = this.$store.state.items;
-
-		this.itemNameList = Object.keys(this.items); //.map((value, index, array) => array[index] + '.png');
+		// vuex적용... test는 아무의미없는데이터들어감 그냥 데이터다받을때까지 기다리기위해 사용
+		let test = await this.$store.dispatch('FETCH_ITEMS');
+		this.items = this.$store.state.items;		//원래 computed에 넣고싶은데 밑에서 바로 사용해야되가지고 여기서 변수에 넣음
+		if(this.items.error){
+			this.error = this.items;
+		} else {
+			this.items = this.items.data;
+			this.itemNameList = Object.keys(this.items);
+		}
+	},
+	mounted(){
+		
 	},
 	beforeDestroy(){
-		clearTimeout(reloadTimerId);
+		clearTimeout(this.reloadTimerId);
 	}
 }
 </script>

@@ -1,8 +1,16 @@
 <template>
   <div>
-    <p>유저이름 : {{userInfo.name}}</p>
-    <p>업로드한 게시글 : {{userInfo.upload}}</p>
-    <p>인사말 : {{userInfo.comment}}</p>
+    <template v-if="error">
+			<h1>{{ error.message }}</h1>
+			<p>{{ error.error }}</p>
+		</template>
+
+    <template v-else>
+      <p>유저이름 : {{userInfo.name}}</p>
+      <p>업로드한 게시글 : {{userInfo.upload}}</p>
+      <p>인사말 : {{userInfo.comment}}</p>
+		</template>
+
   </div>
 </template>
 
@@ -13,6 +21,7 @@ export default {
   data(){
     return{
       userInfo: {},
+      error: "",
     }
   },
   methods(){
@@ -21,7 +30,11 @@ export default {
   async created(){
     const username = this.$route.params.name;
     const userInfo = await fetchUser(username);
-    this.userInfo = userInfo.data;
+    if(userInfo.error){
+			this.error = userInfo;
+		} else {
+			this.userInfo = userInfo.data;
+		}
   }
 }
 </script>
