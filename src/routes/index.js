@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import pageRouter from './page-router.vue';
 import postPage from '../view/post-page.vue';
 import userPage from '../view/user-page.vue';
-import postAppendPage from '../view/post-append-page.vue';
+import postAppendPage from '../components/post-append-page.vue';
 
 Vue.use(VueRouter);
 
