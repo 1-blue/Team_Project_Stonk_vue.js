@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-bar/>
+    <loading-spinner :loading="loading"></loading-spinner>
 	  <transition name="page">
 	  	<router-view class="show-element" style="margin-top:80px"></router-view>
   	</transition>
@@ -10,15 +11,37 @@
 <script>
 	import navbar from './src/components/navbar.vue';
   import router from './src/routes/index.js';
+  import loadingSpinner from './src/components/loading-spinner.vue';
+  import bus from './src/utils/bus.js';
+  
 
   export default{
     router,
     components:{
-  	  'nav-bar': navbar,
+  	  "nav-bar": navbar,
+      loadingSpinner,
+    },
+    data(){
+      return{
+        loading: false,
+      }
+    },
+    methods: {
+      startSpinner(){
+        this.loading = true;
+      },
+      endSpinner(){
+        this.loading = false;
+      }
     },
     created(){
-      // document.querySelector('html').style.background = "seashell";
+      bus.$on("on:spinner", this.startSpinner);
+      bus.$on("off:spinner", this.endSpinner);
     },
+    beforDestroy(){
+      bus.$off('on:spinner', this.startSpinner);
+      bus.$off("off:spinner", this.endSpinner);
+    }
   }
   var prevScrollpos = window.pageYOffset;
   window.onscroll = function() {
@@ -32,7 +55,6 @@
   }
 </script>
 
-// 밑에 css는 전체에 부여할거라서 scoped안씀
 <style>
   html{
     transition: all 3s;

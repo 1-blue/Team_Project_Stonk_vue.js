@@ -1,74 +1,82 @@
 <template>
 	<div>
-		<section id="additional-section">
-			<!-- 검색기능 -->
-			<form class="search-form-style shadow">
-				<input type="text" placeholder="게시글검색" class="search-input-style" v-model="searchPost" v-on:keydown.enter.prevent="onSearch"/>
-				<span class="search-button-style" @click="onSearch">
-					<i class="fas fa-search"></i>
-				</span>
-				<span class="cancel-button-style" @click="onSearchCancel">
-					<i class="fas fa-redo"></i>
-				</span>
-			</form>
+		<template v-if="error">
+			<h1>{{ error.message }}</h1>
+			<p>{{ error.error }}</p>
+		</template>
 
-			<!-- 게시글추가기능 -->
-			<router-link to="/post/append" class="append-post-link">게시글추가하기</router-link>
-		</section>
+		<template v-else>
+			<section id="additional-section">
+				<!-- 검색기능 -->
+				<form class="search-form-style shadow">
+					<input type="text" placeholder="게시글검색" class="search-input-style" v-model="searchPost" v-on:keydown.enter.prevent="onSearch"/>
+					<span class="search-button-style" @click="onSearch">
+						<i class="fas fa-search"></i>
+					</span>
+					<span class="cancel-button-style" @click="onSearchCancel">
+						<i class="fas fa-redo"></i>
+					</span>
+				</form>
 
-		<!-- 게시글 -->
-		<section id="post-section">
-			<div class="posts">
-				<hr/>
-				<!-- v-for로 게시글 반복 -->
-				<div v-for="(post, index) in posts" :key="index">
-					<div class="post-inner-margin">
-						<router-link :to="`/post/${post.title}`" class="post-title">
-							{{ post.title }}
-						</router-link>
-						<span class="float-right">
-							<router-link :to="`/user/${post.user}`" class="post-user">
-								<i class="fas fa-user"></i>
-								{{ post.user }}
+				<!-- 게시글추가기능 -->
+				<router-link to="/post/append" class="append-post-link">게시글추가하기</router-link>
+			</section>
+
+			<!-- 게시글 -->
+			<section id="post-section">
+				<div class="posts">
+					<hr/>
+					<!-- v-for로 게시글 반복 -->
+					<div v-for="(post, index) in posts" :key="index">
+						<div class="post-inner-margin">
+							<router-link :to="`/post/${post.title}`" class="post-title">
+								{{ post.title }}
 							</router-link>
-							<span class="post-time-ago">
-								<i class="far fa-clock"></i>
-								{{ post.time_ago }}
+							<span class="float-right">
+								<router-link :to="`/user/${post.user}`" class="post-user">
+									<i class="fas fa-user"></i>
+									{{ post.user }}
+								</router-link>
+								<span class="post-time-ago">
+									<i class="far fa-clock"></i>
+									{{ post.time_ago }}
+								</span>
 							</span>
-						</span>
+						</div>
+						<hr />
 					</div>
-					<hr />
 				</div>
-
-			</div>
-		</section>
+			</section>
+		</template>
 	</div>
 </template>
 
 <script>
 import { fetchPostInfo } from '../api/fetch.js';
 
-  export default {
-		data(){
-			return{
-				searchPost: "",
-				posts: [],
-			}
+export default {
+	data(){
+		return{
+			searchPost: "",
+			posts: [],
+			error: "",
+		}
+	},
+	methods: {
+		onSearch(){
 		},
-		methods: {
-			onSearch(){
-
-			},
-			onSearchCancel(){
-
-			}
-		},
-		async created(){
-			const posts = await fetchPostInfo();
-
+		onSearchCancel(){
+		}
+	},
+	async created(){
+		const posts = await fetchPostInfo();
+		if(posts.error){
+			this.error = posts;
+		} else {
 			this.posts = posts.data;
 		}
-  }
+	}
+}
 </script>
 
 <style scoped>

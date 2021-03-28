@@ -1,21 +1,36 @@
 import axios from "axios";
+import bus from '../utils/bus.js';
 
-async function fetchItems(){
-    return await axios.get(`/api/price`);
+async function fetch(url, errorMessage){
+    bus.$emit("on:spinner");
+    let data = {};
+    try{
+        data = await axios.get(url);
+    } catch(error) {
+        data = {
+            error,
+            message: `${errorMessage}... 잠시후에 다시시도해주세요`
+        };
+    }
+    bus.$emit("off:spinner");
+    return data;
+}
+
+function fetchItems(){
+    return fetch(`/api/price`, "price load error");
 }
 
 async function fetchPostInfo(){
-    return await axios.get(`/api/postInfo`);
+    return fetch(`/api/postInfo`, "community load error");
 }
 
 async function fetchPost(title){
-    return await axios.get(`/api/post/${title}`);
+    return fetch(`/api/post/${title}`, "post info load error");
 }
 
 async function fetchUser(name){
-    return await axios.get(`/api/user/${name}`);
+    return fetch(`/api/user/${name}`, "user info load error");
 }
-
 
 export {
     fetchItems,

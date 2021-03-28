@@ -24,7 +24,11 @@
 4. webpack
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 
+fetch바로사용 // vuex에서 fetch사용
+1. price에서 자체적으로 fetch import해서 데이터직접받아와서 사용..
+2. price에서 vuex action => mutation => store.items에 fetch받은값 넣고 this.$store.state.items로 접근해서 사용
 
 =====================추가한거======================
-webpack file-loader
-Indicators주석처리해놓은거 css에 조금만추가하고 적용시켜봄
+spinner추가 (Network 3G해서 실험하면 확인가능).. 근데이거 컴포넌트마다 같은패턴으로 반복적으로 사용해서 불편하긴함
+price에서 데이터 받는부분 vuex수정해가지고 쓰긴했는데 뭐가더 좋은건지 모르겠음
+서버에서 데이터받아오는 페이지들 예외처리적용
