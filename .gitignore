@@ -8,6 +8,8 @@ public/
 src/_drafts
 package-lock.json
 
+/secret
+
 /public
 
 # Log files

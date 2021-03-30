@@ -82,14 +82,7 @@ const users = [
 // 게시글전체에대한 정보 전달
 router.get('/postInfo', function (req, res, next) {
   res.setHeader("access-control-allow-origin", "*");
-  if (requestCounter) {
-    res.send(postInfo)
-    requestCounter--;
-  }
-  else {
-    res.send(postInfo)
-    requestCounter++;
-  }
+  res.send(postInfo)
 });
 
 // 게시글 세부내용 전달
@@ -106,6 +99,18 @@ router.get('/post/:title', function (req, res, next) {
   // 이거 status코드적어서 전달 500
   return res.send("일치하는 게시글 없음");
 });
+
+// 게시물 추가
+router.post('/post', function (req, res, next) {
+  //인증단계
+    //todo: autherization user
+  //인증 완료
+  // db에 추가
+  console.log(req.body.contents)
+  res.redirect('/app.html#/pages/community');
+  
+});
+
 
 // 유저 세부내용 전달
 router.get('/user/:name', function (req, res, next) {

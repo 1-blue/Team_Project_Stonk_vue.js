@@ -2,7 +2,7 @@
   <div class="editor" style="background: white; padding: 10px">
     <div style="margin: 10px">
     Title
-    <input type="text">
+    <input type="text" name="title">
     </div>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
@@ -110,7 +110,8 @@
       </div>
     </editor-menu-bar>
 
-    <editor-content class="editor__content" :editor="editor" />
+    <editor-content class="editor__content" id="content" :editor="editor" />
+    <input type="submit" v-on:click="sendPost"/>
   </div>
 </template>
 
@@ -177,6 +178,45 @@ export default {
         command({ src })
       }
     },
+    sendPost() {
+	    let form = document.createElement('form');
+    
+	    form.setAttribute('method', 'post');
+    
+	    form.setAttribute('action', "/api/post");
+    
+      
+	  	let title = document.createElement('input');
+  
+	  	title.setAttribute('type', 'hidden');
+  
+	  	title.setAttribute('name', "title");
+  
+	  	title.setAttribute('value', document.getElementById("title").value);
+  
+	  	form.appendChild(title);
+      
+	  	let content = document.createElement('input');
+  
+	  	content.setAttribute('type', 'hidden');
+  
+	  	content.setAttribute('name', "contents");
+  
+	  	content.setAttribute('value', document.getElementById("content").innerHTML);
+  
+	  	form.appendChild(content);
+    
+	    document.body.appendChild(form);
+    
+	    form.submit();
+
+}
   },
 }
 </script>
+
+<style>
+.editor__content > div > p > img{
+  max-width: 100%;
+}
+</style>

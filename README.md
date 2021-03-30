@@ -4,6 +4,7 @@ webpack적용
 
 # Getting Started
 ```vs
+npm install
 npm install -g concurrently
 npm run runDev
 ```

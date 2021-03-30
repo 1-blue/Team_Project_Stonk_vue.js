@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "runDev": "concurrently -k \"node ./server/app.js\"  \"webpack serve --env development\"",
+    "runDev": "concurrently -k \"nodemon ./server/app.js\"  \"webpack serve --env development\"",
     "dev": "node ./server/app.js & webpack serve --env development",
     "build": "webpack"
   },
@@ -27,7 +27,12 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
     "tiptap": "^1.32.1",
     "tiptap-extensions": "^1.35.1",
     "vue": "^2.6.12",
