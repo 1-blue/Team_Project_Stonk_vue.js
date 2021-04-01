@@ -38,7 +38,17 @@ https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-prox
 login구현
 register구현
 db말한거 바꿔놓고 다삭제할라다가 post랑연동되어있어서 혹시 필요한거일까봐 posts랑 users원래내용나뒀어요
+   db 싹 날리고 자료형 다시 설정함
+   variable character -> character(*)
 서버랑 클라랑 동시실행하는거 저는 오류나가지고 일단 따로따로실행하게 추가하나했어여
+   npm install -g nodemon ㄱㄱㄱㄱㄱ
+   nodemon 설치 문제인거같은뎀
 
 ==해야할것
 auth 미들웨어 완성
+
+
+0401 전달사항
+npm으로 패키지 설치한거 있으면 간략하게 뭐 설치했는지 알려주세요
+로그인 잘 되는거 확인함? dotenv 뭔가 잘 안되던데
+routes/index.js 수정

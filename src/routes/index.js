@@ -9,6 +9,7 @@ import postAppendPage from '../components/post-append-page.vue';
 Vue.use(VueRouter);
 
 const routes = [
+    { path: '/', redirect:'/pages/main' },
     {path: '/pages/:name', component: pageRouter },
     {path: '/post/append', component: postAppendPage },
     {path: '/post/:title', component: postPage },
