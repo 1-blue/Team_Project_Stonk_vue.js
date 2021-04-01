@@ -11,6 +11,7 @@
 		<!-- 게임소개 및 설명 -->
 		<section id="game-info" class="shadow">
 			<h1 class="info-title">STONK</h1>
+			<h3>안녕하세요{{ getName }}님</h3>
 			<p>이 게임은 스타듀벨리를 모델로 만든 농사경제게임입니다.</p>
 			<p>일단 게임에 대한 설명</p>
 			<p>일단 조작방법</p>
@@ -22,34 +23,45 @@
 
 <script>
 import Carousel from "../components/Carousel.vue";
+import VueJwtDecode from 'vue-jwt-decode';
 
-  export default {
-	  components: { Carousel },
-		data(){
-			return{
-				cards: [
-      			  {
-      			    headline: "Makes App available Offline",
-      			    text:
-      			      "By using the CachingAPI all static elements on an app can be pre-cached",
-      			    imgName: "setting.svg"
-      			  },
-      			  {
-      			    headline: "Use background sync to defer actions",
-      			    text:
-      			      "User inputs entered when offline are sent in the background once they get connectivity.",
-      			    imgName: "cloud.svg"
-      			  },
-      			  {
-      			    headline: "Send Push Notifications",
-      			    text:
-      			      "The Notifications API lets us send push notifications to re-engage users.",
-      			    imgName: "antenna.svg"
-      			  }
-      			]
-			}
-		},
-  }
+export default {
+  components: { Carousel },
+	data(){
+		return{
+			cards: [
+    			  {
+    			    headline: "Makes App available Offline",
+    			    text:
+    			      "By using the CachingAPI all static elements on an app can be pre-cached",
+    			    imgName: "setting.svg"
+    			  },
+    			  {
+    			    headline: "Use background sync to defer actions",
+    			    text:
+    			      "User inputs entered when offline are sent in the background once they get connectivity.",
+    			    imgName: "cloud.svg"
+    			  },
+    			  {
+    			    headline: "Send Push Notifications",
+    			    text:
+    			      "The Notifications API lets us send push notifications to re-engage users.",
+    			    imgName: "antenna.svg"
+    			  }
+    			]
+		}
+	},
+	computed: {
+			getName(){
+      if(this.$cookies.get("access_token")){
+				if(VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk"){
+       		return VueJwtDecode.decode(this.$cookies.get("access_token")).nickname;
+				}
+      }
+      return "GUEST";
+    }
+	}
+}
 </script>
 
 <style scoped>

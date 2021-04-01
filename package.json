@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "runDev": "concurrently -k \"nodemon ./server/app.js\"  \"webpack serve --env development\"",
     "dev": "node ./server/app.js & webpack serve --env development",
-    "build": "webpack"
+    "build": "webpack",
+    "serve": "webpack serve --env development"
   },
   "author": "1-blue",
   "license": "ISC",
@@ -36,6 +37,8 @@
     "tiptap": "^1.32.1",
     "tiptap-extensions": "^1.35.1",
     "vue": "^2.6.12",
+    "vue-cookies": "^1.7.4",
+    "vue-jwt-decode": "^0.1.0",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2",
     "yargs": "^16.2.0"

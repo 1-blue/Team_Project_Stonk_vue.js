@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('users', {
     userid: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      autoIncrement: true
     },
     id: {
       type: DataTypes.STRING(20),
@@ -19,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     birth: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(15),
       allowNull: false
     },
     gender: {
@@ -27,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phonenumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     quote: {

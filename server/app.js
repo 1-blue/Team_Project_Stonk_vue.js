@@ -4,6 +4,8 @@ const path = require('path');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login.js');
+const registerRouter = require('./routes/register.js');
 const app = express();
 
 
@@ -12,11 +14,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function(err, req, res, next) {

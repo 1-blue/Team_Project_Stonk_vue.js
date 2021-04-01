@@ -21,4 +21,5 @@ export default {
   props: { elements: Array, currentElementIndex: Number, showElement: Function }
 };
 </script>
+
 <style src="../assets/styles/Indicators.css" scoped/>

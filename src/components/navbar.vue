@@ -7,9 +7,12 @@
 				<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
 			</div>
 			
-			<div>
+			<div v-if="!isLogin">
 				<li><span @click="onLogin" class="link-style">로그인</span></li>
 				<li><router-link to="/pages/register" class="link-style">회원가입</router-link></li>
+			</div>
+			<div v-else>
+				<li><span @click="onLogout" class="link-style">로그아웃</span></li>
 			</div>
 		</ul>
 
@@ -23,6 +26,7 @@
 			<div slot="body" class="modal-body">
 				<div class="modal">
 					<form :action="loginUrl" method="post">
+							<span class="login-fail-message">{{loginFailText}}</span>
 							<div class="modal-input-holder">
 								<div class="modal-input-id">
 									<input type="text" placeholder="아이디" name="id" class="modal-input" size=15 />
@@ -47,14 +51,13 @@
 				</div>	
 			</div>
 		</app-modal>
-
 	</nav>
-
 </template>
 
 <script>
 import router from '../routes/index.js';
 import appModal from './common/app-modal.vue';
+import VueJwtDecode from 'vue-jwt-decode';
 
 export default {
 	router,
@@ -63,6 +66,7 @@ export default {
 			loginUrl: "http://localhost:3000/login",
 			tryLogin: false,		// 로그인시도중일때
 			showPassword: false,
+			loginFailText: "",
 		}
 	},
 	methods:{
@@ -70,11 +74,16 @@ export default {
 			this.tryLogin = true;
 		},
 		modalExit(){
-			this.tryLogin = false
+			this.tryLogin = false;
+			this.loginFailText = "";
 		},
 		onShowPassword(){
 			this.showPassword = !this.showPassword;
-		}
+		},
+		onLogout(){
+      this.$cookies.remove('access_token')
+      location.reload();		// 이거수정필요
+    },
 	},
 	computed: {
 		checkPasswordShow(){
@@ -84,10 +93,26 @@ export default {
 			else{
 				return "password";
 			}
-		}
+		},
+		isLogin(){
+			let check = false;
+			if(this.$cookies.isKey('access_token')){
+				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
+			}
+      return check;
+    },
 	},
   components:{
   	"app-modal": appModal,
+	},
+	mounted(){
+		if(this.$route.query.state === "fail"){
+			this.tryLogin = true;
+			this.loginFailText = "아이디 혹은 비밀번호가 일치하지않습니다.\n재확인후 다시시도해주세요."
+		}
+	},
+	beforeDestroy(){
+		this.loginFailText = "";
 	}
 }
 </script>
@@ -97,10 +122,10 @@ export default {
 		position: fixed;
 		top: 0px;
 		left: 0px;
-    	width: 100%;
-    	height: 60px;
+    width: 100%;
+    height: 60px;
 		z-index: 2;
-  		transition: top 0.3s;
+  	transition: top 0.3s;
 	}
 	input:focus{
 		outline: none;
@@ -217,11 +242,13 @@ export default {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		margin-top: 10px;
 	}
 	.modal-btn{
 		float: right;
 		width: 90px;
 		height: 70px;
+		margin-top: 10px;
 	}
 	.modal-span{
 		font-size: 12px;
@@ -254,5 +281,9 @@ export default {
 		color: black;
 		padding-bottom: 0px;
     border-bottom: 0px;
+	}
+	.login-fail-message{
+		color: red;
+		font-size: 12px;
 	}
 </style>

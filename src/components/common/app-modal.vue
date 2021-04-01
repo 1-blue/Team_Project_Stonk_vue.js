@@ -20,7 +20,6 @@
 
 <script>
 export default {
-    
 }
 </script>
 
@@ -44,7 +43,7 @@ export default {
 
     .modal-container {
         width: 400px;
-        height: 180px;
+        height: 200px;
         margin: 0px auto;
         padding: 10px 15px;
         background-color: white;

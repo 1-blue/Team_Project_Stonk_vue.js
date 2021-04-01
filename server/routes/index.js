@@ -34,7 +34,6 @@ router.get('/price', function (req, res, next) {
 
 user = ["first", "second", "third"];
 
-
 // ================ postsInfo전송 (모든포스트정보 배열로 전달) ===========================
 const postInfo = [
   {
@@ -130,12 +129,7 @@ router.get('/user/:name', function (req, res, next) {
 
 
 //======================로그인정보=======================
-router.post('/login', function (req, res, next) {
-  const {id, password} = req.body;
 
-  // 일치하면 뭘리턴해줘야할까?
-  return res.send(`로그인요.. id : ${id} | password : ${password}`);
-});
 
 router.post('/auth', function (req, res, next) {
   const {id, password, passwordCheck, comment} = req.body;
@@ -143,10 +137,6 @@ router.post('/auth', function (req, res, next) {
   // 일치하면 뭘리턴해줘야할까?
   return res.send(`회원가입요  id : ${id} | password : ${password} | passwordCheck : ${passwordCheck} | comment : ${comment}  `);
 });
-
-
-
-
 
 
 /* GET home page. */
