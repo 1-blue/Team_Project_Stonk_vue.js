@@ -8,8 +8,8 @@ public/
 src/_drafts
 package-lock.json
 
-/server/secret/
-/server/config/
+sequelize.json
+db.config.js
 
 
 /public
