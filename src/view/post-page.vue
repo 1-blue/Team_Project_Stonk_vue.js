@@ -6,15 +6,15 @@
     </template>
 
     <template v-else>
-      <h2>{{ postInfo.title }}</h2>
-      <p>{{ postInfo.content }}</p>
-      <router-link :to="`/user/${postInfo.user}`">
+      <h1>{{ post.title }}</h1>
+      <p v-html="post.contents" />
+      <router-link :to="`/user/${post.id}`">
         <i class="fas fa-user"></i>
-        {{ postInfo.user }}
+        {{ post.id }}
       </router-link>
       <p>
         <i class="far fa-clock"></i>
-        {{ postInfo.time_ago }}
+        {{ post.createddate }}
       </p>
     </template>
 
@@ -22,25 +22,28 @@
 </template>
 
 <script>
-import { fetchPost } from "../api/fetch.js" 
-
 export default {
   data(){
     return{
-      postInfo: {},
       error: "",
     }
   },
   methods: {
 
   },
+  computed: {
+    post(){
+      if(this.$store.state.post.error){
+        return this.$store.state.post
+      }
+      return this.$store.state.post.data;
+    }
+  },
   async created(){
     const title = this.$route.params.title;
-    this.postInfo = await fetchPost(title);
-    if(this.postInfo.error){
-			this.error = this.postInfo;
-		} else {
-			this.postInfo = this.postInfo.data;
+    await this.$store.dispatch('FETCH_POST', title);
+    if(this.post.error){
+			this.error = this.post;
 		}
   }
 }

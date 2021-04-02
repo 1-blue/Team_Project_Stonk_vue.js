@@ -49,7 +49,6 @@ export default {
 	data(){
 		return{
 			imagePath: "../image/items/",
-			items: {},
 			itemNameList: [],
 			searchItem: "",
 			targetItem: "",
@@ -58,6 +57,7 @@ export default {
 			isOrderByPriceDesc: false,
 			reloadTimerId: 0,
 			error: "",
+			items: [],
 		}
 	},
 	methods: {
@@ -161,30 +161,25 @@ export default {
 		}
 	},
 	computed: {
-
+		fetchItems(){
+			return this.$store.state.items.data;
+		}
 	},
 	async created(){
 		// 5분에 한번씩 데이터만 새로고침
 		this.reloadTimerId = setInterval(async () => {
-			let test = await this.$store.dispatch('FETCH_ITEMS');
+			await this.$store.dispatch('FETCH_ITEMS');
+			this.items = this.fetchItems;
 		}, 1000 * 60 * 5);
+		await this.$store.dispatch('FETCH_ITEMS');
 
-		// 기존에사용하던거
-		// let { data } = await fetchItems();
-		// this.items = data;
+		this.items = this.fetchItems;
 
-		// vuex적용... test는 아무의미없는데이터들어감 그냥 데이터다받을때까지 기다리기위해 사용
-		let test = await this.$store.dispatch('FETCH_ITEMS');
-		this.items = this.$store.state.items;		//원래 computed에 넣고싶은데 밑에서 바로 사용해야되가지고 여기서 변수에 넣음
 		if(this.items.error){
 			this.error = this.items;
-		} else {
-			this.items = this.items.data;
-			this.itemNameList = Object.keys(this.items);
 		}
-	},
-	mounted(){
-		
+
+		this.itemNameList = Object.keys(this.items);
 	},
 	beforeDestroy(){
 		clearTimeout(this.reloadTimerId);

@@ -20,8 +20,8 @@ function fetchItems(){
     return fetch(`/api/price`, "price load error");
 }
 
-async function fetchPostInfo(){
-    return fetch(`/api/postInfo`, "community load error");
+async function fetchCommunity(){
+    return fetch(`/api/post`, "community load error");
 }
 
 async function fetchPost(title){
@@ -34,7 +34,7 @@ async function fetchUser(name){
 
 export {
     fetchItems,
-    fetchPostInfo,
+    fetchCommunity,
     fetchPost,
     fetchUser
 }

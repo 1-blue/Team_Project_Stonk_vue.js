@@ -9,6 +9,9 @@ export const store = new Vuex.Store({
     state: {
         isLogin: false,			// 로그인상태일때
         items: [],
+        communityData: [],
+        post: [],
+        user: [],
     },
     mutations,
     actions,

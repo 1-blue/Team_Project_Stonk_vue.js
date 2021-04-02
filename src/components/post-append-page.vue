@@ -2,7 +2,7 @@
   <div class="editor" style="background: white; padding: 10px">
     <div style="margin: 10px">
     Title
-    <input type="text" name="title">
+    <input type="text" name="title" id="title">
     </div>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
@@ -166,8 +166,8 @@ export default {
           <p>
             This is basic example of implementing images. Try to drop new images here. Reordering also works.
           </p>
-          <img src="https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif" />
         `,
+        // <img src="https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif" />
       }),
     }
   },
@@ -183,7 +183,7 @@ export default {
     
 	    form.setAttribute('method', 'post');
     
-	    form.setAttribute('action', "/api/post");
+	    form.setAttribute('action', "api/post");
     
       
 	  	let title = document.createElement('input');
@@ -209,8 +209,7 @@ export default {
 	    document.body.appendChild(form);
     
 	    form.submit();
-
-}
+    }
   },
 }
 </script>

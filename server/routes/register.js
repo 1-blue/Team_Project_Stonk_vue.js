@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const db = require('../models/index');
+const bcrypt = require('bcrypt');
+const { nicknameOverlapCheck, idOverlapCheck } = require("../middlewares/middleware.js");
 
 router.post('/', async function (req, res, next) {
-  const {id, pw, passwordCheck, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote} = req.body;
+  const { id, pw, passwordCheck, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
+
   // 월, 일이 한자리일경우 맨앞에 0붙여줌
   let tempMonth = month;
   let tempDay = day;
@@ -15,40 +18,27 @@ router.post('/', async function (req, res, next) {
   const birth = `${year}-${tempMonth}-${tempDay}`
   const phonenumber = `${phoneNumber1}-${phoneNumber2}-${phoneNumber3}`
 
-  // 회원가입에 들어갈데이터 테스트출력용
-  // console.log(
-  //   `
-  //   id : ${id}
-  //   pw : ${pw}
-  //   nickname : ${nickname}
-  //   birth : ${birth}
-  //   gender : ${(gender === "male" ? "T" : "F")}
-  //   phoneNumber : ${phonenumber}
-  //   quote : ${quote}
-  //   `
-  // );
-
   // 패스워드중복체크
   if(pw !== passwordCheck){
     return res.redirect("http://localhost:8080/app.html#/pages/register?error=passwordError");
   }
 
   // id중복체크
-  let overlapCheck = await db.users.findOne({ where: { id } });
-  if(overlapCheck){
+  if(await idOverlapCheck(id)){
     return res.redirect("http://localhost:8080/app.html#/pages/register?error=idOverlap");
   }
 
   // nickname중복체크
-  overlapCheck = "";
-  overlapCheck = await db.users.findOne({ where: { nickname } })
-  if(overlapCheck){
+  if(await nicknameOverlapCheck(nickname)){
     return res.redirect("http://localhost:8080/app.html#/pages/register?error=nicknameOverlap");
   }
 
+  //pw암호화
+  const hash = await bcrypt.hash(pw, 5);
+
   db.users.create({
     id,
-    pw,
+    pw: hash,
     nickname,
     birth,
     gender: (gender === "male" ? "T" : "F"),

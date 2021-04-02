@@ -19,7 +19,7 @@
 				</form>
 
 				<!-- 게시글추가기능 -->
-				<router-link to="/post/append" class="append-post-link">게시글추가하기</router-link>
+				<router-link to="/post/append" class="append-post-link" v-show="isLogin">게시글추가하기</router-link>
 			</section>
 
 			<!-- 게시글 -->
@@ -27,19 +27,19 @@
 				<div class="posts">
 					<hr/>
 					<!-- v-for로 게시글 반복 -->
-					<div v-for="(post, index) in posts" :key="index">
+					<div v-for="(post, index) in communityData" :key="index">
 						<div class="post-inner-margin">
 							<router-link :to="`/post/${post.title}`" class="post-title">
 								{{ post.title }}
 							</router-link>
 							<span class="float-right">
-								<router-link :to="`/user/${post.user}`" class="post-user">
+								<router-link :to="`/user/${post.id}`" class="post-user">
 									<i class="fas fa-user"></i>
-									{{ post.user }}
+									{{ post.id }}
 								</router-link>
 								<span class="post-time-ago">
 									<i class="far fa-clock"></i>
-									{{ post.time_ago }}
+									{{ post.createddate }}
 								</span>
 							</span>
 						</div>
@@ -52,13 +52,12 @@
 </template>
 
 <script>
-import { fetchPostInfo } from '../api/fetch.js';
+import VueJwtDecode from 'vue-jwt-decode';
 
 export default {
 	data(){
 		return{
 			searchPost: "",
-			posts: [],
 			error: "",
 		}
 	},
@@ -66,14 +65,27 @@ export default {
 		onSearch(){
 		},
 		onSearchCancel(){
-		}
+		},
+	},
+	computed: {
+		communityData(){
+			if(this.$store.state.communityData.error){
+				return this.$store.state.communityData
+			}
+			return this.$store.state.communityData.data;
+		},
+		isLogin(){
+			let check = false;
+			if(this.$cookies.isKey('access_token')){
+				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
+			}
+      return check;
+    },
 	},
 	async created(){
-		const posts = await fetchPostInfo();
-		if(posts.error){
-			this.error = posts;
-		} else {
-			this.posts = posts.data;
+		await this.$store.dispatch('FETCH_COMMUNITY');
+		if(this.communityData.error){
+			this.error = this.communityData;
 		}
 	}
 }

@@ -63,7 +63,7 @@ export default {
 	router,
 	data(){
 		return{
-			loginUrl: "http://localhost:3000/login",
+			loginUrl: "api/login",
 			tryLogin: false,		// 로그인시도중일때
 			showPassword: false,
 			loginFailText: "",
