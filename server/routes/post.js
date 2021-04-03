@@ -42,8 +42,30 @@ router.get('/:title', async function (req, res) {
   const { title } = req.params;
 
   const data = await db.posts.findOne({ where: { title } })
-  
+
   return res.send(data);
+});
+
+// 게시글삭제
+router.delete('/:title', async (req, res) => {
+  const { title } = req.params;
+  await db.posts.destroy({ where: { title } });
+  res.send("success");
+});
+
+// 게시글업데이트
+router.put('/:previousTitle', async (req, res) => {
+  const { previousTitle } = req.params;
+  const { title, comtents } = req.body;
+
+  await db.posts.updata({
+    title,
+    comtents,
+  }, {
+    where: { title: previousTitle}
+  });
+
+  res.send("success");
 });
 
 module.exports = router;

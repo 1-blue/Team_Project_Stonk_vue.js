@@ -45,8 +45,8 @@ post, user, price, community페이지 사용하는 데이터 Vuex로 처리함
 ++
 검색박스 컴포넌트화했음
 comunity검색기능 추가 (post, user)
-
-형님혹시 users랑 posts랑 관계지정하셨나요?
+post delete추가
+post update구조만잡아놓음
 
 ==해야할것
 auth 미들웨어 완성

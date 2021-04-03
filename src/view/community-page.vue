@@ -13,8 +13,7 @@
 				<!-- 게시글추가기능 -->
 				<router-link to="/post/append" class="append-post-link" v-show="isLogin">게시글추가하기</router-link>
 			</section>
-<!-- <i class="fas fa-toggle-off"></i> -->
-<!-- <i class="fas fa-toggle-on"></i> -->
+
 			<!-- 게시글 -->
 			<section id="post-section">
 				<div class="posts">
@@ -27,6 +26,12 @@
 									{{ post.title }}
 								</router-link>
 								<span class="float-right">
+									<span v-if="onLoginUser(post.id)">
+										<!-- <i class="fas fa-pen"></i> -->
+										<!-- 포스트 업데이트페이지로 이동 -->
+										<span class="post-update-icon">수정</span>
+										<i class="fas fa-trash-alt post-delete-icon" @click="deletePost(post.title)"></i>
+									</span>
 									<router-link :to="`/user/${post.id}`" class="post-user">
 										<i class="fas fa-user"></i>
 										{{ post.id }}
@@ -49,6 +54,8 @@
 <script>
 import VueJwtDecode from 'vue-jwt-decode';
 import searchBox from '../components/common/search-box.vue';
+import { fetchDeletePost } from '../api/fetch.js';
+//fetchUpdatePost
 
 export default {
 	components: {
@@ -84,6 +91,25 @@ export default {
 				}
 			}
 			return false;
+		},
+		// 자신의 게시글 삭제, 업데이트기능부여
+		onLoginUser(id){
+			let check = false;
+			if(this.isLogin){
+				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).id === id;
+				return check;
+			}
+			return check;
+		},
+		async updatePost(){
+			// 업데이트
+			// 새로운페이지열고 새로적은데이터 전송
+		},
+		async deletePost(title){
+			const result = await fetchDeletePost(title);
+			if(result.status === 200){
+				location.reload();
+			}
 		},
 	},
 	computed: {
@@ -205,6 +231,10 @@ export default {
 
 	.float-right{
 		float: right;
+	}
+
+	.post-update-icon, .post-delete-icon{
+		cursor: pointer;
 	}
 
 </style>
