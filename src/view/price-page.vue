@@ -6,16 +6,7 @@
 		</template>
 
 		<template v-else>
-			<form class="search-form-style shadow">
-				<input type="text" placeholder="아이템검색" class="search-input-style" v-model="searchItem" v-on:keydown.enter.prevent="onSearch"/>
-				<span class="search-button-style" @click="onSearch">
-					<i class="fas fa-search"></i>
-				</span>
-				<span class="cancel-button-style" @click="onSearchCancel">
-					<i class="fas fa-redo"></i>
-				</span>
-			</form>
-
+			<search-box placeholder="아이템검색" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 			<div id="table-header">
 				<div class="table-gride image">이미지</div>
@@ -45,12 +36,16 @@
 </template>
 
 <script>
+import searchBox from '../components/common/search-box.vue';
+
 export default {	
+	components: {
+		searchBox
+	},
 	data(){
 		return{
 			imagePath: "../image/items/",
 			itemNameList: [],
-			searchItem: "",
 			targetItem: "",
 			isSearch: false,
 			isOrderByNameDesc: false,
@@ -66,11 +61,17 @@ export default {
 			return this.imagePath + imageName + '.png';
 		},
 
-		// 검색기능 ON
-		onSearch(){
-			this.targetItem = this.searchItem;
-			this.searchItem = "";
+    // 검색기능 ON
+		onSearch(searchItem){
+			this.targetItem = searchItem;
 			this.isSearch = true;
+		},
+
+
+		// 검색기능 OFF
+		onSearchCancel(){
+			this.isSearch = false;
+			this.targetItem = "";
 		},
 
 		// 검색에서 해당하는것만 화면에 띄워주기
@@ -81,13 +82,6 @@ export default {
 			} else {
 				return false;
 			}
-		},
-
-		// 검색기능 OFF
-		onSearchCancel(){
-			this.isSearch = false;
-			this.searchItem = "";
-			this.targetItem = "";
 		},
 
 		// 아이템 가격 가져오기
@@ -255,50 +249,6 @@ export default {
 		position: absolute;
 		right: 34px;
 		top: px
-	}
-
-	/* ================검색기능스타일=================== */
-	/* 검색폼태그 */
-	.search-form-style{
-        background-color: white;
-        width: 400px;
-        height: 50px;
-        line-height: 50px;
-        border-radius: 5px 5px 5px 5px;
-		text-align: center;
-		margin-bottom: 40px;
-	}
-
-	/* 검색인풋태그 */
-	.search-input-style{
-        border: 0px;
-        margin: 7px 0px;
-        font-size: 18px;
-        width: 200px;
-	}
-
-	/* 검색인풋태그기본 스타일없애기 */
-	.search-input-style:focus{
-        outline: 0px;
-    }
-
-	/* 검색버튼태그 */
-	.search-button-style{
-        background: linear-gradient(to right, #6478FB, #8763FB);
-        height: 50px;
-        width: 50px;
-        display: block;
-        float: right;
-        border-radius: 0px 5px 5px 0px;
-        cursor: pointer;
-	}
-	.cancel-button-style{
-        height: 50px;
-        width: 50px;
-        display: block;
-        float: right;
-        border-radius: 0px 5px 5px 0px;
-        cursor: pointer;
 	}
 
 	/* 정렬버튼 */

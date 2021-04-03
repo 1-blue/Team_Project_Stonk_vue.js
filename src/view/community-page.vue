@@ -8,42 +8,37 @@
 		<template v-else>
 			<section id="additional-section">
 				<!-- 검색기능 -->
-				<form class="search-form-style shadow">
-					<input type="text" placeholder="게시글검색" class="search-input-style" v-model="searchPost" v-on:keydown.enter.prevent="onSearch"/>
-					<span class="search-button-style" @click="onSearch">
-						<i class="fas fa-search"></i>
-					</span>
-					<span class="cancel-button-style" @click="onSearchCancel">
-						<i class="fas fa-redo"></i>
-					</span>
-				</form>
+				<search-box placeholder="게시글검색" name="community" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 				<!-- 게시글추가기능 -->
 				<router-link to="/post/append" class="append-post-link" v-show="isLogin">게시글추가하기</router-link>
 			</section>
-
+<!-- <i class="fas fa-toggle-off"></i> -->
+<!-- <i class="fas fa-toggle-on"></i> -->
 			<!-- 게시글 -->
 			<section id="post-section">
 				<div class="posts">
 					<hr/>
 					<!-- v-for로 게시글 반복 -->
 					<div v-for="(post, index) in communityData" :key="index">
-						<div class="post-inner-margin">
-							<router-link :to="`/post/${post.title}`" class="post-title">
-								{{ post.title }}
-							</router-link>
-							<span class="float-right">
-								<router-link :to="`/user/${post.id}`" class="post-user">
-									<i class="fas fa-user"></i>
-									{{ post.id }}
+						<span v-show="!isSearch || onSearchFind(post)" id="items">
+							<div class="post-inner-margin">
+								<router-link :to="`/post/${post.title}`" class="post-title">
+									{{ post.title }}
 								</router-link>
-								<span class="post-time-ago">
-									<i class="far fa-clock"></i>
-									{{ post.createddate }}
+								<span class="float-right">
+									<router-link :to="`/user/${post.id}`" class="post-user">
+										<i class="fas fa-user"></i>
+										{{ post.id }}
+									</router-link>
+									<span class="post-time-ago">
+										<i class="far fa-clock"></i>
+										{{ post.createddate }}
+									</span>
 								</span>
-							</span>
-						</div>
-						<hr />
+							</div>
+							<hr />
+						</span>
 					</div>
 				</div>
 			</section>
@@ -53,18 +48,42 @@
 
 <script>
 import VueJwtDecode from 'vue-jwt-decode';
+import searchBox from '../components/common/search-box.vue';
 
 export default {
+	components: {
+		searchBox
+	},
 	data(){
 		return{
 			searchPost: "",
 			error: "",
+			targetItem: "",
+			isSearch: false,
+			target: "post",
 		}
 	},
 	methods: {
-		onSearch(){
+		onSearch(searchItem, target){
+			this.targetItem = searchItem;
+			this.isSearch = true;
+			this.target = target;
 		},
 		onSearchCancel(){
+			this.isSearch = false;
+			this.targetItem = "";
+		},
+		onSearchFind(post){
+			if(this.target === "post"){		//게시글검색이면
+				if(post.title.toLowerCase().indexOf(this.targetItem.toLowerCase()) !== -1){
+					return true;
+				}
+			} else {		// 유저검색
+				if(post.id.toLowerCase().indexOf(this.targetItem.toLowerCase()) !== -1){
+					return true;
+				}
+			}
+			return false;
 		},
 	},
 	computed: {
