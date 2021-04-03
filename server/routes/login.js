@@ -25,13 +25,20 @@ router.post('/', async function (req, res) {
         }
       )
 
-      res.cookie("access_token", token, { httpOnly: false })    // httponly수정필요.. 일단이렇게 안하면 vue에서 쿠기를 못읽음
-
+      res.cookie("access_token", token, { httpOnly: true })    // httponly수정필요.. 일단이렇게 안하면 vue에서 쿠기를 못읽음
+      res.cookie("login_nickName", currentUser.nickname, { httpOnly: false })
       return res.redirect('http://localhost:8080/app.html#/pages/main');
     }
   }
 
   return res.redirect("http://localhost:8080/app.html#/pages/main?state=fail");
 });
+
+router.get("/logout", function (req, res) {
+  res.clearCookie("access_token");
+  res.clearCookie("login_nickName");
+
+  res.redirect("/app.html#/pages/main")
+})
 
 module.exports = router;

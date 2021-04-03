@@ -52,14 +52,14 @@ export default {
 		}
 	},
 	computed: {
-			getName(){
-      if(this.$cookies.get("access_token")){
-				if(VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk"){
-       		return VueJwtDecode.decode(this.$cookies.get("access_token")).nickname;
-				}
-      }
-      return "GUEST";
-    }
+		getName(){
+    		if(this.$cookies.get("login_nickName")){
+       			return this.$cookies.get("login_nickName");
+    		}
+			else{
+      			return "GUEST";
+			}
+ 		}
 	}
 }
 </script>

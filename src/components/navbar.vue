@@ -81,9 +81,11 @@ export default {
 			this.showPassword = !this.showPassword;
 		},
 		onLogout(){
-      this.$cookies.remove('access_token')
-      location.reload();		// 이거수정필요
-    },
+			
+			
+    		// this.$cookies.remove('access_token')
+    		// location.reload();		// 이거수정필요
+    	},
 	},
 	computed: {
 		checkPasswordShow(){
@@ -95,12 +97,13 @@ export default {
 			}
 		},
 		isLogin(){
-			let check = false;
-			if(this.$cookies.isKey('access_token')){
-				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
+			if(this.$cookies.isKey('login_nickName')){
+				return true;
 			}
-      return check;
-    },
+			else{
+				return false;
+			}
+    	},
 	},
   components:{
   	"app-modal": appModal,

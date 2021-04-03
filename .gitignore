@@ -10,7 +10,7 @@ package-lock.json
 
 sequelize.json
 db.config.js
-
+.env
 
 /public
 

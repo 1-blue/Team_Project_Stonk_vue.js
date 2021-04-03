@@ -40,10 +40,16 @@ async function fetchDeletePost(title) {
     }
 }
 
+
+async function fetchLogout() {
+    return fetch(`/logout`, "logout error");
+}
+
 export {
     fetchItems,
     fetchCommunity,
     fetchPost,
     fetchUser,
     fetchDeletePost,
+    fetchLogout,
 }
