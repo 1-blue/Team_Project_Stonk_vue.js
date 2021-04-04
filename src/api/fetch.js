@@ -40,9 +40,8 @@ async function fetchDeletePost(title) {
     }
 }
 
-
 async function fetchLogout() {
-    return fetch(`api/login/logout`, "logout error");
+    return fetch(`api/auth/logout`, "logout error");
 }
 
 export {

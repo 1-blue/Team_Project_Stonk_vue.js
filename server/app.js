@@ -5,8 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const priceRouter = require('./routes/price.js');
-const loginRouter = require('./routes/login.js');
-const registerRouter = require('./routes/register.js');
+const authRouter = require('./routes/auth.js');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const app = express();
@@ -18,8 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', indexRouter);
 app.use('/api/price', priceRouter);
-app.use('/api/login', loginRouter);
-app.use('/api/register', registerRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
 app.use('/api/user', userRouter);
 

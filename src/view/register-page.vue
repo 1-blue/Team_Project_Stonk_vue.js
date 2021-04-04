@@ -21,7 +21,7 @@
       </section>
       <section id="">
         <!-- enctype="multipart/form-data"  -->
-        <form action="api/register" method="post" id="register-form" class="shadow">
+        <form action="api/auth/register" method="post" id="register-form" class="shadow">
 
           <input type="text" placeholder="아이디입력" name="id" size=15 required />
 

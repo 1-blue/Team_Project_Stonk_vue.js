@@ -47,6 +47,11 @@ https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-prox
 
 2. 원래 vuex에서 LOGIN체크하는거 만들다가 실패했는데 까먹고 안지웠던거라 (죄송합니다,,;) 형님적은거보고 vuex에서 로그인체크변수만들어놓고 사용할땐 컴포넌트에서 this.$store.state.isLogin으로 로그인체크하면됩니당
 
+3. 페이지 라우팅 구조 변경
+   기존구조 : api/login api/register api/logout으로 각각 요청받았는데 지금보니 매우 잘못된것같아서
+   현재구조 : api/auth/login or register or logout으로 만들어가지고 auth에서 모두 처리함
+   + 아이디중복체크 및 닉네임중복체크는 middleware에 만들어가지고 회원가입할때 라우터에 등록해줘서 알아서 처리하도록 구현했습니당.
+
 ==해야할것
 auth 미들웨어 완성
 

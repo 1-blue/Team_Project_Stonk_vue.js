@@ -63,7 +63,7 @@ export default {
 	router,
 	data(){
 		return{
-			loginUrl: "api/login",
+			loginUrl: "api/auth/login",
 			tryLogin: false,		// 로그인시도중일때
 			showPassword: false,
 			loginFailText: "",
