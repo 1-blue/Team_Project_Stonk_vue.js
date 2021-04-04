@@ -40,19 +40,12 @@ post, user들어갈 때 경고뜨는거 해결
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 
 =====================추가한거======================
-서버에 bcrypt, jwt-decode추가
-pw암호화
-로그인, 회원가입 수정 및 보완
-게시글적기추가
-유저정보페이지추가
-서버쪽 각각 페이지 라우팅해서 나눴음
-post, user, price, community페이지 사용하는 데이터 Vuex로 처리함
-일단 post나 user들어갈때 vue경고두개뜨는데 이거는 해결법을모르겠어가지고 천천히처리할게요 실행에는 영향은없어요
-++
-검색박스 컴포넌트화했음
-comunity검색기능 추가 (post, user)
-post delete추가
-post update구조만잡아놓음
+==0404수정한것
+1. server/models/users || posts에서 구조조금변경했어요
+   (comunity에서 post정보 불러오면서 user.nickname도 같이불러오기위해서 associate지정하느라 조금바꿨는데 구글링하니까 지금바꾼방법대로 되있어가지고 혹시 형님이 하려고했던거 있으시면 바꿔주셔도됩니당
+   원래는 init-models에서 할라했는데 안되가지고 각각의 모델페이지에서 관계지정했어요)
+
+2. 원래 vuex에서 LOGIN체크하는거 만들다가 실패했는데 까먹고 안지웠던거라 (죄송합니다,,;) 형님적은거보고 vuex에서 로그인체크변수만들어놓고 사용할땐 컴포넌트에서 this.$store.state.isLogin으로 로그인체크하면됩니당
 
 ==해야할것
 auth 미들웨어 완성

@@ -11,8 +11,11 @@ export default {
     SET_USER(state, data) {
         state.user = data;
     },
-    SET_LOGIN(state){
-        state.login = true;
+    SET_LOGIN_SUCCESS(state){
+        state.isLogin = true;
+    },
+    SET_LOGOUT(state){
+        state.isLogin = true;
     },
     
 }

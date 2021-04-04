@@ -42,7 +42,7 @@ async function fetchDeletePost(title) {
 
 
 async function fetchLogout() {
-    return fetch(`/logout`, "logout error");
+    return fetch(`api/login/logout`, "logout error");
 }
 
 export {

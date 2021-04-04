@@ -23,7 +23,6 @@
 
 <script>
 import Carousel from "../components/Carousel.vue";
-import VueJwtDecode from 'vue-jwt-decode';
 
 export default {
   components: { Carousel },

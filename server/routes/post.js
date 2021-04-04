@@ -7,16 +7,14 @@ router.get('/', async function (req, res) {
   // 지금은 전체검색이지만 게시글 많아지면 페이지 나눌거를 생각해서
   // 나중에 10 ~ 15개씩받아서 화면에 뿌려주게 바꿀생각임
 
-  // 일단 닉네임 받아오는건 보류
-  // const data = await db.posts.findAll({
-  //   include: [
-  //     {
-  //       model: db.users,
-  //       attributes: ['nickname']
-  //     }
-  //   ]
-  // });
-  const data = await db.posts.findAll();
+  const data = await db.posts.findAll({
+    include: [
+      {
+        model: db.users,
+        attributes: ['nickname']
+      }
+    ]
+  });
 
   res.send(data)
 });
@@ -41,7 +39,7 @@ router.get('/:title', async function (req, res) {
   // db에서 req.params.title값으로 title값과 같은 게시글 존재하는지 찾고
   const { title } = req.params;
 
-  const data = await db.posts.findOne({ where: { title } })
+  const data = await db.posts.findOne({ where: { title } });
 
   return res.send(data);
 });

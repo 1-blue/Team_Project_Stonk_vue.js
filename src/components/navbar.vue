@@ -57,7 +57,7 @@
 <script>
 import router from '../routes/index.js';
 import appModal from './common/app-modal.vue';
-import VueJwtDecode from 'vue-jwt-decode';
+import { fetchLogout } from "../api/fetch.js";
 
 export default {
 	router,
@@ -81,10 +81,8 @@ export default {
 			this.showPassword = !this.showPassword;
 		},
 		onLogout(){
-			
-			
-    		// this.$cookies.remove('access_token')
-    		// location.reload();		// 이거수정필요
+				fetchLogout();
+    		location.reload();		// 일단이거안붙이면 데이터랑 화면이 일치를 안해가지고 붙임
     	},
 	},
 	computed: {
@@ -97,13 +95,8 @@ export default {
 			}
 		},
 		isLogin(){
-			if(this.$cookies.isKey('login_nickName')){
-				return true;
-			}
-			else{
-				return false;
-			}
-    	},
+			return this.$store.state.isLogin;
+    },
 	},
   components:{
   	"app-modal": appModal,

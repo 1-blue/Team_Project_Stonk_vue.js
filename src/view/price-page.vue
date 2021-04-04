@@ -177,7 +177,7 @@ export default {
 	},
 	beforeDestroy(){
 		clearTimeout(this.reloadTimerId);
-	}
+	},
 }
 </script>
 

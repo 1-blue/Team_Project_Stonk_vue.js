@@ -37,7 +37,10 @@ export default{
       console.error(err);
     }
   },
-  LOGIN(context){
-    context.commit("SET_LOGIN");
+  LOGIN_SUCCESS(context){
+    context.commit("SET_LOGIN_SUCCESS");
+  },
+  LOGOUT(context){
+    context.commit("SET_LOGOUT");
   }
 }

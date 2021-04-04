@@ -26,7 +26,7 @@
 									{{ post.title }}
 								</router-link>
 								<span class="float-right">
-									<span v-if="onLoginUser(post.id)">
+									<span v-if="onLoginUser(post.user.nickname)">
 										<!-- <i class="fas fa-pen"></i> -->
 										<!-- 포스트 업데이트페이지로 이동 -->
 										<span class="post-update-icon">수정</span>
@@ -34,7 +34,7 @@
 									</span>
 									<router-link :to="`/user/${post.id}`" class="post-user">
 										<i class="fas fa-user"></i>
-										{{ post.id }}
+										{{ post.user.nickname }}
 									</router-link>
 									<span class="post-time-ago">
 										<i class="far fa-clock"></i>
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import VueJwtDecode from 'vue-jwt-decode';
 import searchBox from '../components/common/search-box.vue';
 import { fetchDeletePost } from '../api/fetch.js';
 //fetchUpdatePost
@@ -93,13 +92,11 @@ export default {
 			return false;
 		},
 		// 자신의 게시글 삭제, 업데이트기능부여
-		onLoginUser(id){
-			let check = false;
+		onLoginUser(nickname){
 			if(this.isLogin){
-				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).id === id;
-				return check;
+				return this.$cookies.get("login_nickName") === nickname;
 			}
-			return check;
+			return false;
 		},
 		async updatePost(){
 			// 업데이트
@@ -120,11 +117,12 @@ export default {
 			return this.$store.state.communityData.data;
 		},
 		isLogin(){
-			let check = false;
-			if(this.$cookies.isKey('access_token')){
-				check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
-			}
-      return check;
+			return this.$store.state.isLogin;
+			// let check = false;
+			// if(this.$cookies.isKey('access_token')){
+			// 	check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
+			// }
+      // return check;
     },
 	},
 	async created(){
