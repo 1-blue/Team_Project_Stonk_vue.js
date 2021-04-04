@@ -7,13 +7,13 @@ require('dotenv').config();
 exports.isLoggedIn = (req, res, next) => {
   // 토큰가져와서
   try {
-    const token = req.headers.cookie.split("=")[1];   //쿠키파서로 파싱하게만들기
+    const { access_token } = req.cookies;
 
     // 분석
-    const checkToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+    const checkToken = jwt.verify(access_token, process.env.JWT_SECRET_KEY)
 
     if (checkToken) {
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode(access_token);
       req.userId = decoded.id;  // 로그인한 유저를 구분하는데 사용
       next();
     } else {

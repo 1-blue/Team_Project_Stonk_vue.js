@@ -2,12 +2,10 @@ const router = require('express').Router();
 const db = require('../models/index');
 
 // 유저 세부내용 전달
-router.get('/:id', async function (req, res, next) {
-  const { id } = req.params;
+router.get('/:nickname', async function (req, res, next) {
+  const { nickname } = req.params;
 
-  const data = await db.users.findOne({ where: { id } })
-
-  console.log(data);
+  const data = await db.users.findOne({ where: { nickname } })
   
   return res.send(data);
 });

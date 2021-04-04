@@ -39,7 +39,15 @@ router.get('/:title', async function (req, res) {
   // db에서 req.params.title값으로 title값과 같은 게시글 존재하는지 찾고
   const { title } = req.params;
 
-  const data = await db.posts.findOne({ where: { title } });
+  const data = await db.posts.findOne({
+    where: { title },
+    include: [
+      {
+        model: db.users,
+        attributes: ['nickname']
+      }
+    ]
+  });
 
   return res.send(data);
 });
@@ -60,7 +68,7 @@ router.put('/:previousTitle', async (req, res) => {
     title,
     comtents,
   }, {
-    where: { title: previousTitle}
+    where: { title: previousTitle }
   });
 
   res.send("success");

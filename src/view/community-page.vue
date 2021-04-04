@@ -32,7 +32,7 @@
 										<span class="post-update-icon">수정</span>
 										<i class="fas fa-trash-alt post-delete-icon" @click="deletePost(post.title)"></i>
 									</span>
-									<router-link :to="`/user/${post.id}`" class="post-user">
+									<router-link :to="`/user/${post.user.nickname}`" class="post-user">
 										<i class="fas fa-user"></i>
 										{{ post.user.nickname }}
 									</router-link>
@@ -118,11 +118,6 @@ export default {
 		},
 		isLogin(){
 			return this.$store.state.isLogin;
-			// let check = false;
-			// if(this.$cookies.isKey('access_token')){
-			// 	check =	VueJwtDecode.decode(this.$cookies.get("access_token")).iss == "stonk";
-			// }
-      // return check;
     },
 	},
 	async created(){
