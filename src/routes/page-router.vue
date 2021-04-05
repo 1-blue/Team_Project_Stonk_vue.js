@@ -35,17 +35,12 @@ export default({
         mainPage,
         communityPage,
         pricePage,
-        registerPage
+        registerPage,
     },
     computed:{
         currentPage(){
             return this.$route.params.name;
         }
-    },
-    created(){
-	if(this.$cookies.isKey('login_nickName')){
-			this.$store.dispatch("LOGIN_SUCCESS");
-		}
-	}
+    }
 })
 </script>

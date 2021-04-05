@@ -28,8 +28,8 @@ async function fetchPost(title) {
     return fetch(`/api/post/${title}`, "post info load error");
 }
 
-async function fetchUser(name) {
-    return fetch(`/api/user/${name}`, "user info load error");
+async function fetchUser(nickname) {
+    return fetch(`/api/user/${nickname}`, "user info load error");
 }
 
 async function fetchDeletePost(title) {

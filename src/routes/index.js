@@ -5,15 +5,19 @@ import pageRouter from './page-router.vue';
 import postPage from '../view/post-page.vue';
 import userPage from '../view/user-page.vue';
 import postAppendPage from '../components/post-append-page.vue';
+import userUpdate from '../view/user-update.vue';
+import userPasswordUpdate from '../view/user-password-update.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', redirect:'/pages/main' },
-    {path: '/pages/:name', component: pageRouter },
-    {path: '/post/append', component: postAppendPage },
-    {path: '/post/:title', component: postPage },
-    {path: '/user/:name', component: userPage },
+    { path: '/', redirect: '/pages/main' },
+    { path: '/pages/:name', component: pageRouter },
+    { path: '/post/append', component: postAppendPage },
+    { path: '/post/:title', component: postPage },
+    { path: '/user/update/password/:nickname', component: userPasswordUpdate },
+    { path: '/user/update/:nickname', component: userUpdate },
+    { path: '/user/:name', component: userPage },
 ]
 
 // vue-router인스턴스에 routes정의

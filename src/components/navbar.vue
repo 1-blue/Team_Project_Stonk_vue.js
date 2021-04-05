@@ -17,8 +17,6 @@
 			</div>
 		</ul>
 
-		<button @click="myInfoPage"></button>
-
 		<!-- 로그인창 -->
 		<app-modal v-if="tryLogin" @close="tryLogin = false">
 			<h1 slot="header" class="modal-title">
@@ -112,6 +110,10 @@ export default {
 		if(this.$route.query.state === "fail"){
 			this.tryLogin = true;
 			this.loginFailText = "아이디 혹은 비밀번호가 일치하지않습니다.\n재확인후 다시시도해주세요."
+		}
+		if(this.$route.query.state === "success"){
+			this.tryLogin = true;
+			this.loginFailText = "비밀번호 변경에 성공했습니다. 다시 로그인해주세요."
 		}
 	},
 	beforeDestroy(){

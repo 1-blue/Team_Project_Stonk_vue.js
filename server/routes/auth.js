@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const { nicknameOverlapCheck, idOverlapCheck } = require("../middlewares/middleware.js");
-const { render } = require('sass');
-const { post } = require('./post');
 
 require('dotenv').config({ path: __dirname + "/../.env" });
 
@@ -39,7 +37,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
     birth,
     gender: (gender === "male" ? "T" : "F"),
     phonenumber,
-    quote,
+    quote: quote.trim(),
     profileimage: "profileImage TEST"
   });
 

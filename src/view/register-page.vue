@@ -22,7 +22,6 @@
       <section id="">
         <!-- enctype="multipart/form-data"  -->
         <form action="api/auth/register" method="post" id="register-form" class="shadow">
-
           <input type="text" placeholder="아이디입력" name="id" size=15 required />
 
           <div class="input-password">
@@ -69,11 +68,6 @@
           </div>
 
           <input type="text" placeholder="간단한 자기소개" name="quote" size=15 />
-
-          <!-- 프로필이미지 -->
-          <!-- <div id="profile-image">
-            <input type="file" name="profileimage" accept="image/*"/>
-          </div> -->
           
           <div>
             <button type="submit" class="button">

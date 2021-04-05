@@ -19,8 +19,9 @@
       <p>인사말 : {{ user.quote }}</p>
       <p>이미지 : 일단없음 </p>
       <p>개인정보 숨길거는 숨기면됨 글고 디자인은 모르겠음 나중에 수정하는걸로</p>
-      <section v-if="isMyInfo">
-        <button>수정</button>
+      <section v-if="isMyInformationPage">
+        <router-link :to="passwordUpdateUrl">비밀번호수정</router-link>
+        <router-link :to="updateUrl">회원정보수정</router-link>
         <button @click="signOut">회원탈퇴</button>
       </section>
 		</template>
@@ -57,10 +58,16 @@ export default {
     getGender(){
       return this.user.gender === "T" ? "남성" : "여성";
     },
-    isMyInfo(){
+    isMyInformationPage(){
 			const nickname = this.$cookies.get("login_nickName");
       return this.user.nickname === nickname;
-		}
+		},
+    updateUrl(){
+      return `/user/update/${this.user.nickname}`
+    },
+    passwordUpdateUrl(){
+      return `/user/update/password/${this.user.nickname}`
+    }
   },
   async created(){
     const name = this.$route.params.name;

@@ -37,6 +37,9 @@
     created(){
       bus.$on("on:spinner", this.startSpinner);
       bus.$on("off:spinner", this.endSpinner);
+      if(this.$cookies.isKey('login_nickName')){
+			  this.$store.dispatch("LOGIN_SUCCESS");
+      }
     },
     beforDestroy(){
       bus.$off('on:spinner', this.startSpinner);
