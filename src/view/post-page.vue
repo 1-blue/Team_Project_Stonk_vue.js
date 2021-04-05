@@ -1,11 +1,16 @@
 <template>
   <div>
-    <template v-if="error">
+    <section v-if="error" id="error-message">
 			<h1>{{ error.message }}</h1>
 			<p>{{ error.error }}</p>
-    </template>
+    </section>
 
-    <template v-else>
+    <section v-else-if="!post.title" id="error-message">
+      <h1>이미 삭제되었거나 존재하지않은 게시글입니다.</h1>
+      <a href="http://localhost:8080/app.html#/pages/community">comunity로 돌아가기</a>
+    </section>
+
+    <section v-else>
       <h1>{{ post.title }}</h1>
       <p v-html="post.contents" />
       <router-link :to="`/user/${post.user.nickname}`" class="user-nickname">
@@ -21,8 +26,7 @@
         <button class="delete-button" @click="deletePost">delete</button>
         <button class="update-button">update</button>
       </div>
-
-    </template>
+    </section>
 
   </div>
 </template>
@@ -38,9 +42,10 @@ export default {
   },
   methods: {
     async deletePost(){
-      // 삭제는 완료
-      await fetchDeletePost(this.post.title);
-      // 완료텍스트띄워주고 커뮤니티페이지로 이동 구현필요
+      const result = await fetchDeletePost(this.post.title);
+      if(result){
+        this.$router.go(-1)   // === window.history.go()
+      }
     }
   },
   computed: {
@@ -65,6 +70,12 @@ export default {
 </script>
 
 <style scoped>
+  #error-message{
+    text-align: center;
+  }
+  #error-message h1{
+    font-size: 2vw;
+  }
   a{
     text-decoration: none;
     color: black;

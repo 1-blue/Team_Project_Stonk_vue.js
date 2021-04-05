@@ -58,6 +58,10 @@ https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-prox
 
 6. 게시글페이지 들어갔을경우 자신의 게시글일경우 update or delete버튼 나오게 구현..   게시글삭제까지 구현
 
+7. 회원탈퇴추가
+
+8. 게시글삭제시 커뮤니티페이지로 이동, 내정보페이지 링크추가, 로그아웃시 메인페이지로 이동
+
 
 
 ==해야할것

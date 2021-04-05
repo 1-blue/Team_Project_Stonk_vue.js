@@ -12,9 +12,12 @@
 				<li><router-link to="/pages/register" class="link-style">회원가입</router-link></li>
 			</div>
 			<div v-else>
-				<li><span @click="onLogout" class="link-style">로그아웃</span></li>
+				<li><router-link to="/pages/main" @click.native="onLogout" class="float-left link-style">로그아웃</router-link></li>
+				<li><router-link :to="myInfoPage" class="float-left link-style">내 정보</router-link></li>
 			</div>
 		</ul>
+
+		<button @click="myInfoPage"></button>
 
 		<!-- 로그인창 -->
 		<app-modal v-if="tryLogin" @close="tryLogin = false">
@@ -97,6 +100,10 @@ export default {
 		isLogin(){
 			return this.$store.state.isLogin;
     },
+		myInfoPage(){
+			const nickname = this.$cookies.get("login_nickName");
+			return `/user/${nickname}`
+		}
 	},
   components:{
   	"app-modal": appModal,

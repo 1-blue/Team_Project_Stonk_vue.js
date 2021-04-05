@@ -44,6 +44,14 @@ async function fetchLogout() {
     return fetch(`api/auth/logout`, "logout error");
 }
 
+async function fetchSignOut(nickname) {
+    try {
+        return await axios.delete(`api/auth/signOut/${nickname}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     fetchItems,
     fetchCommunity,
@@ -51,4 +59,5 @@ export {
     fetchUser,
     fetchDeletePost,
     fetchLogout,
+    fetchSignOut
 }

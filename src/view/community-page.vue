@@ -85,7 +85,7 @@ export default {
 					return true;
 				}
 			} else {		// 유저검색
-				if(post.id.toLowerCase().indexOf(this.targetItem.toLowerCase()) !== -1){
+				if(post.user.nickname.toLowerCase().indexOf(this.targetItem.toLowerCase()) !== -1){
 					return true;
 				}
 			}
