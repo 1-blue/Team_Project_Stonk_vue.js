@@ -28,7 +28,7 @@ router.post('/password/:nickname', async function (req, res) {
     return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}`);
   }
   
-  return res.send("실패")
+  return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}?error=passwordDiscord`)
 });
 
 // 패스워드변경... form은 get/post말고 다른거 전달하는방법있나..
@@ -37,7 +37,7 @@ router.post('/password/update/:nickname', async function (req, res) {
   const { nickname } = req.params;
 
   if(password !== passwordCheck){
-    return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}?error=passwordError`);
+    return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}?error=notEqual`);
   }
 
   const hash = await bcrypt.hash(password, 5);
@@ -55,7 +55,7 @@ router.post('/password/update/:nickname', async function (req, res) {
   res.clearCookie("access_token");
   res.clearCookie("login_nickName");
 
-  return res.redirect(`http://localhost:8080/app.html#/pages/main?state=success`);
+  return res.redirect(`http://localhost:8080/app.html#/pages/main?state=passwordChangeSuccess`);
 });
 
 // 유저정보수정

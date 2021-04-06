@@ -71,7 +71,7 @@ router.post('/login', async function (req, res) {
     }
   }
 
-  return res.redirect("http://localhost:8080/app.html#/pages/main?state=fail");
+  return res.redirect("http://localhost:8080/app.html#/pages/main?state=loginFail");
 });
 
 // logout

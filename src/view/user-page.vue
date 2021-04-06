@@ -11,18 +11,24 @@
     </section>
 
     <template v-else>
-      <p>유저닉네임 : {{ user.nickname }}</p>
-      <p>생일 : {{ user.birth }}</p>
-      <p>성별 : {{ getGender }}</p>
-      <p>인사말 : {{ user.phonenumber }}</p>
-      <p>가입날짜 : {{ user.createdAt }}</p>
-      <p>인사말 : {{ user.quote }}</p>
-      <p>이미지 : 일단없음 </p>
-      <p>개인정보 숨길거는 숨기면됨 글고 디자인은 모르겠음 나중에 수정하는걸로</p>
-      <section v-if="isMyInformationPage">
-        <router-link :to="passwordUpdateUrl">비밀번호수정</router-link>
-        <router-link :to="updateUrl">회원정보수정</router-link>
-        <button @click="signOut">회원탈퇴</button>
+      <section class="user-information-table">
+        <h1>{{ user.nickname }}님의 정보</h1>
+        <ul class="user-information">
+          <li>닉네임 : {{ user.nickname }}</li>
+          <li>생일 : {{ user.birth }}</li>
+          <li>성별 : {{ getGender }}</li>
+          <li>폰번호 : {{ user.phonenumber }}</li>
+          <li>가입날짜 : {{ user.createdAt }}</li>
+          <li>인사말 : {{ user.quote }}</li>
+          <li>이미지 : 일단없음 </li>
+        </ul>
+        <section v-if="isMyInformationPage">
+          <ul class="user-change-information">
+            <li><router-link :to="passwordUpdateUrl">비밀번호수정</router-link></li>
+            <li><router-link :to="updateUrl">회원정보수정</router-link></li>
+            <li><button @click="signOut">회원탈퇴</button></li>
+          </ul>
+        </section>
       </section>
 		</template>
   </div>
@@ -80,9 +86,29 @@ export default {
 </script>
 
 <style scoped>
-  p{
-    color:white;
-    font-size: 20px;
+  ul, li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  h1{
+    font-size: 3rem;
+    margin: 3vh 0;
+    padding: 0;
+  }
+  li{
+    display: inline-block;
+  }
+  a{
+    text-decoration: none;
+    color: lightyellow;
+  }
+  button{
+    border: 0;
+    background: lightsteelblue;
+    color: lightyellow;
+    font-size: 1rem;
+    cursor: pointer;
   }
   #sign-out-message{
     display: flex;
@@ -90,4 +116,34 @@ export default {
     flex-direction: column;
     font-size: 3vw;
   }
+  .user-information-table{
+    background: lightsteelblue;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 40%;
+  }
+  .user-information{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10%;
+    margin-bottom: 2vh;
+  }
+  .user-information > li{
+    padding-bottom: 1vh;
+  }
+  .user-change-information{
+    display: flex;
+    justify-content: center;
+    margin: 2vh 0;
+  }
+  .user-change-information > li{
+    margin: 0 1vw;
+  }
+  .user-change-information > li > a:hover, .user-change-information > li > button:hover{
+    color: mediumblue;
+  }
+
 </style>

@@ -1,8 +1,11 @@
 <template>
-  <div class="editor" style="background: white; padding: 10px">
-    <div style="margin: 10px">
-    Title
-    <input type="text" name="title" id="title">
+  <div class="editor">
+    <h1 v-show="error" class="error__message">
+      공백을 제외하고 제목을 반드시 입력해주세요 (맨앞뒤의 공백은 제거됩니다.)
+    </h1>
+    <div class="title__box">
+      <label for="title" class="label__title">제목</label>
+      <input type="text" name="title" id="title" v-model="inputTitle" placeholder="제목을 입력하세요" />
     </div>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
@@ -111,7 +114,11 @@
     </editor-menu-bar>
 
     <editor-content class="editor__content" id="content" :editor="editor" />
-    <input type="submit" v-on:click="sendPost"/>
+    <button type="submit" v-on:click="sendPost" class="upload__button">
+      <span class="upload__button__text">
+        업로드
+      </span>
+    </button>
   </div>
 </template>
 
@@ -167,8 +174,9 @@ export default {
             This is basic example of implementing images. Try to drop new images here. Reordering also works.
           </p>
         `,
-        // <img src="https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif" />
       }),
+      inputTitle: "",
+      error: null,
     }
   },
   methods: {
@@ -207,15 +215,100 @@ export default {
 	  	form.appendChild(content);
     
 	    document.body.appendChild(form);
-    
-	    form.submit();
+
+      if(this.inputTitle.trim() === ""){
+        this.error = "제목없음"
+      } else {
+	      form.submit();
+      }
     }
   },
 }
 </script>
 
 <style>
+.editor{
+  background: white;
+  padding: 3%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.error__message{
+  font-size: 1rem;
+  color: red;
+  text-align: center;
+}
+.title__box{
+  display: flex;
+  margin: 10px 0px;
+  width: 100%;
+}
+#title{
+  width: 100%;
+  height: 6vh;
+  font-size: 1.5rem;
+}
+.label__title{
+  font-size: 2rem;
+  width: 100px;
+}
 .editor__content > div > p > img{
   max-width: 100%;
 }
+.menubar{
+  margin: 3vh 0;
+}
+.menubar__button{
+  border-radius: 100%;
+  cursor: pointer;
+  border: 1px solid navy;
+  margin: 0 0.5vw;
+}
+.menubar__button:hover{
+  background-color: teal;
+  color: wheat;
+}
+.ProseMirror{
+  border: 2px solid black;
+  width: 80vw;
+}
+.upload__button{
+  position: relative;
+  width: 150px;
+  height: 75px;
+  border: 1px solid plum;
+  border-radius: 10%;
+  background: white;
+  cursor: pointer;
+  overflow: hidden;
+  margin: 5%;
+}
+.upload__button::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+  transform: scale(0, 1);
+  transition: all 0.35s;
+}
+.upload__button:hover::after{
+  transform: scale(1, 1);
+}
+.upload__button__text{
+  position: relative;
+  z-index: 2;
+  color: plum;
+  transition: all 0.35s;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.upload__button:hover .upload__button__text{
+  color: white;
+}
+
 </style>

@@ -27,7 +27,7 @@
 			<div slot="body" class="modal-body">
 				<div class="modal">
 					<form :action="loginUrl" method="post">
-							<span class="login-fail-message">{{loginFailText}}</span>
+							<span class="login-fail-message">{{loginAdditionalText}}</span>
 							<div class="modal-input-holder">
 								<div class="modal-input-id">
 									<input type="text" placeholder="아이디" name="id" class="modal-input" size=15 />
@@ -67,7 +67,7 @@ export default {
 			loginUrl: "api/auth/login",
 			tryLogin: false,		// 로그인시도중일때
 			showPassword: false,
-			loginFailText: "",
+			loginAdditionalText: "",
 		}
 	},
 	methods:{
@@ -76,7 +76,7 @@ export default {
 		},
 		modalExit(){
 			this.tryLogin = false;
-			this.loginFailText = "";
+			this.loginAdditionalText = "";
 		},
 		onShowPassword(){
 			this.showPassword = !this.showPassword;
@@ -107,17 +107,17 @@ export default {
   	"app-modal": appModal,
 	},
 	mounted(){
-		if(this.$route.query.state === "fail"){
+		if(this.$route.query.state === "loginFail"){
 			this.tryLogin = true;
-			this.loginFailText = "아이디 혹은 비밀번호가 일치하지않습니다.\n재확인후 다시시도해주세요."
+			this.loginAdditionalText = "아이디 혹은 비밀번호가 일치하지않습니다.\n재확인후 다시시도해주세요."
 		}
-		if(this.$route.query.state === "success"){
+		if(this.$route.query.state === "passwordChangeSuccess"){
 			this.tryLogin = true;
-			this.loginFailText = "비밀번호 변경에 성공했습니다. 다시 로그인해주세요."
+			this.loginAdditionalText = "비밀번호 변경에 성공했습니다. 다시 로그인해주세요."
 		}
 	},
 	beforeDestroy(){
-		this.loginFailText = "";
+		this.loginAdditionalText = "";
 	}
 }
 </script>
