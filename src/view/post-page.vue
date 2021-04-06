@@ -99,4 +99,7 @@ export default {
     opacity: 0.5;
     color: cadetblue;
   }
+  .ProseMirror > p > img{
+    max-width: 100%;
+  }
 </style>

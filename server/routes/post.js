@@ -22,7 +22,6 @@ router.get('/', async function (req, res) {
 // 게시글업로드 put으로해야하는건가
 router.post('/', isLoggedIn, function (req, res) {
   const { title, contents } = req.body;
-
   // db에 추가
   db.posts.create({
     title,
