@@ -30,7 +30,7 @@ router.post('/', isLoggedIn, function (req, res) {
     createddate: Date.now()
   });
 
-  res.redirect('http://localhost:8080/app.html#/pages/community');
+  res.redirect('http://localhost:8080/app.html#/community/1');
 });
 
 // 게시글 상세정보 전송
@@ -69,7 +69,7 @@ router.post('/:postid', isLoggedIn, async (req, res) => {
     where: { postid }
   });
 
-  res.redirect("http://localhost:8080/app.html#/pages/community");
+  res.redirect("http://localhost:8080/app.html#/community/1");
 });
 
 module.exports = router;

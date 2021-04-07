@@ -4,7 +4,7 @@ const { sequelize, users } = require('../models/index.js');
 const driver = async () => {
     // Sequelize 초기화
     try {
-        await sequelize.sync();
+        await sequelize.sync({force:false});
     } catch (err) {
         console.error(err);
         return;
@@ -14,7 +14,8 @@ const driver = async () => {
     // const choices = await posts.findAll({ where: { id: 'id 001' } });
     // for (const quiz of choices) console.log(`${quiz.question} / ${quiz.answer}`);
 
-    const user = await users.findAll({ where: { id: 'id 001' } });
-    for (const row of user) console.log(`${row.nickname}`);
+    // const user = await users.findAll({ where: { id: 'id 001' } });
+    // for (const row of user) console.log(`${row.nickname}`);
 };
 driver();
+

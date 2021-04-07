@@ -59,6 +59,7 @@
 
 					<ul class="page__router">
 						<li v-for="(item, index) in pages" :key="index">
+							<!-- :class="{ (page === item): current__page }" -->
 							<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
 								{{ item }}
 							</router-link>
@@ -86,7 +87,7 @@ export default {
 			isSearch: false,
 			target: "post",
 			page: 0,							// 현재 페이지
-			divisionPage: [],				// 페이지를 지정된 개수만큼 구분한 배열
+			divisionPage: [],			// 페이지를 지정된 개수만큼 구분한 배열
 			showPostNumber: 5,		// 보여줄 포스트 개수
 			currentPosts: [],			// 보여줄 포스트들을 넣을 배열
 			pages: [],						// 밑에 페이지 넘기는데 사용할 배열
