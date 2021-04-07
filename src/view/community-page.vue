@@ -22,15 +22,15 @@
 					<div v-for="(post, index) in communityData" :key="index">
 						<span v-show="!isSearch || onSearchFind(post)" id="items">
 							<div class="post-inner-margin">
-								<router-link :to="`/post/${post.title}`" class="post-title">
+								<router-link :to="`/post/${post.postid}`" class="post-title">
 									{{ post.title }}
 								</router-link>
 								<span class="float-right">
 									<span v-if="onLoginUser(post.user.nickname)">
-										<!-- <i class="fas fa-pen"></i> -->
 										<!-- 포스트 업데이트페이지로 이동 -->
-										<span class="post-update-icon">수정</span>
-										<i class="fas fa-trash-alt post-delete-icon" @click="deletePost(post.title)"></i>
+										<router-link :to="`/post/update/${post.postid}`">수정</router-link>
+										<!-- 게시글 삭제 -->
+										<i class="fas fa-trash-alt post-delete-icon" @click="deletePost(post.postid)"></i>
 									</span>
 									<router-link :to="`/user/${post.user.nickname}`" class="post-user">
 										<i class="fas fa-user"></i>
@@ -102,8 +102,8 @@ export default {
 			// 업데이트
 			// 새로운페이지열고 새로적은데이터 전송
 		},
-		async deletePost(title){
-			const result = await fetchDeletePost(title);
+		async deletePost(postid){
+			const result = await fetchDeletePost(postid);
 			if(result.status === 200){
 				location.reload();
 			}
@@ -226,7 +226,7 @@ export default {
 		float: right;
 	}
 
-	.post-update-icon, .post-delete-icon{
+	.post-delete-icon{
 		cursor: pointer;
 	}
 

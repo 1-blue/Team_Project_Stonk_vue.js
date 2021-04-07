@@ -14,6 +14,7 @@ const routes = [
     { path: '/', redirect: '/pages/main' },
     { path: '/pages/:name', component: pageRouter },
     { path: '/post/append', component: postAppendPage },
+    { path: '/post/update/:postid', component: postAppendPage },
     { path: '/post/:title', component: postPage },
     { path: '/user/update/password/:nickname', component: userPasswordUpdate },
     { path: '/user/update/:nickname', component: userUpdate },

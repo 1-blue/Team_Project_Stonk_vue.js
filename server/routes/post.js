@@ -34,12 +34,11 @@ router.post('/', isLoggedIn, function (req, res) {
 });
 
 // 게시글 상세정보 전송
-router.get('/:title', async function (req, res) {
-  // db에서 req.params.title값으로 title값과 같은 게시글 존재하는지 찾고
-  const { title } = req.params;
+router.get('/:postid', async function (req, res) {
+  const { postid } = req.params;
 
   const data = await db.posts.findOne({
-    where: { title },
+    where: { postid },
     include: [
       {
         model: db.users,
@@ -52,25 +51,25 @@ router.get('/:title', async function (req, res) {
 });
 
 // 게시글삭제
-router.delete('/:title', async (req, res) => {
-  const { title } = req.params;
-  await db.posts.destroy({ where: { title } });
+router.delete('/:postid', isLoggedIn, async (req, res) => {
+  const { postid } = req.params;
+  await db.posts.destroy({ where: { postid } });
   res.send("success");
 });
 
-// 게시글업데이트
-router.put('/:previousTitle', async (req, res) => {
-  const { previousTitle } = req.params;
-  const { title, comtents } = req.body;
+// 게시글업데이트 put -> post변경
+router.post('/:postid', isLoggedIn, async (req, res) => {
+  const { postid } = req.params;
+  const { title, contents } = req.body;
 
-  await db.posts.updata({
+  await db.posts.update({
     title,
-    comtents,
+    contents,
   }, {
-    where: { title: previousTitle }
+    where: { postid }
   });
 
-  res.send("success");
+  res.redirect("http://localhost:8080/app.html#/pages/community");
 });
 
 module.exports = router;

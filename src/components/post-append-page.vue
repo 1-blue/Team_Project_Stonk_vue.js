@@ -115,7 +115,10 @@
 
     <editor-content class="editor__content" id="content" :editor="editor" />
     <button type="submit" v-on:click="sendPost" class="upload__button">
-      <span class="upload__button__text">
+      <span class="upload__button__text" v-if="this.postData">
+        업데이트
+      </span>
+      <span class="upload__button__text" v-else>
         업로드
       </span>
     </button>
@@ -141,6 +144,7 @@ import {
   History,
   Image,
 } from 'tiptap-extensions'
+import { fetchPost } from '../api/fetch.js';
 export default {
   components: {
     EditorContent,
@@ -148,6 +152,10 @@ export default {
   },
   data() {
     return {
+      inputTitle: "",
+      error: null,
+      postData: null,
+      defaultText: "",
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -166,17 +174,8 @@ export default {
           new History(),
           new Image(),
         ],
-        content: `
-          <h2>
-            Images
-          </h2>
-          <p>
-            This is basic example of implementing images. Try to drop new images here. Reordering also works.
-          </p>
-        `,
+        content: this.defaultText,
       }),
-      inputTitle: "",
-      error: null,
     }
   },
   methods: {
@@ -189,11 +188,14 @@ export default {
     sendPost() {
 	    let form = document.createElement('form');
     
-	    form.setAttribute('method', 'post');
-    
-	    form.setAttribute('action', "api/post");
-    
-      
+    	form.setAttribute('method', 'post');
+
+      if(this.postData){
+        form.setAttribute('action', `api/post/${this.postData.postid}`);
+      } else {
+        form.setAttribute('action', "api/post");
+      }
+
 	  	let title = document.createElement('input');
   
 	  	title.setAttribute('type', 'hidden');
@@ -211,7 +213,7 @@ export default {
 	  	content.setAttribute('name', "contents");
   
 	  	content.setAttribute('value', document.getElementById("content").innerHTML);
-  
+
 	  	form.appendChild(content);
     
 	    document.body.appendChild(form);
@@ -223,6 +225,28 @@ export default {
       }
     }
   },
+  computed: {
+    postid(){
+      return this.$route.params.postid ? this.$route.params.postid : null;
+    }
+  },
+  async created(){
+    if(this.postid){
+      const postData = await fetchPost(this.postid);
+      this.postData = postData.data;
+      this.defaultText = postData.data.contents;
+      this.inputTitle = postData.data.title
+    } else {
+      this.defaultText = `
+        <h2>
+          Images
+        </h2>
+        <p>
+          This is basic example of implementing images. Try to drop new images here. Reordering also works.
+        </p>
+      `
+    }
+  }
 }
 </script>
 

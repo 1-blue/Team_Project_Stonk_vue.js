@@ -24,17 +24,17 @@ async function fetchCommunity() {
     return fetch(`/api/post`, "community load error");
 }
 
-async function fetchPost(title) {
-    return fetch(`/api/post/${title}`, "post info load error");
+async function fetchPost(postid) {
+    return fetch(`/api/post/${postid}`, "post info load error");
 }
 
 async function fetchUser(nickname) {
     return fetch(`/api/user/${nickname}`, "user info load error");
 }
 
-async function fetchDeletePost(title) {
+async function fetchDeletePost(postid) {
     try {
-        return await axios.delete(`/api/post/${title}`);
+        return await axios.delete(`/api/post/${postid}`);
     } catch (error) {
         return error;
     }

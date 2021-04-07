@@ -24,7 +24,7 @@
 
       <div v-if="isMinePage">
         <button class="delete-button" @click="deletePost">delete</button>
-        <button class="update-button">update</button>
+        <router-link :to="`/post/update/${post.postid}`" class="update-button" >update</router-link>
       </div>
     </section>
 
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     async deletePost(){
-      const result = await fetchDeletePost(this.post.title);
+      const result = await fetchDeletePost(this.post.postid);
       if(result){
         this.$router.go(-1)   // === window.history.go()
       }
