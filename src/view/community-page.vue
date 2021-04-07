@@ -48,7 +48,7 @@
 											<!-- time_ago -->
 											<span class="post__time__ago">
 												<i class="far fa-clock"></i>
-												{{ post.createddate }}
+												{{ post.createdAt }}
 											</span>
 										</span>
 									</li>
@@ -153,8 +153,11 @@ export default {
 		this.page = this.$route.params.page;
 
 		// 페이지 나눴을 때 총 몇묶음 나오는지 변수에 저장
-		let pageNumber = Math.ceil(this.communityData.length / this.showPostNumber);
+		const pageNumber = Math.ceil(this.communityData.length / this.showPostNumber);
 		this.pages = Array(pageNumber).fill().map((v, i) => i + 1);
+		
+		// 전체를 시간순으로 정렬
+		this.communityData.sort((a, b) => Number(b.datetime) - Number(a.datetime));
 
 		// 포스트를 지정된 개수만큼 배열로만들어서 temp에 저장
 		for(let index = 0; index < this.communityData.length; index += this.showPostNumber){

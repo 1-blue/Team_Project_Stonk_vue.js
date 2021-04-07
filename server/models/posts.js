@@ -20,8 +20,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    createddate: {
-      type: DataTypes.DATEONLY,
+    datetime: {
+      type: DataTypes.STRING(30),
       allowNull: false
     },
     contents: {

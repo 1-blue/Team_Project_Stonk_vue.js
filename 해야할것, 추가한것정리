@@ -7,6 +7,7 @@ post, user들어갈 때 경고뜨는거 해결
 0. 회원가입 이미지받기
 1. 댓글기능
 2. 커뮤니티, 회원정보, 회원가입, 로그인, 게시글, 게시글수정 CSS
+3. 커뮤니티 검색기능에서 전체검색으로 변경해야함... (방법이 딱히안떠올라가지고 계속고민해봄)
 
 =====================해야할것======================
 1. price페이지에서 아이템검색창 크기조절
@@ -33,7 +34,10 @@ post, user들어갈 때 경고뜨는거 해결
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 
 =====================추가한거======================
-커뮤니티 flex적용
+업데이트날짜순정렬 구현
+DB에 posts에서 원래 존재했던 createddate를 datatime으로 변경하고 datatime char(30)으로만들었어요
+( Date.now()를 받는데 date같은 시간타입으로 받으니까 자동으로 2020-12-12요론식으로만들어버려가지고 시간비교가안되가지고 변경하고 화면에 뿌려주기전에 정렬하고 뿌려주게했어여 )
+그리고 기존에 createddate는 sequelize가 자동으로 입력해주게 timestamp: true해가지고 추가 변경시 자동으로 createdAt, updatedAt 생성되게 만들어놨습니당
 
 ==해야할것
 auth 미들웨어 완성

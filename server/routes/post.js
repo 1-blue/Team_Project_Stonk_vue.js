@@ -27,7 +27,7 @@ router.post('/', isLoggedIn, function (req, res) {
     title,
     id: req.userId,
     contents,
-    createddate: Date.now()
+    datetime: Date.now()
   });
 
   res.redirect('http://localhost:8080/app.html#/community/1');
@@ -65,6 +65,7 @@ router.post('/:postid', isLoggedIn, async (req, res) => {
   await db.posts.update({
     title,
     contents,
+    datetime: Date.now(),
   }, {
     where: { postid }
   });
