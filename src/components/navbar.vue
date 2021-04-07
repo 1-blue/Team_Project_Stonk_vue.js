@@ -3,7 +3,7 @@
 		<ul class="shadow">
 			<div>
 				<li><router-link to="/pages/main" class="float-left link-style">Home</router-link></li>
-				<li><router-link to="/pages/community" class="float-left link-style">커뮤니티</router-link></li>
+				<li><router-link to="/community/1" class="float-left link-style">커뮤니티</router-link></li>
 				<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
 			</div>
 			

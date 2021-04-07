@@ -8,10 +8,14 @@ import postAppendPage from '../components/post-append-page.vue';
 import userUpdate from '../view/user-update.vue';
 import userPasswordUpdate from '../view/user-password-update.vue';
 
+//추가
+import communityPage from '../view/community-page.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
     { path: '/', redirect: '/pages/main' },
+    { path: '/community/:page', component: communityPage },
     { path: '/pages/:name', component: pageRouter },
     { path: '/post/append', component: postAppendPage },
     { path: '/post/update/:postid', component: postAppendPage },

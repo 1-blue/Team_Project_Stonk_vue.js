@@ -18,9 +18,9 @@
 			<!-- 게시글 -->
 			<section id="post__section">
 				<div class="post__table">
-					<hr/>
+					<hr />
 					<!-- v-for로 게시글 반복 -->
-					<div v-for="(post, index) in communityData" :key="index">
+					<div v-for="(post, index) in currentPosts" :key="index">
 						<span v-show="!isSearch || onSearchFind(post)" id="items">
 								<ul class="post__list">
 									<!-- 타이틀 -->
@@ -56,6 +56,14 @@
 							<hr />
 						</span>
 					</div>
+
+					<ul class="page__router">
+						<li v-for="(item, index) in pages" :key="index">
+							<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
+								{{ item }}
+							</router-link>
+						</li>
+					</ul>
 				</div>
 			</section>
 		</template>
@@ -65,7 +73,6 @@
 <script>
 import searchBox from '../components/common/search-box.vue';
 import { fetchDeletePost } from '../api/fetch.js';
-//fetchUpdatePost
 
 export default {
 	components: {
@@ -78,6 +85,11 @@ export default {
 			targetItem: "",
 			isSearch: false,
 			target: "post",
+			page: 0,							// 현재 페이지
+			divisionPage: [],				// 페이지를 지정된 개수만큼 구분한 배열
+			showPostNumber: 5,		// 보여줄 포스트 개수
+			currentPosts: [],			// 보여줄 포스트들을 넣을 배열
+			pages: [],						// 밑에 페이지 넘기는데 사용할 배열
 		}
 	},
 	methods: {
@@ -109,16 +121,16 @@ export default {
 			}
 			return false;
 		},
-		async updatePost(){
-			// 업데이트
-			// 새로운페이지열고 새로적은데이터 전송
-		},
 		async deletePost(postid){
 			const result = await fetchDeletePost(postid);
 			if(result.status === 200){
 				location.reload();
 			}
 		},
+		pageChange(pageNumber){
+			this.page = pageNumber;
+			this.currentPosts = this.divisionPage[this.page - 1];
+		}
 	},
 	computed: {
 		communityData(){
@@ -135,7 +147,21 @@ export default {
 		await this.$store.dispatch('FETCH_COMMUNITY');
 		if(this.communityData.error){
 			this.error = this.communityData;
+			return;
 		}
+		this.page = this.$route.params.page;
+
+		// 페이지 나눴을 때 총 몇묶음 나오는지 변수에 저장
+		let pageNumber = Math.ceil(this.communityData.length / this.showPostNumber);
+		this.pages = Array(pageNumber).fill().map((v, i) => i + 1);
+
+		// 포스트를 지정된 개수만큼 배열로만들어서 temp에 저장
+		for(let index = 0; index < this.communityData.length; index += this.showPostNumber){
+			this.divisionPage.push(this.communityData.slice(index, index + this.showPostNumber));
+		}
+
+		// 현재 화면에 보여줄 포스트들 지정 (배열이라 인덱스 -1)
+		this.currentPosts = this.divisionPage[this.page - 1];
 	}
 }
 </script>
@@ -151,6 +177,9 @@ export default {
 		text-decoration: none;
 		color: black;
 		transition: all 3s;
+	}
+	hr{
+		width: 100%;
 	}
 	/* =============검색창 css=========== */
 	.search-form-style{
@@ -196,7 +225,7 @@ export default {
 	/* =============게시글 css=========== */
 	#post__section{
 		width: 100%;
-		height: 80vh;
+		height: 100%;
 		border: 3mm ridge rgba(50, 75, 220, 0.6);
 	}
 	.post__append__button{
@@ -213,6 +242,8 @@ export default {
 	}
 	.post__table{
 		margin: 0px 20px;
+		display: flex;
+		flex-direction: column;
 	}
 	.post__list{
 		display: flex;
@@ -256,6 +287,13 @@ export default {
 	}
 	.post__delete__icon{
 		cursor: pointer;
+	}
+	.page__router{
+		display: flex;
+		justify-content: center;
+	}
+	.page__router > li {
+		margin: 1vw;
 	}
 
 </style>

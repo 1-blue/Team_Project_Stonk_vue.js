@@ -5,11 +5,11 @@
                 <main-page></main-page>
 			</transition> 
         </div>
-        <div v-else-if="currentPage === 'community' ">
+        <!-- <div v-else-if="currentPage === 'community' ">
             <transition name="page">
                 <community-page></community-page>
             </transition>
-        </div>
+        </div> -->
         <div v-else-if="currentPage === 'price' ">
             <transition name="page">
                 <price-page></price-page>
@@ -26,14 +26,14 @@
 
 <script>
 import mainPage from '../view/main-page.vue';
-import communityPage from '../view/community-page.vue';
+// import communityPage from '../view/community-page.vue';
 import pricePage from '../view/price-page.vue';
 import registerPage from '../view/register-page.vue';
 
 export default({
     components:{
         mainPage,
-        communityPage,
+        //communityPage,
         pricePage,
         registerPage,
     },
