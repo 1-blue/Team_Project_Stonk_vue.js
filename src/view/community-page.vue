@@ -1,47 +1,58 @@
 <template>
 	<div>
+		<!-- 게시글 정보를 못받았을경우 에러메시지 띄워주기 -->
 		<template v-if="error">
 			<h1>{{ error.message }}</h1>
 			<p>{{ error.error }}</p>
 		</template>
 
 		<template v-else>
-			<section id="additional-section">
+			<section id="additional__section">
 				<!-- 검색기능 -->
 				<search-box placeholder="게시글검색" name="community" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 				<!-- 게시글추가기능 -->
-				<router-link to="/post/append" class="append-post-link" v-show="isLogin">게시글추가하기</router-link>
+				<router-link to="/post/append" class="post__append__button" v-show="isLogin">게시글추가하기</router-link>
 			</section>
 
 			<!-- 게시글 -->
-			<section id="post-section">
-				<div class="posts">
+			<section id="post__section">
+				<div class="post__table">
 					<hr/>
 					<!-- v-for로 게시글 반복 -->
 					<div v-for="(post, index) in communityData" :key="index">
 						<span v-show="!isSearch || onSearchFind(post)" id="items">
-							<div class="post-inner-margin">
-								<router-link :to="`/post/${post.postid}`" class="post-title">
-									{{ post.title }}
-								</router-link>
-								<span class="float-right">
-									<span v-if="onLoginUser(post.user.nickname)">
-										<!-- 포스트 업데이트페이지로 이동 -->
-										<router-link :to="`/post/update/${post.postid}`">수정</router-link>
-										<!-- 게시글 삭제 -->
-										<i class="fas fa-trash-alt post-delete-icon" @click="deletePost(post.postid)"></i>
-									</span>
-									<router-link :to="`/user/${post.user.nickname}`" class="post-user">
-										<i class="fas fa-user"></i>
-										{{ post.user.nickname }}
-									</router-link>
-									<span class="post-time-ago">
-										<i class="far fa-clock"></i>
-										{{ post.createddate }}
-									</span>
-								</span>
-							</div>
+								<ul class="post__list">
+									<!-- 타이틀 -->
+									<li>
+										<router-link :to="`/post/${post.postid}`" class="post__title">
+											{{ post.title }}
+										</router-link>
+									</li>
+
+									<li class="post__additional__logic">
+										<!-- update and delete -->
+										<span v-if="onLoginUser(post.user.nickname)" class="post__update__delete">
+											<!-- 포스트 업데이트페이지로 이동 -->
+											<router-link :to="`/post/update/${post.postid}`"><i class="fas fa-pen-fancy icon"></i></router-link>
+											<!-- 게시글 삭제 -->
+											<i class="fas fa-trash-alt post__delete__icon icon" @click="deletePost(post.postid)"></i>
+										</span>
+										
+										<span class="post__information">
+											<!-- user-information link -->
+											<router-link :to="`/user/${post.user.nickname}`" class="post__user">
+												<i class="fas fa-user"></i>
+												{{ post.user.nickname }}
+											</router-link>
+											<!-- time_ago -->
+											<span class="post__time__ago">
+												<i class="far fa-clock"></i>
+												{{ post.createddate }}
+											</span>
+										</span>
+									</li>
+								</ul>
 							<hr />
 						</span>
 					</div>
@@ -130,6 +141,17 @@ export default {
 </script>
 
 <style scoped>
+	ul, li{
+		padding: 0px;
+		margin: 0px;
+		list-style: none;
+		display: inline-block;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+		transition: all 3s;
+	}
 	/* =============검색창 css=========== */
 	.search-form-style{
 		display: inline-block;
@@ -172,44 +194,12 @@ export default {
 	}
 
 	/* =============게시글 css=========== */
-	#post-section{
+	#post__section{
 		width: 100%;
-		height: 1000px;
+		height: 80vh;
 		border: 3mm ridge rgba(50, 75, 220, 0.6);
 	}
-	.posts{
-		margin: 0px 20px;
-	}
-	.post-title{
-		font-size: 25px;
-		font-weight: bold;
-	}
-	.post-title:hover{
-		color: rgb(255, 56, 99);
-		transition: all 1s;
-	}
-	.post-user:hover{
-		color: rgb(17, 0, 255);
-		transition: all 1s;
-	}
-	.post-time-ago{
-		font-size: 10px;
-	}
-	.post-user::before{
-		content: " | ";
-	}
-	.post-time-ago::before{
-		content: " | ";
-	}
-	.post-inner-margin{
-		margin: 0px 10px;
-	}
-	a{
-		text-decoration: none;
-		color: black;
-		transition: all 3s;
-	}
-	.append-post-link{
+	.post__append__button{
 		float: right;
 		font-weight: bold;
 		font-size: 30px;
@@ -217,16 +207,54 @@ export default {
 		top: 20px;
 		transition: all 3s;
 	}
-	.append-post-link:hover{
+	.post__append__button:hover{
 		transition: all 1.5s;
 		color: rgb(0, 238, 255);
 	}
-
-	.float-right{
-		float: right;
+	.post__table{
+		margin: 0px 20px;
 	}
-
-	.post-delete-icon{
+	.post__list{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.post__title{
+		font-size: 25px;
+		font-weight: bold;
+	}
+	.post__title:hover{
+		color: rgb(255, 56, 99);
+		transition: all 1s;
+	}
+	.icon{
+		margin-bottom: 1vh;
+	}
+	.icon:hover{
+		color: bisque;
+		transition: all 0.5s;
+	}
+	.post__user:hover{
+		color: rgb(17, 0, 255);
+		transition: all 1s;
+	}
+	.post__time__ago{
+		font-size: 10px;
+	}
+	.post__additional__logic{
+		display: flex;
+		align-items: center;
+	}
+	.post__update__delete{
+		display: flex;
+		flex-direction: column;
+		margin: 0 2vw;
+	}
+	.post__information{
+		display: flex;
+		flex-direction: column;
+	}
+	.post__delete__icon{
 		cursor: pointer;
 	}
 
