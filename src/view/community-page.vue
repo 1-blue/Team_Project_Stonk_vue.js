@@ -7,7 +7,7 @@
 		</template>
 
 		<template v-else>
-			<section id="additional__section">
+			<section id="search__append__section">
 				<!-- 검색기능 -->
 				<search-box placeholder="게시글검색" name="community" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
@@ -59,7 +59,6 @@
 
 					<ul class="page__router">
 						<li v-for="(item, index) in pages" :key="index">
-							<!-- :class="{ (page === item): current__page }" -->
 							<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
 								{{ item }}
 							</router-link>
@@ -88,7 +87,7 @@ export default {
 			target: "post",
 			page: 0,							// 현재 페이지
 			divisionPage: [],			// 페이지를 지정된 개수만큼 구분한 배열
-			showPostNumber: 5,		// 보여줄 포스트 개수
+			showPostNumber: 10,		// 보여줄 포스트 개수
 			currentPosts: [],			// 보여줄 포스트들을 넣을 배열
 			pages: [],						// 밑에 페이지 넘기는데 사용할 배열
 		}
@@ -150,7 +149,7 @@ export default {
 			this.error = this.communityData;
 			return;
 		}
-		this.page = this.$route.params.page;
+		this.page = this.$route.params.page === undefined ? 1 : this.$route.params.page;
 
 		// 페이지 나눴을 때 총 몇묶음 나오는지 변수에 저장
 		const pageNumber = Math.ceil(this.communityData.length / this.showPostNumber);
@@ -180,57 +179,20 @@ export default {
 	a{
 		text-decoration: none;
 		color: black;
-		transition: all 3s;
+		transition: all 0.5s;
 	}
 	hr{
 		width: 100%;
 	}
-	/* =============검색창 css=========== */
-	.search-form-style{
-		display: inline-block;
-    background-color: white;
-    width: 400px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 5px 5px 5px 5px;
-		text-align: center;
-		margin-bottom: 40px;
+	#search__append__section{
+		display: flex;
+		justify-content: space-between;
 	}
-	/* 검색인풋태그 */
-	.search-input-style{
-    border: 0px;
-    margin: 7px 0px;
-    font-size: 18px;
-    width: 200px;
-	}
-	/* 검색인풋태그기본 스타일없애기 */
-	.search-input-style:focus{
-    outline: 0px;
-  }
-	/* 검색버튼태그 */
-	.search-button-style{
-  	background: linear-gradient(to right, #6478FB, #8763FB);
-  	height: 50px;
-  	width: 50px;
-  	display: block;
-  	float: right;
-  	border-radius: 0px 5px 5px 0px;
-  	cursor: pointer;
-	}
-	.cancel-button-style{
-    height: 50px;
-    width: 50px;
-    display: block;
-    float: right;
-    border-radius: 0px 5px 5px 0px;
-    cursor: pointer;
-	}
-
-	/* =============게시글 css=========== */
 	#post__section{
 		width: 100%;
 		height: 100%;
-		border: 3mm ridge rgba(50, 75, 220, 0.6);
+		border: 2mm ridge #0669BF;
+		background-color: #D0ECF2;
 	}
 	.post__append__button{
 		float: right;
@@ -238,10 +200,10 @@ export default {
 		font-size: 30px;
 		position: relative;
 		top: 20px;
-		transition: all 3s;
+		transition: all 0.5s;
 	}
 	.post__append__button:hover{
-		transition: all 1.5s;
+		transition: all 0.5s;
 		color: rgb(0, 238, 255);
 	}
 	.post__table{
@@ -260,7 +222,7 @@ export default {
 	}
 	.post__title:hover{
 		color: rgb(255, 56, 99);
-		transition: all 1s;
+		transition: all 0.5s;
 	}
 	.icon{
 		margin-bottom: 1vh;
@@ -271,7 +233,7 @@ export default {
 	}
 	.post__user:hover{
 		color: rgb(17, 0, 255);
-		transition: all 1s;
+		transition: all 0.5s;
 	}
 	.post__time__ago{
 		font-size: 10px;
@@ -298,6 +260,14 @@ export default {
 	}
 	.page__router > li {
 		margin: 1vw;
+	}
+	.router-link-active{
+		color: blue;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	.router-link-active:hover{
+		color: blue;
 	}
 
 </style>

@@ -15,6 +15,7 @@ Vue.use(VueRouter);
 
 const routes = [
     { path: '/', redirect: '/pages/main' },
+    { path: '/community', component: communityPage },
     { path: '/community/:page', component: communityPage },
     { path: '/pages/:name', component: pageRouter },
     { path: '/post/append', component: postAppendPage },
