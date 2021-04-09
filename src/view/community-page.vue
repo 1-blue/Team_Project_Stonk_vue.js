@@ -17,22 +17,22 @@
 
 			<!-- 게시글 -->
 			<section id="post__section">
-				<div class="post__table">
-					<hr />
+				<div class="post__container">
 					<!-- v-for로 게시글 반복 -->
-					<div v-for="(post, index) in currentPosts" :key="index">
-						<span v-show="!isSearch || onSearchFind(post)" id="items">
-								<ul class="post__list">
+					<ul v-for="(post, index) in currentPosts" :key="index" v-show="!isSearch || onSearchFind(post)" class="posts">
+						<span></span><span></span><span></span><span></span><span></span>
+						<li class="post">
+								<ul class="post__inner">
 									<!-- 타이틀 -->
-									<li>
-										<router-link :to="`/post/${post.postid}`" class="post__title">
+									<li class="post__title">
+										<router-link :to="`/post/${post.postid}`" class="post__title__link">
 											{{ post.title }}
 										</router-link>
 									</li>
 
 									<li class="post__additional__logic">
 										<!-- update and delete -->
-										<span v-if="onLoginUser(post.user.nickname)" class="post__update__delete">
+										<span v-if="onLoginUser(post.user.nickname)" class="post__update__delete__button">
 											<!-- 포스트 업데이트페이지로 이동 -->
 											<router-link :to="`/post/update/${post.postid}`"><i class="fas fa-pen-fancy icon"></i></router-link>
 											<!-- 게시글 삭제 -->
@@ -53,10 +53,9 @@
 										</span>
 									</li>
 								</ul>
-							<hr />
-						</span>
-					</div>
-
+						</li>
+					</ul>
+				</div>
 					<ul class="page__router">
 						<li v-for="(item, index) in pages" :key="index">
 							<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
@@ -64,7 +63,6 @@
 							</router-link>
 						</li>
 					</ul>
-				</div>
 			</section>
 		</template>
 	</div>
@@ -87,7 +85,7 @@ export default {
 			target: "post",
 			page: 0,							// 현재 페이지
 			divisionPage: [],			// 페이지를 지정된 개수만큼 구분한 배열
-			showPostNumber: 10,		// 보여줄 포스트 개수
+			showPostNumber: 9,		// 보여줄 포스트 개수
 			currentPosts: [],			// 보여줄 포스트들을 넣을 배열
 			pages: [],						// 밑에 페이지 넘기는데 사용할 배열
 		}
@@ -181,47 +179,92 @@ export default {
 		color: black;
 		transition: all 0.5s;
 	}
-	hr{
-		width: 100%;
-	}
 	#search__append__section{
 		display: flex;
 		justify-content: space-between;
+		align-items: flex-start;
+		margin: 0 3vw;
 	}
 	#post__section{
 		width: 100%;
 		height: 100%;
-		border: 2mm ridge #0669BF;
-		background-color: #D0ECF2;
+		border: 2mm ridge rgb(250, 147, 5);
+		background-color: rgb(255, 255, 204);
+		border-radius: 1em;
 	}
 	.post__append__button{
 		float: right;
 		font-weight: bold;
-		font-size: 30px;
-		position: relative;
-		top: 20px;
+		font-size: 2.5vw;
 		transition: all 0.5s;
 	}
 	.post__append__button:hover{
 		transition: all 0.5s;
 		color: rgb(0, 238, 255);
 	}
-	.post__table{
-		margin: 0px 20px;
+	.post__container{
+		margin: 1em 1em;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 30vh);
+		gap: 2vh 2vw;
+	}
+	.posts{
+		position: relative;
+	}
+	.posts > span{
+		display: block;
+		position: absolute;
+		transition: all 0.5s;
+		z-index: 2;
+		background: snow;
+	}
+	/* 요거 마우스올라갔을때 상하좌우에 효과를 위해 사용 */
+	.posts > span:nth-child(1){ top: 0; left: 0; height: 5px; width: 0; }
+	.posts > span:nth-child(2){ top: 0; right: 0; height: 0; width: 5px; }
+	.posts > span:nth-child(3){ bottom: 0; right: 0; height: 5px; width: 0; }
+	.posts > span:nth-child(4){ bottom: 0; left: 0; height: 0; width: 5px; }
+	.posts:hover > span:nth-child(1) { width: 100%; }
+	.posts:hover > span:nth-child(2) { height: 100%; }
+	.posts:hover > span:nth-child(3) { width: 100%; }
+	.posts:hover > span:nth-child(4) { height: 100%; }
+
+	.posts > span:nth-child(5) {
+		top: 10px; left: 10px;
+		width: 1em;
+		height: 1em;
+		background-color: #ffffcc;
+		border-radius: 100%;
+		box-shadow: 0px 0px 5px;
+	}
+
+	.post{
+		width: 100%;
+		height: 100%;
+	}
+
+	.post__inner{
 		display: flex;
 		flex-direction: column;
-	}
-	.post__list{
-		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background: rgb(255 252 77 / 70%);
+		height: inherit;
+		transition: all 0.5s;
+		padding: 0 1em;
+		box-shadow: 5px 5px 5px gray;
+	}
+	.post__inner:hover{
+		opacity: 0.8;
+		background: gray;
 	}
 	.post__title{
-		font-size: 25px;
+		font-size: 1.5rem;
 		font-weight: bold;
+		padding-top: 1em;
 	}
-	.post__title:hover{
-		color: rgb(255, 56, 99);
+	.post__title__link:hover{
+		color: white;
 		transition: all 0.5s;
 	}
 	.icon{
@@ -232,17 +275,19 @@ export default {
 		transition: all 0.5s;
 	}
 	.post__user:hover{
-		color: rgb(17, 0, 255);
+		color: blue;
 		transition: all 0.5s;
 	}
 	.post__time__ago{
-		font-size: 10px;
+		font-size: 0.5em;
 	}
 	.post__additional__logic{
 		display: flex;
 		align-items: center;
+		width: 100%;
+		justify-content: flex-end;
 	}
-	.post__update__delete{
+	.post__update__delete__button{
 		display: flex;
 		flex-direction: column;
 		margin: 0 2vw;
@@ -250,6 +295,7 @@ export default {
 	.post__information{
 		display: flex;
 		flex-direction: column;
+		padding-bottom: 0.5em;
 	}
 	.post__delete__icon{
 		cursor: pointer;
@@ -268,6 +314,16 @@ export default {
 	}
 	.router-link-active:hover{
 		color: blue;
+	}
+
+	@media screen and (max-width: 768px){
+		.post__container{
+			margin: 1em 1em;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(5, 30vh);
+			gap: 2vh 2vw;
+		}
 	}
 
 </style>
