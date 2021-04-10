@@ -206,7 +206,7 @@ export default {
 		margin: 1em 1em;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: repeat(3, 30vh);
+		grid-auto-rows: minmax(30vh, auto);
 		gap: 2vh 2vw;
 	}
 	.posts{
@@ -236,6 +236,7 @@ export default {
 		background-color: #ffffcc;
 		border-radius: 100%;
 		box-shadow: 0px 0px 5px;
+		z-index: 0;
 	}
 
 	.post{
@@ -318,11 +319,7 @@ export default {
 
 	@media screen and (max-width: 768px){
 		.post__container{
-			margin: 1em 1em;
-			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			grid-template-rows: repeat(5, 30vh);
-			gap: 2vh 2vw;
 		}
 	}
 

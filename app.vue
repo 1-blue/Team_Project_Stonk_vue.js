@@ -3,7 +3,7 @@
     <nav-bar/>
     <loading-spinner :loading="loading"></loading-spinner>
 	  <transition name="page">
-	  	<router-view class="show-element" style="margin-top:80px"></router-view>
+	  	<router-view class="show__element"></router-view>
   	</transition>
   </div>
 </template>
@@ -69,11 +69,9 @@
     margin: 0px;
     overflow-y: scroll;
   }
-  .shadow{
-    /* box-shadow: 5px 10px 10px rgba(0, 0, 0, 20%); */
-  }
-  .show-element{
-    margin: 0px 50px 100px;
+
+  .show__element{
+    margin: 5rem 2.5rem;
   }
 
   /* 페이지 이동시 transition부여 */

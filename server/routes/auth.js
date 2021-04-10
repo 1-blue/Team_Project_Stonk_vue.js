@@ -67,7 +67,7 @@ router.post('/login', async function (req, res) {
 
       res.cookie("access_token", token, { httpOnly: true })    // httponly수정필요.. 일단이렇게 안하면 vue에서 쿠기를 못읽음
       res.cookie("login_nickName", currentUser.nickname, { httpOnly: false })
-      return res.redirect('http://localhost:8080/app.html#/pages/main');
+      return res.redirect('http://localhost:8080/app.html#/home');
     }
   }
 

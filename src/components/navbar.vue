@@ -1,20 +1,29 @@
 <template>
 	<nav id="navbar">
-		<ul class="shadow">
-			<div>
-				<li><router-link to="/pages/main" class="float-left link-style">Home</router-link></li>
-				<li><router-link to="/community" class="float-left link-style">커뮤니티</router-link></li>
-				<li><router-link to="/pages/price" class="float-left link-style">시세</router-link></li>
+		<ul class="navbar__container">
+			<!-- home -->
+			<li><router-link to="/home" class="link home__link">Home</router-link></li>
+
+			<!-- community, price -->
+			<div class="responsive__flex__direction">
+				<li><router-link to="/community" class="link community__link">커뮤니티</router-link></li>
+				<li><router-link to="/price" class="link price__link">시세</router-link></li>
 			</div>
 			
-			<div v-if="!isLogin">
-				<li><span @click="onLogin" class="link-style">로그인</span></li>
-				<li><router-link to="/pages/register" class="link-style">회원가입</router-link></li>
+			<!-- auth -->
+			<div v-if="!isLogin" class="responsive__flex__direction">
+				<li><span @click="onLogin" class="link login__link">로그인</span></li>
+				<li><router-link to="/register" class="link register__link">회원가입</router-link></li>
 			</div>
-			<div v-else>
-				<li><router-link to="/pages/main" @click.native="onLogout" class="float-left link-style">로그아웃</router-link></li>
-				<li><router-link :to="myInfoPage" class="float-left link-style">내 정보</router-link></li>
+			<div v-else class="responsive__flex__direction">
+				<li><router-link to="/home" @click.native="onLogout" class="link logout__link">로그아웃</router-link></li>
+				<li><router-link :to="myInfoPage" class="link my__information__link">내 정보</router-link></li>
 			</div>
+			
+			<!-- hamburger -->
+			<li class="hamburger__menu">
+				<i class="fas fa-bars"></i>
+			</li>
 		</ul>
 
 		<!-- 로그인창 -->
@@ -44,7 +53,7 @@
 
 				<div class="modal-link">
 					<div>
-						<router-link to="/pages/register" class="modal-span register-router-link" @click.native="modalExit">회원가입하러가기</router-link>
+						<router-link to="/register" class="modal-span register-router-link" @click.native="modalExit">회원가입하러가기</router-link>
 					</div>
 					<div>
 						<span class="modal-span">비밀번호찾기</span>
@@ -115,6 +124,45 @@ export default {
 			this.tryLogin = true;
 			this.loginAdditionalText = "비밀번호 변경에 성공했습니다. 다시 로그인해주세요."
 		}
+
+		const hamber = document.querySelector(".hamburger__menu");
+		const links = [];
+		links.push(document.querySelector(".community__link"));
+		links.push(document.querySelector(".price__link"));
+		links.push(document.querySelector(".login__link"));
+		links.push(document.querySelector(".register__link"));
+		links.push(document.querySelector(".logout__link"));
+		links.push(document.querySelector(".my__information__link"));
+
+		// 햄버그메뉴클릭시 링크들보여줌
+		hamber.addEventListener('click', () => {
+			links.forEach(link => {
+				if(link === null){
+					return;
+				}
+				link.classList.toggle("active");
+
+				// 링크클릭시 햄버그메뉴닫기
+				link.addEventListener('click', () => {
+					links.forEach((value) => {
+						if(value === null){
+							return;
+						}
+						value.classList.remove("active");
+					});
+				})
+			});
+		});
+
+		// 홈링크 클릭시 햄버그메뉴 닫기
+		document.querySelector(".home__link").addEventListener('click', () => {
+			links.forEach((value) => {
+				if(value === null){
+					return;
+				}
+				value.classList.remove("active");
+			});
+		})
 	},
 	beforeDestroy(){
 		this.loginAdditionalText = "";
@@ -132,48 +180,94 @@ export default {
 		z-index: 2;
   	transition: top 0.3s;
 	}
+
 	input:focus{
 		outline: none;
 	}
 
-	.search-input-style{
-    border: 0px;
-    margin: 7px 0px;
-    font-size: 18px;
-    width: 200px;
-	}
-	.main-icon{
-		width: 100px;
-    	margin-top: 0px;
-    	position: relative;
-    	top: 12px;
-	}
-	ul{
-		padding: 0;
-		display: inline-block;
-		/* background: linear-gradient(to bottom, #8e2de2, #4a00e0); */
-		background: #0e2163;
+	.navbar__container{
 		width: 100%;
-		line-height: 60px;
-		/* border-radius: 30px; */
-		font-size: 20px;
 		margin: 0px 0px 10px 0px;
+		padding: 0;
+		font-size: 1.2rem;
+		line-height: 60px;
+		background: #0e2163;
+		display: flex;
+		justify-content: space-between;
 	}
-	ul > div{
-		width: 40%;
-		margin: 0% 5%;
-		float: left;
-	}
-	ul li {
-		display: inline-block;
+	
+	.navbar__container li {
 		list-style: none;
-		margin:0px 15px;
+		margin: 0px 1em;
 		font-weight: bold;
 	}
-	/* nav에서 오른쪽정렬 */
-	ul > div:first-child+div > li {
-		float:right
+
+	.responsive__flex__direction{
+		display: flex;
+		flex-direction: row;
 	}
+
+	.link {
+		cursor: pointer;
+		text-decoration: none;
+		color: white;
+		padding-bottom: 10px;
+	}
+
+	.link:hover{
+		border-bottom: 5px solid;
+		color: #E6BA43;
+	}
+
+	.hamburger__menu{
+		display: none;
+		color: white;
+		font-size: 1.5em;
+	}
+
+	@media screen and (max-width: 768px){
+		.link {
+			display: none;
+		}
+		.home__link{
+			display: inline-block;
+		}
+		.hamburger__menu{
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		.active{
+			display: inline-flex;
+		}
+		.navbar__container{
+			flex-direction: column;
+		}
+		.responsive__flex__direction{
+			flex-direction: column;
+			align-items: center;
+		}
+		.link:hover{
+			background: #E6BA43;
+			color: black;
+			border: 0;
+			padding: 0 30vw;
+			border-radius: 0.5em;
+			margin: 0.3em 0;
+		}
+		.home__link:hover{
+			border-bottom: 5px solid;
+			padding: 0;
+			border-radius: 0;
+			margin: 0;
+			color: #E6BA43;
+			background-color: #0e2163;
+		}
+	}
+
+	/* ===분리=== */
+
 	.modal-title{
 		margin-top: 0px;
 		text-align: center;
@@ -262,23 +356,10 @@ export default {
 	.password-icon{
 		cursor: pointer;
 	}
-	.link-style{
-		cursor: pointer;
-		text-decoration: none;
-		color: white;
-	}
-	.link-style:hover{
-		padding-bottom: 10px;
-		border-bottom: 5px solid;
-		color: #E6BA43;
-	}
-	.link-style:active{
-		color: blue;
-	}
+
 	/* 현재 페이지 a태그 색변경 */
 	.router-link-exact-active {
 		color: #E6BA43;
-		padding-bottom: 10px;
 		border-bottom: 5px solid;
 	}
 	.register-router-link{
