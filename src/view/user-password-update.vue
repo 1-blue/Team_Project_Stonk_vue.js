@@ -15,11 +15,11 @@
         <ul>
           <li>
             <label for="password">변경할 비밀번호 입력</label>
-            <input type="text" name="password" />
+            <input type="password" name="password" />
           </li>
           <li>
             <label for="passwordCheck">확인용 비밀번호 입력</label>
-            <input type="text" name="passwordCheck" id="passwordCheck" />
+            <input type="password" name="passwordCheck" id="passwordCheck" />
           </li>
         </ul>
         <button type="submit" class="password-submit">전송</button>

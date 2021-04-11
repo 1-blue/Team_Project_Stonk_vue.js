@@ -25,12 +25,13 @@ exports.isLoggedIn = (req, res, next) => {
 
 };
 
-// 닉네임중복체크 : 중복시 true반환
+// 회원가입시 닉네임중복체크 : 중복시 true반환
 exports.nicknameOverlapCheck = async (req, res, next) => {
   const { nickname } = req.body;
+
   const exUserNick = await db.users.findOne({ where: { nickname } });
   if (exUserNick) {
-    return res.redirect("http://localhost:8080/app.html#/pages/register?error=nicknameOverlap");
+    return res.redirect("http://localhost:8080/app.html#/register?error=nicknameOverlap");
   }
   return next();
 }
@@ -40,7 +41,7 @@ exports.idOverlapCheck = async (req, res, next) => {
   const { id } = req.body;
   const exUserEmail = await db.users.findOne({ where: { id } });
   if (exUserEmail) {
-    return res.redirect("http://localhost:8080/app.html#/pages/register?error=idOverlap");
+    return res.redirect("http://localhost:8080/app.html#/register?error=idOverlap");
   }
   return next();
 }

@@ -5,7 +5,7 @@ import homePage from '../view/home-page.vue';
 import communityPage from '../view/community-page.vue';
 import pricePage from '../view/price-page.vue';
 import registerPage from '../view/register-page.vue';
-import postPage from '../view/home-page.vue';
+import postPage from '../view/post-page.vue';
 import userPage from '../view/user-page.vue';
 import postAppendPage from '../components/post-append-page.vue';
 import userUpdate from '../view/user-update.vue';
@@ -22,7 +22,7 @@ const routes = [
     { path: '/community/:page', component: communityPage },
     { path: '/post/append', component: postAppendPage },
     { path: '/post/update/:postid', component: postAppendPage },
-    { path: '/post/:title', component: postPage },
+    { path: '/post/:postid', component: postPage },
     { path: '/user/update/password/:nickname', component: userPasswordUpdate },
     { path: '/user/update/:nickname', component: userUpdate },
     { path: '/user/:name', component: userPage },

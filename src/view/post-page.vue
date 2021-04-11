@@ -1,11 +1,11 @@
 <template>
   <div>
-    <section v-if="error" id="error-message">
+    <section v-if="error" id="error__message">
 			<h1>{{ error.message }}</h1>
 			<p>{{ error.error }}</p>
     </section>
 
-    <section v-else-if="!post.title" id="error-message">
+    <section v-else-if="!post.title" id="error__message">
       <h1>이미 삭제되었거나 존재하지않은 게시글입니다.</h1>
       <a href="http://localhost:8080/app.html#/pages/community">comunity로 돌아가기</a>
     </section>
@@ -27,7 +27,6 @@
         <router-link :to="`/post/update/${post.postid}`" class="update-button" >update</router-link>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -60,8 +59,8 @@ export default {
     }
   },
   async created(){
-    const title = this.$route.params.title;
-    await this.$store.dispatch('FETCH_POST', title);
+    const postid = this.$route.params.postid;
+    await this.$store.dispatch('FETCH_POST', postid);
     if(this.post.error){
 			this.error = this.post;
 		}
@@ -70,11 +69,11 @@ export default {
 </script>
 
 <style scoped>
-  #error-message{
+  #error__message{
     text-align: center;
   }
-  #error-message h1{
-    font-size: 2vw;
+  #error__message h1{
+    font-size: 2rem;
   }
   a{
     text-decoration: none;

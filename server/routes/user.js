@@ -2,11 +2,60 @@ const router = require('express').Router();
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 
+// 유저정보수정
+router.post('/:previousNickname', async (req, res) => {
+  const { userid, id, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
+  const { previousNickname } = req.params;
+
+  // 닉네임중복검사
+  if(previousNickname !== nickname){
+    const exUserNick = await db.users.findOne({ where: { nickname } });
+    if (exUserNick) {
+      return res.redirect(`http://localhost:8080/app.html#/user/update/${previousNickname}?error=nicknameOverlap`);
+    }
+  }
+
+  let tempMonth = month;
+  let tempDay = day;
+  if (month < 10) {
+    tempMonth = `0${month}`
+  }
+  if (day < 10) {
+    tempDay = `0${day}`
+  }
+  const birth = `${year}-${tempMonth}-${tempDay}`
+  const phonenumber = `${phoneNumber1}-${phoneNumber2}-${phoneNumber3}`
+
+  await db.users.update(
+    {
+      id,
+      nickname,
+      birth,
+      gender: (gender === "male" ? "T" : "F"),
+      phonenumber,
+      quote
+    },
+    {
+      where: { userid },
+    }
+  );
+
+  // niackname쿠키 변경
+  res.cookie("login_nickName", nickname, { httpOnly: false })
+
+  res.redirect(`http://localhost:8080/app.html#/user/${nickname}`);
+})
+
 // 유저 세부내용 전달
 router.get('/:nickname', async function (req, res) {
   const { nickname } = req.params;
 
   const data = await db.users.findOne({ where: { nickname } })
+  
+  // 존재하지않는유저를 찾는경우
+  if(!data){
+    return res.status(500).send("Not Found User");
+  }
 
   return res.send(data);
 });
@@ -55,39 +104,7 @@ router.post('/password/update/:nickname', async function (req, res) {
   res.clearCookie("access_token");
   res.clearCookie("login_nickName");
 
-  return res.redirect(`http://localhost:8080/app.html#/pages/main?state=passwordChangeSuccess`);
+  return res.redirect(`http://localhost:8080/app.html#/home?state=passwordChangeSuccess`);
 });
-
-// 유저정보수정
-router.post('/', async (req, res) => {
-  const { userid, id, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
-
-  let tempMonth = month;
-  let tempDay = day;
-  if (month < 10) {
-    tempMonth = `0${month}`
-  }
-  if (day < 10) {
-    tempDay = `0${day}`
-  }
-  const birth = `${year}-${tempMonth}-${tempDay}`
-  const phonenumber = `${phoneNumber1}-${phoneNumber2}-${phoneNumber3}`
-
-  await db.users.update(
-    {
-      id,
-      nickname,
-      birth,
-      gender: (gender === "male" ? "T" : "F"),
-      phonenumber,
-      quote
-    },
-    {
-      where: { userid },
-    }
-  );
-
-  res.redirect(`http://localhost:8080/app.html#/user/${nickname}`);
-})
 
 module.exports = router;

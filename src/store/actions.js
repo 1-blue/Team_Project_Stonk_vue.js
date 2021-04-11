@@ -19,9 +19,9 @@ export default{
       console.error(err);
     }
   },
-  async FETCH_POST(context, title){
+  async FETCH_POST(context, postid){
     try{
-      let data = await fetchPost(title);
+      let data = await fetchPost(postid);
       context.commit('SET_POST', data);
       return Promise.resolve('success');
     }catch(err){

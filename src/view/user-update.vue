@@ -1,11 +1,17 @@
 <template>
   <div>
+    <h1 v-if="error === 'nicknameOverlap'" class="error__message">
+      이미 가입된 닉네임이 존재합니다.
+    </h1>
+
     <!-- 유저 권한 확인 -->
     <section v-if="isMyInformationPage">
-        <form action="api/user" method="post" class="user__information__form">
+        <form :action="`api/user/${user.nickname.trim()}`" method="post" class="user__information__form">
+          <h1 class="form__title">회원정보변경</h1>
+
           <ul class="user__gird__container">
             <!-- 유저식별자 -->
-            <li>
+            <li style="padding: 0;">
               <input type="hidden" name="userid" :value="user.userid" size=15 required />
             </li>
 
@@ -107,7 +113,9 @@ export default {
 		},
   },
   computed: {
-
+    error(){
+      return this.$route.query.error;
+    }
   },
   async created(){
     if(this.isMyInformationPage){
@@ -123,6 +131,9 @@ export default {
       
       // 폰번호
       this.defaultPhoneNumber = this.user.phonenumber.split("-");
+      this.defaultPhoneNumber.forEach((v, i) => {
+        this.defaultPhoneNumber[i] = v.trim();
+      })
 
       // 자기소개
       this.defaultQuote = this.user.quote.trim();
@@ -171,6 +182,24 @@ export default {
     color: blue;
   }
 
+  @keyframes errorMessage{
+    80%{
+      transform: scale(1.3, 1.3);
+    }
+    to{
+      transform: scale(1, 1);
+    }
+  }
+
+  .error__message{
+    position: absolute;
+    font-size: 2rem;
+    top: 10%;
+    right: 30%;
+    transform: scale(0, 0);
+    animation: errorMessage 2s forwards ease-in-out;
+  }
+
   .button{
     margin: 40px 0px;
   }
@@ -183,6 +212,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .form__title{
+    margin: 2vh 0 0 0;
+    font-size: 2rem;
   }
 
   .user__gird__container{

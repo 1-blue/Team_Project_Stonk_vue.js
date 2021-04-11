@@ -5,32 +5,31 @@
 			<p>{{ error.error }}</p>
 		</template>
 
-    <section v-if="isSignOut" id="sign-out-message">
-      <h1>회원탈퇴가 완료되었습니다.</h1>
-      <a href="http://localhost:8080/app.html#/pages/main">메인페이지로 돌아가기</a>
-    </section>
-
-    <template v-else>
-      <section class="user-information-table">
+    <div v-else class="user">
+      <section class="user__information__container">
         <h1>{{ user.nickname }}님의 정보</h1>
-        <ul class="user-information">
+        <ul class="user__information">
           <li>닉네임 : {{ user.nickname }}</li>
           <li>생일 : {{ user.birth }}</li>
           <li>성별 : {{ getGender }}</li>
           <li>폰번호 : {{ user.phonenumber }}</li>
           <li>가입날짜 : {{ user.createdAt }}</li>
           <li>인사말 : {{ user.quote }}</li>
-          <li>이미지 : 일단없음 </li>
         </ul>
         <section v-if="isMyInformationPage">
-          <ul class="user-change-information">
+          <ul class="user__change__information">
             <li><router-link :to="passwordUpdateUrl">비밀번호수정</router-link></li>
             <li><router-link :to="updateUrl">회원정보수정</router-link></li>
             <li><button @click="signOut">회원탈퇴</button></li>
           </ul>
         </section>
       </section>
-		</template>
+		</div>
+
+    <section v-if="isSignOut" id="sign__out__message">
+      <h1>회원탈퇴가 완료되었습니다.</h1>
+      <a href="http://localhost:8080/app.html#/main">메인페이지로 돌아가기</a>
+    </section>
   </div>
 </template>
 
@@ -66,7 +65,7 @@ export default {
     },
     isMyInformationPage(){
 			const nickname = this.$cookies.get("login_nickName");
-      return this.user.nickname === nickname;
+      return this.user.nickname.trim() === nickname.trim();
 		},
     updateUrl(){
       return `/user/update/${this.user.nickname}`
@@ -92,7 +91,7 @@ export default {
     list-style: none;
   }
   h1{
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 3vh 0;
     padding: 0;
   }
@@ -105,45 +104,52 @@ export default {
   }
   button{
     border: 0;
-    background: lightsteelblue;
+    background: none;
     color: lightyellow;
     font-size: 1rem;
     cursor: pointer;
   }
-  #sign-out-message{
+  .user{
     display: flex;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    font-size: 3vw;
   }
-  .user-information-table{
-    background: lightsteelblue;
-    border-radius: 20px;
+  .user__information__container{
+    background: linear-gradient(to bottom, #034082, #148dfc ,#6beee3);
+    border-radius: 1rem;
+    box-shadow: 0px 0px 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     text-align: center;
-    width: 40%;
+    min-width: 400px;
+    height: 50vh;
   }
-  .user-information{
+  .user__information{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-left: 10%;
     margin-bottom: 2vh;
   }
-  .user-information > li{
+  .user__information > li{
     padding-bottom: 1vh;
   }
-  .user-change-information{
+  .user__change__information{
     display: flex;
     justify-content: center;
     margin: 2vh 0;
   }
-  .user-change-information > li{
+  .user__change__information > li{
     margin: 0 1vw;
   }
-  .user-change-information > li > a:hover, .user-change-information > li > button:hover{
+  .user__change__information > li > a:hover, .user__change__information > li > button:hover{
     color: mediumblue;
   }
-
+  #sign__out__message{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 3vw;
+  }
 </style>

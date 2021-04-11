@@ -24,7 +24,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
 
   // 패스워드중복체크
   if (pw !== passwordCheck) {
-    return res.redirect("http://localhost:8080/app.html#/pages/register?error=passwordError");
+    return res.redirect("http://localhost:8080/app.html#/register?error=passwordError");
   }
 
   //pw암호화
@@ -41,7 +41,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
     profileimage: "profileImage TEST"
   });
 
-  return res.redirect("http://localhost:8080/app.html#/pages/main");
+  return res.redirect("http://localhost:8080/app.html#/main");
 });
 
 // login
@@ -71,7 +71,7 @@ router.post('/login', async function (req, res) {
     }
   }
 
-  return res.redirect("http://localhost:8080/app.html#/pages/main?state=loginFail");
+  return res.redirect("http://localhost:8080/app.html#/main?state=loginFail");
 });
 
 // logout
@@ -79,7 +79,7 @@ router.get("/logout", function (req, res) {
   res.clearCookie("access_token");
   res.clearCookie("login_nickName");
 
-  res.redirect("/app.html#/pages/main")
+  res.redirect("/app.html#/main")
 })
 
 // sign out

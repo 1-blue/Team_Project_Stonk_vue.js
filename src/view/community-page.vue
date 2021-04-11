@@ -115,7 +115,7 @@ export default {
 		// 자신의 게시글 삭제, 업데이트기능부여
 		onLoginUser(nickname){
 			if(this.isLogin){
-				return this.$cookies.get("login_nickName") === nickname;
+				return this.$cookies.get("login_nickName").trim() === nickname.trim();
 			}
 			return false;
 		},
