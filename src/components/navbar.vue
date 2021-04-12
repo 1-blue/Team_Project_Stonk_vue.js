@@ -16,7 +16,7 @@
 				<li><router-link to="/register" class="link register__link">회원가입</router-link></li>
 			</div>
 			<div v-else class="responsive__flex__direction">
-				<li><router-link to="/home" @click.native="onLogout" class="link logout__link">로그아웃</router-link></li>
+				<li><router-link to="/home/#" @click.native="onLogout" class="link logout__link">로그아웃</router-link></li>
 				<li><router-link :to="myInfoPage" class="link my__information__link">내 정보</router-link></li>
 			</div>
 			
@@ -176,8 +176,8 @@ export default {
 		top: 0px;
 		left: 0px;
     width: 100%;
-    height: 60px;
-		z-index: 2;
+    height: 3rem;
+		z-index: 9999;
   	transition: top 0.3s;
 	}
 

@@ -41,7 +41,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
     profileimage: "profileImage TEST"
   });
 
-  return res.redirect("http://localhost:8080/app.html#/main");
+  return res.redirect("http://localhost:8080/app.html#/home");
 });
 
 // login
@@ -71,7 +71,7 @@ router.post('/login', async function (req, res) {
     }
   }
 
-  return res.redirect("http://localhost:8080/app.html#/main?state=loginFail");
+  return res.redirect("http://localhost:8080/app.html#/home?state=loginFail");
 });
 
 // logout

@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import homePage from '../view/home-page.vue';
-import communityPage from '../view/community-page.vue';
-import pricePage from '../view/price-page.vue';
-import registerPage from '../view/register-page.vue';
-import postPage from '../view/post-page.vue';
-import userPage from '../view/user-page.vue';
-import postAppendPage from '../components/post-append-page.vue';
-import userUpdate from '../view/user-update.vue';
-import userPasswordUpdate from '../view/user-password-update.vue';
+import homePage from '../components/views/home-page.vue';
+import communityPage from '../components/views/community-page.vue';
+import pricePage from '../components/views/price-page.vue';
+import registerPage from '../components/views/register-page.vue';
+import postPage from '../components/views/post-page.vue';
+import userPage from '../components/views/user-page.vue';
+import postAppendPage from '../components/views/post-append-page.vue';
+import userUpdate from '../components/views/user-update.vue';
+import userPasswordUpdate from '../components/views/user-password-update.vue';
 
 Vue.use(VueRouter);
 

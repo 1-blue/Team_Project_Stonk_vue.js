@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import searchBox from '../components/common/search-box.vue';
-import { fetchDeletePost } from '../api/fetch.js';
+import searchBox from '../common/search-box.vue';
+import { fetchDeletePost } from '../../api/fetch.js';
 
 export default {
 	components: {

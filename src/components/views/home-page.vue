@@ -2,7 +2,7 @@
 	<main>
 		<!-- 메인로고 -->
 		<section id="main-logo" class="shadow" style="background: rgb(0 0 0 / 0%)">
-			<img src="../assets/main_logo.png"/>
+			<img src="../../assets/main_logo.png"/>
 		</section>
 
 		<!-- 이미지슬라이드 -->
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Carousel from "../components/Carousel.vue";
+import Carousel from "../Carousel.vue";
 
 export default {
   components: { Carousel },

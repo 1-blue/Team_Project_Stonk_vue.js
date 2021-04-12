@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { fetchSignOut } from '../api/fetch.js';
+import { fetchSignOut } from '../../api/fetch.js';
 
 export default {
   data(){

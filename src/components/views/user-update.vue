@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { fetchUser } from '../api/fetch.js';
+import { fetchUser } from '../../api/fetch.js';
 
 export default {
   data(){

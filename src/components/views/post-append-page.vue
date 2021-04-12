@@ -3,117 +3,125 @@
     <h1 v-show="error" class="error__message">
       공백을 제외하고 제목을 반드시 입력해주세요 (맨앞뒤의 공백은 제거됩니다.)
     </h1>
-    <div class="title__box">
-      <label for="title" class="label__title">제목</label>
-      <input type="text" name="title" id="title" v-model="inputTitle" placeholder="제목을 입력하세요" />
-    </div>
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-      <div class="menubar">
-         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.bold() }"
-          @click="commands.bold"
-        >
-          <i class="fa fa-bold"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.italic() }"
-          @click="commands.italic"
-        >
-          <i class="fa fa-italic"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.strike() }"
-          @click="commands.strike"
-        >
-          <i class="fa fa-strikethrough"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.underline() }"
-          @click="commands.underline"
-        >
-          <i class="fa fa-underline"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.paragraph() }"
-          @click="commands.paragraph"
-        >
-          <i class="fa fa-paragraph"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-          @click="commands.heading({ level: 1 })"
-        >
-          H1
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-          @click="commands.heading({ level: 2 })"
-        >
-          H2
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-          @click="commands.heading({ level: 3 })"
-        >
-          H3
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.bullet_list() }"
-          @click="commands.bullet_list"
-        >
-          <i class="fa fa-list-ul"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.ordered_list() }"
-          @click="commands.ordered_list"
-        >
-          <i class="fa fa-list-ol"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.blockquote() }"
-          @click="commands.blockquote"
-        >
-          <i class="fa fa-quote-right"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          @click="commands.undo"
-        >
-          <i class="fa fa-undo"></i>
-        </button>
-
-        <button
-          class="menubar__button"
-          @click="commands.redo"
-        >
-          <i class="fa fa-redo"></i>
-        </button>
+    <div>
+      <!-- 타이틀박스 -->
+      <div class="title__box">
+        <label for="title" class="label__title">제목</label>
+        <input type="text" name="title" id="title" v-model="inputTitle" placeholder="제목을 입력하세요" />
       </div>
-    </editor-menu-bar>
 
-    <editor-content class="editor__content" id="content" :editor="editor" />
+      <!-- 에디터 -->
+      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+        <div class="menubar">
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.bold() }"
+            @click="commands.bold"
+          >
+            <i class="fa fa-bold"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.italic() }"
+            @click="commands.italic"
+          >
+            <i class="fa fa-italic"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.strike() }"
+            @click="commands.strike"
+          >
+            <i class="fa fa-strikethrough"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.underline() }"
+            @click="commands.underline"
+          >
+            <i class="fa fa-underline"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.paragraph() }"
+            @click="commands.paragraph"
+          >
+            <i class="fa fa-paragraph"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+            @click="commands.heading({ level: 1 })"
+          >
+            H1
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+            @click="commands.heading({ level: 2 })"
+          >
+            H2
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+            @click="commands.heading({ level: 3 })"
+          >
+            H3
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.bullet_list() }"
+            @click="commands.bullet_list"
+          >
+            <i class="fa fa-list-ul"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.ordered_list() }"
+            @click="commands.ordered_list"
+          >
+            <i class="fa fa-list-ol"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            :class="{ 'is-active': isActive.blockquote() }"
+            @click="commands.blockquote"
+          >
+            <i class="fa fa-quote-right"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            @click="commands.undo"
+          >
+            <i class="fa fa-undo"></i>
+          </button>
+
+          <button
+            class="menubar__button"
+            @click="commands.redo"
+          >
+            <i class="fa fa-redo"></i>
+          </button>
+        </div>
+      </editor-menu-bar>
+
+      <!-- 인풋박스 -->
+      <editor-content class="editor__content" id="content" :editor="editor" />
+    </div>
+
+    <!-- 버튼 -->
     <button type="submit" v-on:click="sendPost" class="upload__button">
       <span class="upload__button__text" v-if="this.postData">
         업데이트
@@ -144,7 +152,7 @@ import {
   History,
   Image,
 } from 'tiptap-extensions'
-import { fetchPost } from '../api/fetch.js';
+import { fetchPost } from '../../api/fetch.js';
 export default {
   components: {
     EditorContent,
@@ -258,6 +266,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  min-height: 50vh;
 }
 .error__message{
   font-size: 1rem;
@@ -282,6 +292,8 @@ export default {
   max-width: 100%;
 }
 .menubar{
+  display: flex;
+  justify-content: center;
   margin: 3vh 0;
 }
 .menubar__button{
@@ -302,12 +314,12 @@ export default {
   position: relative;
   width: 150px;
   height: 75px;
-  border: 1px solid plum;
+  border: 1px solid black;
   border-radius: 10%;
   background: white;
   cursor: pointer;
   overflow: hidden;
-  margin: 5%;
+  margin: 5% 0 0;
 }
 .upload__button::after{
   content: "";
@@ -316,7 +328,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: plum;
+  background-color: black;
   transform: scale(0, 1);
   transition: all 0.35s;
 }
@@ -326,7 +338,7 @@ export default {
 .upload__button__text{
   position: relative;
   z-index: 2;
-  color: plum;
+  color: black;
   transition: all 0.35s;
   font-weight: bold;
   font-size: 1.5rem;

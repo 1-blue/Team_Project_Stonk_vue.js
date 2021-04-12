@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import searchBox from '../components/common/search-box.vue';
+import searchBox from '../common/search-box.vue';
 
 export default {	
 	components: {
