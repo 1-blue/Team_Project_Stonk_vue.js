@@ -49,6 +49,9 @@ export default {
   },
   computed: {
     getPlaceHolder(){
+      if(this.placeholder === "아이템검색"){
+        return this.placeholder;
+      }
       if(this.target === 'post'){
         return "게시글검색";
       }

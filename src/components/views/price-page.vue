@@ -160,11 +160,11 @@ export default {
 		}
 	},
 	async created(){
-		// 5분에 한번씩 데이터만 새로고침
+		// 5초에 한번씩 데이터만 새로고침
 		this.reloadTimerId = setInterval(async () => {
 			await this.$store.dispatch('FETCH_ITEMS');
 			this.items = this.fetchItems;
-		}, 1000 * 60 * 5);
+		}, 5000);
 		await this.$store.dispatch('FETCH_ITEMS');
 
 		this.items = this.fetchItems;
@@ -192,21 +192,22 @@ export default {
 	/* 테이블제목들이랑 아이템들 정렬을 위해 값적용 */
 	#table-header, #items{
 		display: flex;
-		flex-direction: row;	/* 아이템방향 */
-		flex-wrap: nowrap;		/* 아이템 넘치면 크기줄이기 */
-		/* flex-flow: dir wrap; 로 축약가능 */
 		justify-content: flex-start;
 	}
 
 	/* 테이블제목 색지정 */
 	#table-header > div{
-		background: gray;
+		background: rgb(66, 66, 66);
+	}
+
+	#table-header .table-gride {
+		color: whitesmoke;
 	}
 
 	/* 테이블 각 요소마다 간격등의 값지정 */
 	.table-gride{
 		height: 60px;
-		border: 1px solid white;
+		border: 1px solid #816666;
 		text-align: center;
 		line-height: 60px;
 		background-color: lightgray;
@@ -214,7 +215,7 @@ export default {
 	
 	/* 테이블에 마우스 올렸을때 한라인 색변화 */
 	#items:hover > .table-gride{
-		background: lightslategray;
+		background: white;
 	}
 
 	/* 이미지grid값적용 */
@@ -248,7 +249,7 @@ export default {
 	.icon-2{
 		position: absolute;
 		right: 34px;
-		top: px
+		top: 0px
 	}
 
 	/* 정렬버튼 */
