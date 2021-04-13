@@ -3,6 +3,23 @@ const jwtDecode = require("jwt-decode");
 const db = require('../models/index');
 require('dotenv').config();
 
+// 로그인한 유저아이디 가져오기
+exports.getUserId = (req, res) => {
+  try {
+    const { access_token } = req.cookies;
+    const checkToken = jwt.verify(access_token, process.env.JWT_SECRET_KEY)
+
+    if (checkToken) {
+      const decoded = jwtDecode(access_token);
+      return decoded.id;
+    } else {
+      res.send("정상적이지 않은 회원입니다.")
+    }
+  } catch (error) {
+    res.send(`로그인후에 시도해주세요, ${error}`);
+  }
+};
+
 // 로그인체크미들웨어
 exports.isLoggedIn = (req, res, next) => {
   // 토큰가져와서

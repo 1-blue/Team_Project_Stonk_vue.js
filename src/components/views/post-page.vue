@@ -52,6 +52,7 @@
         </li>
       </ul>
 
+      <comment />
 
     </section>
   </div>
@@ -59,8 +60,12 @@
 
 <script>
 import { fetchDeletePost } from '../../api/fetch.js';
+import comment from './comment.vue';
 
 export default {
+  components: {
+    comment,
+  },
   data(){
     return{
       error: "",

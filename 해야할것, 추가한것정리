@@ -3,7 +3,11 @@ post, user들어갈 때 경고뜨는거 해결
 1. 전체적으로 css부족한 부분 수정해야함
 2. css id or class명 통일해야할것같음 (구분기호 __ 로 통일하려고 생각중임)
 3. 커뮤니티나 다른것들 해당페이지일경우 .router-link-active 생성되가지고 router표시되는데 communuty/1같은경우에는 .router-link-active클래스가 사라져서 어느페이지 들어갔는지 표시가 사라짐
-
+4. 댓글, 대댓글 시간순 정렬하고
+5. 댓글 delete기능 필요
+6. 댓글 css 필요 (나머지 기능구현먼저하고 나중에 추가할생각)
+7. DB넣고 빼기전에 모두 trim()하기 (이유는모르겠는데 자꾸 공백이 들어감;)
+8. DB column 이름 규칙정하고 다시만들고싶음
 
 ====================추가할것======================
 0. 회원가입 이미지받기
@@ -37,14 +41,8 @@ post, user들어갈 때 경고뜨는거 해결
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 
 =====================추가한거======================
-업데이트날짜순정렬 구현
-DB에 posts에서 원래 존재했던 createddate를 datatime으로 변경하고 datatime char(30)으로만들었어요
-( Date.now()를 받는데 date같은 시간타입으로 받으니까 자동으로 2020-12-12요론식으로만들어버려가지고 시간비교가안되가지고 변경하고 화면에 뿌려주기전에 정렬하고 뿌려주게했어여 )
-그리고 기존에 createddate는 sequelize가 자동으로 입력해주게 timestamp: true해가지고 추가 변경시 자동으로 createdAt, updatedAt 생성되게 만들어놨습니당
-
-community post 10개기준으로 분리 (showPostNumber변수 수정시 현 페이지에서 보여줄 포스트 개수 조절가능)
-community는 디자인 이정도면 저는 괜찮다고 생각해가지구 여기까지 하려는데 어떠신가요..?
-현재 community페이지 밑에 페이지 숫자로 구분가능하게 만들었음
+댓글, 대댓글기능 추가
+DB, models, associate comments 수정
 
 
 ==해야할것

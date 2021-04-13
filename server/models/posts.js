@@ -46,6 +46,8 @@ module.exports = function(sequelize, DataTypes) {
 
   posts.associate = (models) => {
     posts.belongsTo(models.users, { foreignKey: "id", targetKey: "id" });
+
+    posts.hasMany(models.comments, { foreignKey: "postid", targetKey: "id" });
   }
 
   return posts;

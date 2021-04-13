@@ -52,6 +52,12 @@ async function fetchSignOut(nickname) {
     }
 }
 
+async function fetchComments(postId) {
+    let data = await axios.get(`api/comment/${postId}`);
+    return data.data;
+}
+
+
 export {
     fetchItems,
     fetchCommunity,
@@ -59,5 +65,6 @@ export {
     fetchUser,
     fetchDeletePost,
     fetchLogout,
-    fetchSignOut
+    fetchSignOut,
+    fetchComments
 }
