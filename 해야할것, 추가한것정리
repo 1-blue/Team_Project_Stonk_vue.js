@@ -47,10 +47,6 @@ community는 디자인 이정도면 저는 괜찮다고 생각해가지구 여�
 현재 community페이지 밑에 페이지 숫자로 구분가능하게 만들었음
 
 
-==해야할것
-auth 미들웨어 완성
-
-
 ==0403 전달사항
 nickName을 httpOnly를 풀고 그냥 쿠키로 설정해서 쏴주게 만듬
 결과적으로 access_token(httpOnly: true), login_nickName(httpOnly: false) 2개 쿠키가 전송됨
@@ -62,8 +58,25 @@ vuex통해서 쿠키 날리고 로그인 되어있을때 로그아웃 뜨고 메
 오늘은 지쳐서 이만 퇴근
 
 
+==0408 전달사항
+11개 품목
+api 서버에서 가져오는거 작업중
 
+아이템                     매핑할 가격
+parsnip": 300,          ㅁ 참외 222
+parsnipSeed": 10,       ㅁ 참외 222/10(가격/10)
+cauliflower": 100,      ㅁ 양배추 212
+cauliflowerSeed": 5,    ㅁ 양배추 212/10
+strawberry": 500,       ㅁ 딸기 226
+strawberrySeed": 50     ㅁ 딸기 226/10
+seeds": 20,             ㅁ 콩 141
+icecream": 150,         ㅁ 깐마늘256
+survivalHamburger": 80, ㅁ 호두 318
+friedEgg": 50,          ㅁ 아몬드 319
+cheeseCauliflower": 30 }ㅁ 파인애플 420
 
+아 kamis 킹받는다
+아
 
 
 

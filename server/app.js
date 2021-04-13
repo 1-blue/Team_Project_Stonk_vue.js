@@ -1,8 +1,8 @@
-const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+
+const cornJob = require("node-cron");
 
 const indexRouter = require('./routes/index');
 const priceRouter = require('./routes/price.js');
@@ -10,6 +10,23 @@ const authRouter = require('./routes/auth.js');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const app = express();
+
+const apiDataGetter = require('./kamisDataGetter/getData')
+
+cornJob.schedule("0,30 * * * *", async function() {
+  console.log("Croned job: Get data from KAMIS")
+  const itemArray = ["222", "212", "226","141","256","318","319","420"]
+  try {
+    itemArray.forEach(async (element) => {
+      // const data = await apiDataGetter(element)
+      // console.log(data.data.data.item[0]);
+    });
+  } catch (error) {
+    console.log("error")
+  }
+
+
+})
 
 
 app.use(logger('dev'));
