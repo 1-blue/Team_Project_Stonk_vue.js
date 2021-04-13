@@ -1,44 +1,37 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('comments', {
-    memoid: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    parentpostid: {
-      type: DataTypes.INTEGER,
+  const comments = sequelize.define('comments', {
+    comment: {
+      type: Sequelize.STRING(50),
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'posts',
-        key: 'postid'
-      }
     },
-    id: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    contents: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    createddate: {
-      type: DataTypes.STRING(100),
-      allowNull: false
+    datetime: {
+      type: Sequelize.STRING(30),
+      allowNull: false,
     }
   }, {
     sequelize,
     tableName: 'comments',
     schema: 'public',
-    timestamps: false,
-    indexes: [
-      {
-        name: "memos_pkey",
-        unique: true,
-        fields: [
-          { name: "parentpostid" },
-        ]
-      },
-    ]
+    timestamps: true,
+    // indexes: [
+    //   {
+    //     name: "posts_pkey",
+    //     unique: true,
+    //     fields: [
+    //       { name: "postid" },
+    //     ]
+    //   },
+    // ]
   });
+
+  comments.associate = (models) => {
+    comments.belongsTo(models.users, { foreignKey: "userid", targetKey: "id" });
+
+    comments.belongsTo(models.posts, { foreignKey: "postid", targetKey: "id" });
+
+    comments.hasMany(models.comments, { foreignKey: "commentid", targetKey: "id" });
+  }
+
+  return comments;
 };

@@ -9,6 +9,7 @@ const priceRouter = require('./routes/price.js');
 const authRouter = require('./routes/auth.js');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
+const commentRouter = require('./routes/comment.js');
 const app = express();
 
 const apiDataGetter = require('./kamisDataGetter/getData')
@@ -39,6 +40,7 @@ app.use('/api/price', priceRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
 app.use('/api/user', userRouter);
+app.use('/api/comment', commentRouter);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
