@@ -6,7 +6,24 @@ const { getUserId } = require('../middlewares/middleware.js');
 router.get('/:postid', async (req, res) => {
   const { postid } = req.params;
 
+  // 포스트에 참조된 댓글모두 찾기
+  // 댓글에 참조된 유저의 닉네임 가져오기
   const comments = await db.comments.findAll({ where: { postid } });
+
+  let temp = [];
+  let idx = 0;
+
+  for(const comment of comments){
+    temp.push(await db.users.findAll({ 
+      where: { id: comment.userid },
+      attributes: ['nickname']
+    }));
+  }
+
+  for(const value of temp){
+    comments[idx].dataValues.nickname = value[0].dataValues.nickname;
+    idx++;
+  }
 
   res.json(comments);
 });
@@ -24,7 +41,7 @@ router.post('/', async (req, res) => {
     postid,
   });
 
-  res.redirect(`http://localhost:8080/app.html#/post/${postid}`);
+  res.redirect(`/app.html#/post/${postid}`);
 });
 
 // 대댓글 등록
@@ -41,7 +58,7 @@ router.post('/reComment', async (req, res) => {
     commentid
   });
 
-  res.redirect(`http://localhost:8080/app.html#/post/${postid}`);
+  res.redirect(`/app.html#/post/${postid}`);
 });
 
 module.exports = router;

@@ -3,15 +3,14 @@ const db = require('../models/index');
 const bcrypt = require('bcrypt');
 
 // 유저정보수정
-router.post('/:previousNickname', async (req, res) => {
-  const { userid, id, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
-  const { previousNickname } = req.params;
+router.post('/', async (req, res) => {
+  const { userid, previousNickname, id, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
 
   // 닉네임중복검사
   if(previousNickname !== nickname){
     const exUserNick = await db.users.findOne({ where: { nickname } });
     if (exUserNick) {
-      return res.redirect(`http://localhost:8080/app.html#/user/update/${previousNickname}?error=nicknameOverlap`);
+      return res.redirect(`/app.html#/user/update/${previousNickname}?error=nicknameOverlap`);
     }
   }
 
@@ -43,7 +42,7 @@ router.post('/:previousNickname', async (req, res) => {
   // niackname쿠키 변경
   res.cookie("login_nickName", nickname, { httpOnly: false })
 
-  res.redirect(`http://localhost:8080/app.html#/user/${nickname}`);
+  res.redirect(`/app.html#/user/${nickname}`);
 })
 
 // 유저 세부내용 전달
@@ -57,7 +56,7 @@ router.get('/:nickname', async function (req, res) {
     return res.status(500).send("Not Found User");
   }
 
-  return res.send(data);
+  return res.json(data);
 });
 
 // 패스워드체크
@@ -74,10 +73,10 @@ router.post('/password/:nickname', async function (req, res) {
   if(await bcrypt.compare(password, user.pw)){
     // 패스워드인증성공시 쿠키전송  페이지 변환할때 사용 (한번쓰고바로삭제)
     res.cookie("password_update", "stonk", { httpOnly: false })
-    return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}`);
+    return res.redirect(`/app.html#/user/update/password/${nickname}`);
   }
   
-  return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}?error=passwordDiscord`)
+  return res.redirect(`/app.html#/user/update/password/${nickname}?error=passwordDiscord`)
 });
 
 // 패스워드변경... form은 get/post말고 다른거 전달하는방법있나..
@@ -86,7 +85,7 @@ router.post('/password/update/:nickname', async function (req, res) {
   const { nickname } = req.params;
 
   if(password !== passwordCheck){
-    return res.redirect(`http://localhost:8080/app.html#/user/update/password/${nickname}?error=notEqual`);
+    return res.redirect(`/app.html#/user/update/password/${nickname}?error=notEqual`);
   }
 
   const hash = await bcrypt.hash(password, 5);
@@ -104,7 +103,7 @@ router.post('/password/update/:nickname', async function (req, res) {
   res.clearCookie("access_token");
   res.clearCookie("login_nickName");
 
-  return res.redirect(`http://localhost:8080/app.html#/home?state=passwordChangeSuccess`);
+  return res.redirect(`/app.html#/home?state=passwordChangeSuccess`);
 });
 
 module.exports = router;

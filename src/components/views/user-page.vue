@@ -5,7 +5,7 @@
 			<p>{{ error.error }}</p>
 		</template>
 
-    <div v-else class="user">
+    <div v-else-if="!isSignOut && !error" class="user">
       <section class="user__information__container">
         <h1>{{ user.nickname }}님의 정보</h1>
         <ul class="user__information">
@@ -28,7 +28,7 @@
 
     <section v-if="isSignOut" id="sign__out__message">
       <h1>회원탈퇴가 완료되었습니다.</h1>
-      <a href="http://localhost:8080/app.html#/main">메인페이지로 돌아가기</a>
+      <a href="/app.html#/home">메인페이지로 돌아가기</a>
     </section>
   </div>
 </template>
@@ -146,10 +146,19 @@ export default {
   .user__change__information > li > a:hover, .user__change__information > li > button:hover{
     color: mediumblue;
   }
+  @keyframes sign__out{
+    70%{
+      transform: scale(1.3, 1.3);
+    }
+    to{
+      transform: scale(1.0, 1.0);
+    }
+  }
   #sign__out__message{
     display: flex;
     align-items: center;
     flex-direction: column;
     font-size: 3vw;
+    animation: sign__out 2s;
   }
 </style>

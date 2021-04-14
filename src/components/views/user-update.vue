@@ -6,13 +6,18 @@
 
     <!-- 유저 권한 확인 -->
     <section v-if="isMyInformationPage">
-        <form :action="`api/user/${user.nickname.trim()}`" method="post" class="user__information__form">
+        <form :action="`api/user`" method="post" class="user__information__form">
           <h1 class="form__title">회원정보변경</h1>
 
           <ul class="user__gird__container">
             <!-- 유저식별자 -->
             <li style="padding: 0;">
-              <input type="hidden" name="userid" :value="user.userid" size=15 required />
+              <input type="hidden" name="userid" :value="user.userid.trim()" size=15 required />
+            </li>
+
+            <!-- 이전 닉네임 -->
+            <li style="padding: 0;">
+              <input type="hidden" name="previousNickname" :value="user.nickname.trim()" size=15 required />
             </li>
 
             <!-- 아이디 -->

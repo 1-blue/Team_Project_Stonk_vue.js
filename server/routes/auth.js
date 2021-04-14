@@ -24,7 +24,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
 
   // 패스워드중복체크
   if (pw !== passwordCheck) {
-    return res.redirect("http://localhost:8080/app.html#/register?error=passwordError");
+    return res.redirect("/app.html#/register?error=passwordError");
   }
 
   //pw암호화
@@ -41,14 +41,14 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
     profileimage: "profileImage TEST"
   });
 
-  return res.redirect("http://localhost:8080/app.html#/home");
+  return res.redirect("/app.html#/home");
 });
 
 // login
 router.post('/login', async function (req, res) {
   const { id, pw } = req.body;
 
-  let currentUser = await db.users.findOne({ where: { id } });
+  const currentUser = await db.users.findOne({ where: { id } });
   if (currentUser) {
     if (await bcrypt.compare(pw, currentUser.pw)) {
       // 쿠키등록
@@ -63,15 +63,15 @@ router.post('/login', async function (req, res) {
           expiresIn: "60m",  // 토큰 유효 기간
           issuer: "stonk" // 발행자
         }
-      )
+      );
 
-      res.cookie("access_token", token, { httpOnly: true })    // httponly수정필요.. 일단이렇게 안하면 vue에서 쿠기를 못읽음
-      res.cookie("login_nickName", currentUser.nickname, { httpOnly: false })
-      return res.redirect('http://localhost:8080/app.html#/home');
+      res.cookie("access_token", token, { httpOnly: true });
+      res.cookie("login_nickName", currentUser.nickname, { httpOnly: false });
+      return res.redirect('/app.html#/home');
     }
   }
 
-  return res.redirect("http://localhost:8080/app.html#/home?state=loginFail");
+  return res.redirect("/app.html#/home?state=loginFail");
 });
 
 // logout
@@ -100,7 +100,23 @@ router.delete("/signOut/:nickname", async function (req, res) {
       attributes: ['postid'],
     });
 
-    // title에 해당하는 post모두삭제
+    // 유저와 연동된 comments의 id 및 대댓글 찾고
+    const comments = await db.comments.findAll({
+      where: { userid: currentUser.id },
+      attributes: ['id', 'commentid'],
+    });
+
+    // 대댓글모두삭제
+    for(const comment of comments){
+      await db.comments.destroy({ where: { commentid: comment.id } })
+    }
+
+    // 댓글모두삭제
+    for(const comment of comments){
+      await db.comments.destroy({ where: { id: comment.id } })
+    }
+
+    // post모두삭제
     for(const post of posts){
       await db.posts.destroy({ where: { postid: post.postid } })
     }
@@ -120,8 +136,5 @@ router.delete("/signOut/:nickname", async function (req, res) {
 
   return res.send("success")
 })
-
-
-
 
 module.exports = router;

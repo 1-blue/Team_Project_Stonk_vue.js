@@ -1,7 +1,7 @@
 <template>
 	<main>
 		<!-- 메인로고 -->
-		<section id="main-logo" class="shadow" style="background: rgb(0 0 0 / 0%)">
+		<section id="main__logo" class="shadow" style="background: rgb(0 0 0 / 0%)">
 			<img src="../../assets/main_logo.png"/>
 		</section>
 
@@ -9,8 +9,8 @@
 		<Carousel :cards="cards" />
 
 		<!-- 게임소개 및 설명 -->
-		<section id="game-info" class="shadow">
-			<h1 class="info-title">STONK</h1>
+		<section id="game__info" class="shadow">
+			<h1 class="gane__info__title">STONK</h1>
 			<h3>안녕하세요{{ getName }}님</h3>
 			<p>이 게임은 스타듀벨리를 모델로 만든 농사경제게임입니다.</p>
 			<p>일단 게임에 대한 설명</p>
@@ -69,12 +69,12 @@ export default {
 		flex-direction: column;
 		align-items: center;
 	}
-	#game-info{
+	#game__info{
 		background: whitesmoke;
 		border-radius: 20px;
 		width: 100%;
 	}
-	.info-title{
+	.gane__info__title{
 		font-size: 100px;
 		text-align: center;
 		margin: 50px;

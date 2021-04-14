@@ -5,7 +5,6 @@ post, user들어갈 때 경고뜨는거 해결
 3. 커뮤니티나 다른것들 해당페이지일경우 .router-link-active 생성되가지고 router표시되는데 communuty/1같은경우에는 .router-link-active클래스가 사라져서 어느페이지 들어갔는지 표시가 사라짐
 4. 댓글, 대댓글 시간순 정렬하고
 5. 댓글 delete기능 필요
-6. 댓글 css 필요 (나머지 기능구현먼저하고 나중에 추가할생각)
 7. DB넣고 빼기전에 모두 trim()하기 (이유는모르겠는데 자꾸 공백이 들어감;)
 8. DB column 이름 규칙정하고 다시만들고싶음
 
@@ -41,8 +40,8 @@ post, user들어갈 때 경고뜨는거 해결
 https://zuminternet.github.io/images/portal/post/2019-07-08-ZUM-Webpack-dev-proxy-part2/dev_spa.png
 
 =====================추가한거======================
-댓글, 대댓글기능 추가
-DB, models, associate comments 수정
+댓글 대댓글 css추가 youtube참고해서 만들었음
+댓글에 필요한 이벤트 추가함
 
 
 ==0403 전달사항

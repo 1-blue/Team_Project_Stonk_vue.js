@@ -7,7 +7,7 @@
 
     <section v-else-if="!post.title" id="error__message">
       <h1>이미 삭제되었거나 존재하지않은 게시글입니다.</h1>
-      <a href="http://localhost:8080/app.html#/pages/community">comunity로 돌아가기</a>
+      <a href="/app.html#/pages/community">comunity로 돌아가기</a>
     </section>
 
     <section v-else class="post__container">
@@ -52,6 +52,9 @@
         </li>
       </ul>
 
+      <hr />
+
+      <!-- 댓글 -->
       <comment />
 
     </section>
