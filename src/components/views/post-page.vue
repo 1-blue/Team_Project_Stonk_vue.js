@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="post__page__container">
     <section v-if="error" id="error__message">
 			<h1>{{ error.message }}</h1>
 			<p>{{ error.error }}</p>
@@ -116,11 +116,17 @@ ul, li {
   list-style: none;
 }
 
+.post__page__container{
+  display: flex;
+  justify-content: center;
+}
+
 .post__container{
+  min-width: 70%;
+  min-height: 50vh;
   background: whitesmoke;
   padding: 1rem;
   border-radius: 1rem;
-  min-height: 50vh;
   box-shadow: 0 0 20px black;
 }
 

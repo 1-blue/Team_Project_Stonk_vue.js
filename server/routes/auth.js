@@ -79,7 +79,7 @@ router.get("/logout", function (req, res) {
   res.clearCookie("access_token");
   res.clearCookie("login_nickName");
 
-  res.redirect("/app.html#/main")
+  res.redirect("/app.html#/home")
 })
 
 // sign out
