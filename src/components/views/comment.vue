@@ -3,9 +3,13 @@
     <form action="/api/comment" method="post" class="form__comment">
       <input type="hidden" name="postid" :value="postId">
 
-      <div>
+      <div v-if="isLoggin">
         <input type="text" name="comment" :placeholder="`공개적으로 댓글을 남길 계정: ${username}`" class="input__comment" v-model="inputComment" >
         <span></span>
+      </div>
+
+      <div v-else>
+        <p>댓글을 입력하려면 로그인하세요</p>
       </div>
 
       <div class="input__comment__focus">
@@ -130,6 +134,9 @@ export default {
     username(){
 			return this.$cookies.get("login_nickName").trim();
 		},
+    isLoggin(){
+      return this.$store.state.isLogin;
+    },
     commentBtnState(){
       return this.inputComment.length !== 0 ? false : true;
     }
@@ -167,6 +174,11 @@ export default {
     const inputFocusCancel = document.querySelector(".input__comment__focus__cancel");
 
     inputFocus.classList.add("unactive");
+
+    // 로그인안했으면 댓글입력창 생략
+    if(!this.isLoggin){
+      return;
+    }
 
     input.addEventListener("focus", () => {
       inputFocus.classList.add("active");

@@ -1,19 +1,25 @@
-// let x = Date.now();
+function fetchItems() {
+  return new Promise(function(resolve, reject) {
+    var items = [1,2,3];
+    resolve(items)
+  });
+}
 
-// function formatDate(date, format) {
-//   const map = {
-//       mm: date.getMonth() + 1,
-//       dd: date.getDate(),
-//       yy: date.getFullYear().toString().slice(-2),
-//       yyyy: date.getFullYear(),
-//       h: date.getUTCHours() + 9,
-//       m: date.getMinutes(),
-//       s: date.getSeconds(),
-//   }
+async function logItems() {
+  var resultItems = await fetchItems();
+  console.log(resultItems);
+  console.log("x");
+  console.log("y");
+  console.log("z");
+  return "success";
+}
 
-//   return format.replace(/mm|dd|yy|yyy|h|m|s/gi, matched => map[matched])
-// }
+async function test() {
+  var resultItems = await logItems();
+  console.log(resultItems);
+  console.log("x1");
+  console.log("y1");
+  console.log("z1");
+}
 
-// let d = new Date(x);
-
-// console.log(formatDate(d, "yyyy-mm-dd-h-m-s"));
+test();

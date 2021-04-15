@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="community__page__container">
 		<!-- 게시글 정보를 못받았을경우 에러메시지 띄워주기 -->
 		<template v-if="error">
 			<h1>{{ error.message }}</h1>
@@ -168,159 +168,178 @@ export default {
 </script>
 
 <style scoped>
-	ul, li{
-		padding: 0px;
-		margin: 0px;
-		list-style: none;
-		display: inline-block;
-	}
-	a{
-		text-decoration: none;
-		color: black;
-		transition: all 0.5s;
-	}
-	#search__append__section{
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin: 0 3vw;
-	}
-	#post__section{
-		width: 100%;
-		height: 100%;
-		border: 2mm ridge rgb(250, 147, 5);
-		background-color: rgb(255, 255, 204);
-		border-radius: 1em;
-	}
-	.post__append__button{
-		float: right;
-		font-weight: bold;
-		font-size: 2.5vw;
-		transition: all 0.5s;
-	}
-	.post__append__button:hover{
-		transition: all 0.5s;
-		color: rgb(0, 238, 255);
-	}
+.community__page__container{
+	--post-append-font-size: 2.5vw;
+	--post-append-hover-font-color: rgb(0, 238, 255);
+	--community-border-color: rgb(250, 147, 5);
+	--community-background-color: rgb(255, 255, 204);
+	--community-padding: 1em;
+	--post-hover-animation-color: snow;
+	--post-decoration-size: 1em;
+	--post-decoration-background-color: #ffffcc;
+	--post-backgrond-color: rgb(255 252 77 / 70%);
+	--post-hover-backgrond-color: grey;
+	--post-title-font-size: 1.5em;
+	--post-title-hover-color: white;
+	--post-icon-hover-color: bisque;
+	--post-user-hover-color: blue;
+	--post-time-font-size: 0.5em;
+	--post-page-link-hover-color: blue;
+}
+
+/* 기본 css수정 */
+ul, li{
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	display: inline-block;
+}
+a{
+	text-decoration: none;
+	color: black;
+	transition: all 0.5s;
+}
+
+/*  */
+#search__append__section{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin: 0 3vw;
+}
+#post__section{
+	width: 100%;
+	height: 100%;
+	border: 2mm ridge var(--community-border-color);
+	background-color: var(--community-background-color);
+	border-radius: 1em;
+}
+.post__append__button{
+	float: right;
+	font-weight: bold;
+	font-size: var(--post-append-font-size);
+	transition: all 0.5s;
+}
+.post__append__button:hover{
+	transition: all 0.5s;
+	color: var(--post-append-hover-font-color);
+}
+.post__container{
+	padding: var(--community-padding);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: minmax(30vh, auto);
+	gap: 2vh 2vw;
+}
+.posts{
+	position: relative;
+}
+.posts > span{
+	display: block;
+	position: absolute;
+	transition: all 0.5s;
+	z-index: 2;
+	background: var(--post-hover-animation-color);
+}
+/* 요거 마우스올라갔을때 상하좌우에 효과를 위해 사용 */
+.posts > span:nth-child(1){ top: 0; left: 0; height: 5px; width: 0; }
+.posts > span:nth-child(2){ top: 0; right: 0; height: 0; width: 5px; }
+.posts > span:nth-child(3){ bottom: 0; right: 0; height: 5px; width: 0; }
+.posts > span:nth-child(4){ bottom: 0; left: 0; height: 0; width: 5px; }
+.posts:hover > span:nth-child(1) { width: 100%; }
+.posts:hover > span:nth-child(2) { height: 100%; }
+.posts:hover > span:nth-child(3) { width: 100%; }
+.posts:hover > span:nth-child(4) { height: 100%; }
+.posts > span:nth-child(5) {
+	top: 10px;
+	left: 10px;
+	width: var(--post-decoration-size);
+	height: var(--post-decoration-size);
+	background-color: var(--post-decoration-background-color);
+	border-radius: 100%;
+	box-shadow: 0px 0px 5px;
+	z-index: 0;
+}
+.post{
+	width: 100%;
+	height: 100%;
+}
+.post__inner{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	background: var(--post-backgrond-color);
+	height: inherit;
+	transition: all 0.5s;
+	padding: 0 1em;
+	box-shadow: 5px 5px 5px gray;
+}
+.post__inner:hover{
+	opacity: 0.8;
+	background: var(--post-hover-backgrond-color);
+}
+.post__title{
+	font-size: var(--post-title-font-size);
+	font-weight: bold;
+	padding-top: 1em;
+}
+.post__title__link:hover{
+	color: var(--post-title-hover-color);
+	transition: all 0.5s;
+}
+.icon{
+	margin-bottom: 1vh;
+}
+.icon:hover{
+	color: var(--post-icon-hover-color);
+	transition: all 0.5s;
+}
+.post__user:hover{
+	color: var(--post-user-hover-color);
+	transition: all 0.5s;
+}
+.post__time__ago{
+	font-size: var(--post-time-font-size);
+}
+.post__additional__logic{
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: flex-end;
+}
+.post__update__delete__button{
+	display: flex;
+	flex-direction: column;
+	margin: 0 2vw;
+}
+.post__information{
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 0.5em;
+}
+.post__delete__icon{
+	cursor: pointer;
+}
+.page__router{
+	display: flex;
+	justify-content: center;
+}
+.page__router > li {
+	margin: 1vw;
+}
+.router-link-active{
+	color: var(--post-page-link-hover-color);
+	text-decoration: underline;
+	font-weight: bold;
+}
+.router-link-active:hover{
+	color: var(--post-page-link-hover-color);
+}
+@media screen and (max-width: 768px){
 	.post__container{
-		margin: 1em 1em;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-auto-rows: minmax(30vh, auto);
-		gap: 2vh 2vw;
+		grid-template-columns: repeat(2, 1fr);
 	}
-	.posts{
-		position: relative;
-	}
-	.posts > span{
-		display: block;
-		position: absolute;
-		transition: all 0.5s;
-		z-index: 2;
-		background: snow;
-	}
-	/* 요거 마우스올라갔을때 상하좌우에 효과를 위해 사용 */
-	.posts > span:nth-child(1){ top: 0; left: 0; height: 5px; width: 0; }
-	.posts > span:nth-child(2){ top: 0; right: 0; height: 0; width: 5px; }
-	.posts > span:nth-child(3){ bottom: 0; right: 0; height: 5px; width: 0; }
-	.posts > span:nth-child(4){ bottom: 0; left: 0; height: 0; width: 5px; }
-	.posts:hover > span:nth-child(1) { width: 100%; }
-	.posts:hover > span:nth-child(2) { height: 100%; }
-	.posts:hover > span:nth-child(3) { width: 100%; }
-	.posts:hover > span:nth-child(4) { height: 100%; }
-
-	.posts > span:nth-child(5) {
-		top: 10px; left: 10px;
-		width: 1em;
-		height: 1em;
-		background-color: #ffffcc;
-		border-radius: 100%;
-		box-shadow: 0px 0px 5px;
-		z-index: 0;
-	}
-
-	.post{
-		width: 100%;
-		height: 100%;
-	}
-
-	.post__inner{
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		background: rgb(255 252 77 / 70%);
-		height: inherit;
-		transition: all 0.5s;
-		padding: 0 1em;
-		box-shadow: 5px 5px 5px gray;
-	}
-	.post__inner:hover{
-		opacity: 0.8;
-		background: gray;
-	}
-	.post__title{
-		font-size: 1.5rem;
-		font-weight: bold;
-		padding-top: 1em;
-	}
-	.post__title__link:hover{
-		color: white;
-		transition: all 0.5s;
-	}
-	.icon{
-		margin-bottom: 1vh;
-	}
-	.icon:hover{
-		color: bisque;
-		transition: all 0.5s;
-	}
-	.post__user:hover{
-		color: blue;
-		transition: all 0.5s;
-	}
-	.post__time__ago{
-		font-size: 0.5em;
-	}
-	.post__additional__logic{
-		display: flex;
-		align-items: center;
-		width: 100%;
-		justify-content: flex-end;
-	}
-	.post__update__delete__button{
-		display: flex;
-		flex-direction: column;
-		margin: 0 2vw;
-	}
-	.post__information{
-		display: flex;
-		flex-direction: column;
-		padding-bottom: 0.5em;
-	}
-	.post__delete__icon{
-		cursor: pointer;
-	}
-	.page__router{
-		display: flex;
-		justify-content: center;
-	}
-	.page__router > li {
-		margin: 1vw;
-	}
-	.router-link-active{
-		color: blue;
-		text-decoration: underline;
-		font-weight: bold;
-	}
-	.router-link-active:hover{
-		color: blue;
-	}
-
-	@media screen and (max-width: 768px){
-		.post__container{
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
+}
 
 </style>

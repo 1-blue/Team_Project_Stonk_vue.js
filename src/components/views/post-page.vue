@@ -5,7 +5,7 @@
 			<p>{{ error.error }}</p>
     </section>
 
-    <section v-else-if="!post.title" id="error__message">
+    <section v-else-if="!post" id="error__message">
       <h1>이미 삭제되었거나 존재하지않은 게시글입니다.</h1>
       <a href="/app.html#/pages/community">comunity로 돌아가기</a>
     </section>

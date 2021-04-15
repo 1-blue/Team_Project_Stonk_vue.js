@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="register__page__container">
     <section id="error__section" v-if="error">
       <p v-if="error === 'idOverlap'">
         이미 가입된 아이디가 존재합니다.
@@ -14,9 +14,9 @@
 
     <div id="register__container">
 
-      <h1 class="register__title">STONK</h1>
+      <h1>STONK</h1>
 
-      <h3 class="register__serve__title">회원가입</h3>
+      <h3>회원가입</h3>
 
       <form action="api/auth/register" method="post" id="register-form">
       <ul class="register__list">
@@ -89,7 +89,7 @@
       <!-- 전송버튼 -->
       <div>
         <button type="submit" class="button">
-          <h1 class="button-text">회원가입</h1>
+          <span class="button-text">회원가입</span>
         </button>
       </div>
       </form>
@@ -159,120 +159,124 @@ export default {
 </script>
 
 <style scoped>
-  ul, li{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  input{
-    display: inline-block;
-    width: 60%;
-    height: 5vh;
-    outline: none;
-    border: 0px;
-    border-bottom: 2px solid black;
-    padding: 0;
-  }
-  input:focus{
-    border-bottom: 2px solid rgb(74, 74, 226);
-  }
-  #register__container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    background: white;
-    border-radius: 1rem;
-    max-width: 450px;
-    height: 100%;
-  }
+.register__page__container{
+  --form-background-color: white;
+  --form-width: 450px;
+  --form-height: 100%;
+  --form-padding-top: 1em;
+  --form-padding-bottom: 2em;
+  --form-title-interval: 2vh;
+  --form-title-font-size: 2.5rem;
+  --form-serve-title-font-size: 1.5rem;
+  --error-font-size: 2rem;
+  --error-font-color: red;
+}
 
-  .register__title{
-    margin: 0px;
-    font-size: 2.5rem;
-  }
-  .register__serve__title{
-    margin: 0px;
-    font-size: 1.5rem;
-  }
-  #register-form{
-    text-align: center;
-    margin-top: 20px;
-    width: 100%;
-  }
+/* 기본 css */
+ul, li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+input{
+  display: inline-block;
+  width: 60%;
+  height: 5vh;
+  outline: none;
+  border: 0px;
+  border-bottom: 2px solid black;
+  padding: 0;
+}
+input:focus{
+  border-bottom: 2px solid rgb(74, 74, 226);
+}
 
-  .register__list li{
-    margin-bottom: 1em;
+/*  */
+#register__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  background: var(--form-background-color);
+  border-radius: 1rem;
+  max-width: var(--form-width);
+  height: var(--form-height);
+  padding: var(--form-padding-top) 0 var(--form-padding-bottom) 0;
+}
+#register__container h1{
+  margin: 0px;
+  font-size: var(--form-title-font-size);
+}
+#register__container h3{
+  margin: 0px;
+  font-size: var(--form-serve-title-font-size);
+}
+#register-form{
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+}
+.register__list li{
+  margin-bottom: 1em;
+}
+.input__password, .input__password__check{
+  position: relative;
+}
+.password__icon{
+	position: absolute;
+  right: 6em;
+  top: 0.5em;
+	z-index: 3;
+}
+label{
+  color: blue;
+}
+select{
+  width: 15%;
+  height: 2em;
+  margin-left: 0.5em;
+}
+.gender{
+  display: flex;
+  justify-content: space-evenly;
+}
+.gender div{
+  display: flex;
+  align-items: center;
+}
+.gender input{
+  width: 1.5em;
+}
+.first__phone__number{
+  text-align: center;
+  width: 3em;
+  margin: 0px 0.5em;
+}
+.second__phone__number, .third__phone__number{
+  text-align: center;
+  width: 4em;
+  margin: 0px 0.5em;
+}
+.button-text{
+  font-size: 2em;
+  font-weight: bold;
+}
+@keyframes errorMessage{
+  80%{
+    transform: scale(1.3, 1.3);
   }
-
-  .input__password, .input__password__check{
-    position: relative;
+  to{
+    transform: scale(1, 1);
   }
-
-  .password__icon{
-		position: absolute;
-    right: 6em;
-    top: 0.5em;
-		z-index: 3;
-	}
-
-  label{
-    color: blue;
-  }
-
-  select{
-    width: 15%;
-    height: 2em;
-    margin-left: 0.5em;
-  }
-
-  .gender{
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  .gender div{
-    display: flex;
-    align-items: center;
-  }
-
-  .gender input{
-    width: 1.5em;
-  }
-
-  .first__phone__number{
-    text-align: center;
-    width: 3em;
-    margin: 0px 0.5em;
-  }
-
-  .second__phone__number, .third__phone__number{
-    text-align: center;
-    width: 4em;
-    margin: 0px 0.5em;
-  }
-
-  .button{
-    margin: 2em 0px;
-  }
-
-  @keyframes errorMessage{
-    80%{
-      transform: scale(1.3, 1.3);
-    }
-    to{
-      transform: scale(1, 1);
-    }
-  }
-
-  #error__section{
-    color: red;
-    position: absolute;
-    top: 10%;
-    right: 30%;
-    font-size: 2rem;
-    transform: scale(0, 0);
-    animation: errorMessage 2s forwards ease-in-out;
-  }
+}
+#error__section{
+  color: var(--error-font-color);
+  position: absolute;
+  top: 10%;
+  right: 30%;
+  font-size: var(--error-font-size);
+  transform: scale(0, 0);
+  animation: errorMessage 2s forwards ease-in-out;
+}
 </style>

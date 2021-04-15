@@ -31,7 +31,7 @@ export default{
   async FETCH_USER(context, name){
     try{
       let data = await fetchUser(name);
-      context.commit('SET_USER', data);
+      await context.commit('SET_USER', data);
       return Promise.resolve('success');
     }catch(err){
       console.error(err);
