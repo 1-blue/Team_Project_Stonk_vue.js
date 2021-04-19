@@ -21,10 +21,10 @@
             </li>
 
             <!-- 아이디 -->
-            <li>
-              <label for="user__id">아이디</label>
-              <input type="text" placeholder="아이디입력" id="user__id" name="id" :value="user.id.trim()" size=15 required />
-            </li>
+            <!-- <li> -->
+              <!-- <label for="user__id">아이디</label> -->
+              <!-- <input type="text" placeholder="아이디입력" id="user__id" name="id" :value="user.id.trim()" size=15 required /> -->
+            <!-- </li> -->
 
             <!-- 닉네임 -->
             <li>
@@ -236,7 +236,7 @@ label{
   display: grid;
   grid-template-columns: 1fr;
   align-content: space-between;
-  height: 50vh;
+  height: 40vh;
 }
 .user__gender{
   display: flex;

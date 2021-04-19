@@ -90,7 +90,7 @@ router.delete("/signOut/:nickname", async function (req, res) {
     // nickname으로 유저찾고
     const currentUser = await db.users.findOne({ where: { nickname } });
 
-    if(!currentUser){
+    if (!currentUser) {
       return res.send("userNotFound");
     }
 
@@ -100,24 +100,67 @@ router.delete("/signOut/:nickname", async function (req, res) {
       attributes: ['postid'],
     });
 
-    // 유저와 연동된 comments의 id 및 대댓글 찾고
+    // 유저와 연동된 comments의 id 찾고
     const comments = await db.comments.findAll({
       where: { userid: currentUser.id },
-      attributes: ['id', 'commentid'],
+      attributes: ['id'],
     });
 
-    // 대댓글모두삭제
-    for(const comment of comments){
+    //============= 유저와 연동된 댓글 모두 삭제 ====================
+    for (const comment of comments) {
+      // 유저 댓글의 대댓글들 찾고
+      const commentsOfRecomments = await db.comments.findAll({
+        where: { commentid: comment.id },
+        attributes: ['id'],
+      });
+
+      // 유저 댓글의 대댓글 삭제
+      for (const item of commentsOfRecomments) {
+        await db.comments.destroy({ where: { id: item.id } });
+      }
+    }
+
+    // 유저의 대댓글모두삭제
+    for (const comment of comments) {
       await db.comments.destroy({ where: { commentid: comment.id } })
     }
 
-    // 댓글모두삭제
-    for(const comment of comments){
+    // 유저의 댓글모두삭제
+    for (const comment of comments) {
       await db.comments.destroy({ where: { id: comment.id } })
     }
 
+    //============= 유저의 포스트와 연동된 댓글 모두 삭제 ===================
+
+    // 포스트의 대댓글모두삭제
+    for (const post of posts) {
+      // 포스트의 댓글모두찾고
+      const tempComments = await db.comments.findAll({ where: { postid: post.postid } });
+
+      // 포스트의 댓글의 대댓글 모두 삭제
+      for(const item of tempComments){
+        await db.comments.destroy({
+          where: {
+            [db.Sequelize.Op.and]: [
+              { commentid: { [db.Sequelize.Op.ne]: null } },
+              { id: item.id }
+            ]
+          } 
+        });
+      }
+
+      // 포스트의 댓글 모두 삭제
+      for(const item of tempComments){
+        await db.comments.destroy({
+          where: {
+            id: item.id
+          } 
+        });
+      }
+    }
+
     // post모두삭제
-    for(const post of posts){
+    for (const post of posts) {
       await db.posts.destroy({ where: { postid: post.postid } })
     }
 
@@ -131,6 +174,7 @@ router.delete("/signOut/:nickname", async function (req, res) {
     res.clearCookie("login_nickName");
 
   } catch (error) {
+    console.log(error);
     return res.status(400).send(error);
   }
 

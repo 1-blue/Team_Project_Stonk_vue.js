@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 // 유저정보수정
 router.post('/', async (req, res) => {
-  const { userid, previousNickname, id, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
+  const { userid, previousNickname, nickname, year, month, day, gender, phoneNumber1, phoneNumber2, phoneNumber3, quote, profileimage } = req.body;
 
   // 닉네임중복검사
   if(previousNickname !== nickname){
@@ -27,7 +27,6 @@ router.post('/', async (req, res) => {
 
   await db.users.update(
     {
-      id,
       nickname,
       birth,
       gender: (gender === "male" ? "T" : "F"),

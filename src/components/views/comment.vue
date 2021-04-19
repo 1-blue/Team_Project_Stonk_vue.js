@@ -13,7 +13,7 @@
       </div>
 
       <div class="input__comment__focus">
-        <button class="input__comment__focus__cancel">취소</button>
+        <p class="input__comment__focus__cancel">취소</p>
         <button type="submit" class="input__comment__button" :disabled="commentBtnState">댓글</button>
       </div>
     </form>
@@ -319,6 +319,7 @@ button:disabled{
 
 .input__comment__focus__cancel{
   border: 0;
+  width: 2.5em;
   background: transparent;
   cursor: pointer;
 }

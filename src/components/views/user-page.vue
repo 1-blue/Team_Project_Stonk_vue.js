@@ -210,7 +210,7 @@ button{
   align-items: center;
   flex-direction: column;
   transform: scale(0, 0);
-  animation: sign__out 2s;
+  animation: sign__out 2s forwards;
 }
 .sign__out__message h1{
   font-size: var(--error-title-font-size);
