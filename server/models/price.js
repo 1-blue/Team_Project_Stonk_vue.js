@@ -16,6 +16,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.CHAR(10),
             allowNull: false
         },
+        adder: {
+            type: DataTypes.CHAR(20),
+            allowNull: false
+        },
         itemprice: {
             type: DataTypes.INTEGER,
             allowNull: false
