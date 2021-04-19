@@ -1,16 +1,12 @@
 var DataTypes = require("sequelize").DataTypes;
-var _comments = require("./comments");
-var _posts = require("./posts");
+var _minimumPrices = require("./minimumPrices");
 
 function initModels(sequelize) {
-  var comments = _comments(sequelize, DataTypes);
-  var posts = _posts(sequelize, DataTypes);
+  var minimumPrices = _minimumPrices(sequelize, DataTypes);
 
-  posts.hasOne(comments, { as: "comment", foreignKey: "parentpostid"});
-  comments.belongsTo(posts, { as: "parentpost", foreignKey: "parentpostid"});
 
   return {
-    comments,
+    minimumPrices,
   };
 }
 module.exports = initModels;
