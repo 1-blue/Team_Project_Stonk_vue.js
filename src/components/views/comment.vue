@@ -33,7 +33,7 @@
             <!-- 댓글의 정보 -->
             <li class="comment__info">
               <span>{{ comment.nickname }}</span>
-              <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "h : m : s") }}</span>
+              <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "dd일 h : m : s") }}</span>
             </li>
             <!-- 댓글내용 -->
             <li class="comment__description">
@@ -46,18 +46,18 @@
               <!-- 대댓글달기 -->
               <form action="/api/comment/reComment" method="post" class="input__recomment">
                 <!-- 댓글아이디전송 -->
-                <input type="hidden" name="commentid" :value="comment.id">
+                <input type="hidden" name="commentid" :value="comment.id" >
                 <!-- 포스트아이디 -->
                 <input type="hidden" name="postid" :value="postId">
                 <!-- 댓글내용전송 -->
-                <input type="text" name="comment">
-                <button type="submit" class="recomment__submit">답글</button>
+                <input type="text" name="comment" v-model="inputRecomment">
+                <button type="submit" class="recomment__submit" :disabled="recommentBtnState">답글</button>
               </form>
             </li>
             <!-- 대댓글 -->
             <li class="recomment__show" :data-value="comment.id" v-show="recommentNumber(comment) !== 0">
-              <i class="fas fa-sort-down"></i>
-              <i class="fas fa-sort-up unactive"></i>
+              <i class="fas fa-sort-down allow__icon"></i>
+              <i class="fas fa-sort-up allow__icon"></i>
               <span>답글 {{ recommentNumber(comment) }}개 보기</span>
             </li>
           </div>
@@ -76,7 +76,7 @@
               <!-- 댓글의 정보 -->
               <li class="recomment__info">
                 <span>{{ comment.nickname }}</span>
-                <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "h : m : s") }}</span>
+                <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "dd일 h : m : s") }}</span>
               </li>
 
               <!-- 댓글내용 -->
@@ -99,6 +99,7 @@ export default {
     return{
       comments: {},
       inputComment: "",
+      inputRecomment: "",
     }
   },
   methods:{
@@ -119,7 +120,7 @@ export default {
           dd: date.getDate(),
           yy: date.getFullYear().toString().slice(-2),
           yyyy: date.getFullYear(),
-          h: date.getUTCHours() + 9,
+          h: date.getUTCHours() + 9,    // 시차적용
           m: date.getMinutes(),
           s: date.getSeconds(),
       };
@@ -139,7 +140,10 @@ export default {
     },
     commentBtnState(){
       return this.inputComment.length !== 0 ? false : true;
-    }
+    },
+    recommentBtnState(){
+      return this.inputRecomment.length !== 0 ? false : true;
+    },
   },
   async created(){
     // object형식으로 받고
@@ -151,20 +155,37 @@ export default {
       tempArray.push(obj);
     }
 
-    // 댓글 시간순 정렬
-    // 대댓글 시간순 정렬 해야함
+    /**
+     * 대댓글 역순정렬을 위한 변수
+     * 좀 많이 편법이긴한데
+     * 지금 방식이 댓글시간순서대로 배열에 정렬하고
+     * 댓글바로밑에다가 대댓글 끼워넣어서 배열출력인데
+     * 대댓글끼리 정렬하기가 까다로워서
+     * 애초에 댓글넣을 때 같은 commentid를 가진 대댓글이면 한칸씩 밑에 끼워넣음
+     * ( 입력순서대로 불러와서 엉키진않는것같음 )
+     */
+    const recommentSortVar = {};
+
     tempArray.forEach((v, i) => {
       // 대댓글이면
       if(v.commentid){
-        tempArray.forEach((value, index) => {   //댓글
+        tempArray.forEach((value, index) => {
+          
           if(v.commentid === value.id){
-            let temp = tempArray.splice(i, 1);
+            // 대댓글 역순정렬
+            if(!recommentSortVar[`${v.commentid}`]){
+              recommentSortVar[`${v.commentid}`] = 1;
+            } else {
+              recommentSortVar[`${v.commentid}`]++;
+            }
 
-            tempArray.splice(index + 1, 0, temp[0]);
+            // 댓글의 위치 바로 밑으로 이동
+            let temp = tempArray.splice(i, 1);
+            tempArray.splice(index + recommentSortVar[`${v.commentid}`], 0, temp[0]);
           }
         });
       }
-    })
+    });
     this.comments = tempArray;
   },
   mounted(){
@@ -172,8 +193,6 @@ export default {
     const input = document.querySelector(".input__comment");
     const inputFocus = document.querySelector(".input__comment__focus");
     const inputFocusCancel = document.querySelector(".input__comment__focus__cancel");
-
-    inputFocus.classList.add("unactive");
 
     // 로그인안했으면 댓글입력창 생략
     if(!this.isLoggin){
@@ -190,24 +209,20 @@ export default {
   },
   updated(){
     const toggleRecomment = document.querySelectorAll(".toggle__recomment");
-    const inputRecomment = document.querySelectorAll(".input__recomment");
 
     const recommentShow = document.querySelectorAll(".recomment__show");
     const recommentList = document.querySelectorAll(".recomment__list");
+    const allowIcon = document.querySelectorAll(".allow__icon");
 
-    // 대댓글입력 숨기기
-    inputRecomment.forEach(v => v.classList.add("unactive"));
+    // 대댓글 보이는 화살표 아이콘 up / down
+    allowIcon[0].classList.add("allow__active");
 
     // 대댓글입력 toggle
     toggleRecomment.forEach(v => {
       v.addEventListener('click', () => {
-        v.nextSibling.nextSibling.classList.toggle("unactive")
         v.nextSibling.nextSibling.classList.toggle("active")
       })
     });
-    
-    // 대댓글숨기기
-    recommentList.forEach(v => v.classList.add("unactive"));
 
     // 대댓글 toggle
     recommentShow.forEach(v => {
@@ -215,16 +230,15 @@ export default {
         let count = 0;
         recommentList.forEach(value => {
           if(value.dataset.value === e.currentTarget.dataset.value){
-            value.classList.toggle("unactive")
             value.classList.toggle("active")
 
-            // 화살표 토클설정
+            // 화살표 토글설정
             if(count !== 0){
               return;
             }
             count++;
-            e.currentTarget.childNodes[0].classList.toggle("unactive");
-            e.currentTarget.childNodes[2].classList.toggle("unactive");
+            allowIcon[0].classList.toggle("allow__active");
+            allowIcon[1].classList.toggle("allow__active");
           }
         });
       })
@@ -251,19 +265,6 @@ ul, li{
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-button:disabled{
-  background: var(--disabled-btn-color);
-  cursor: not-allowed;
-}
-
-.unactive{
-  display: none;
-}
-
-.active{
-  display: flex;
 }
 
 .form__comment{
@@ -302,6 +303,7 @@ button:disabled{
 }
 
 .input__comment__focus{
+  display: none;
   justify-content: flex-end;
 }
 
@@ -370,6 +372,7 @@ button:disabled{
 }
 
 .recomment__list{
+  display: none;
   margin: 0.5em var(--recomment-interval);
 }
 
@@ -387,6 +390,10 @@ button:disabled{
   color: var(--recomment-show-btn-color);
 }
 
+.allow__icon{
+  display: none;
+}
+
 .toggle__recomment{
   color: gray;
   border: 0;
@@ -395,6 +402,7 @@ button:disabled{
 }
 
 .input__recomment{
+  display: none;
   flex-direction: column;
   width: 100%;
 }
@@ -422,5 +430,22 @@ button:disabled{
   color: white;
   border-radius: 0.1em;
   cursor: pointer;
+}
+
+.unactive{
+  display: none;
+}
+
+.active{
+  display: flex;
+}
+
+.allow__active{
+  display: inline-block;
+}
+
+button:disabled{
+  background: var(--disabled-btn-color);
+  cursor: not-allowed;
 }
 </style>
