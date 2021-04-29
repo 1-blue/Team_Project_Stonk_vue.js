@@ -1,9 +1,9 @@
 <template>
 	<main>
 		<!-- 메인로고 -->
-		<section id="main__logo" class="shadow" style="background: rgb(0 0 0 / 0%)">
+		<!-- <section id="main__logo" class="shadow" style="background: rgb(0 0 0 / 0%)">
 			<img src="../../assets/main_logo.png"/>
-		</section>
+		</section> -->
 
 		<!-- 이미지슬라이드 -->
 		<Carousel :cards="cards" />
@@ -52,11 +52,11 @@ export default {
 	},
 	computed: {
 		getName(){
-    		if(this.$cookies.get("login_nickName")){
-       			return this.$cookies.get("login_nickName");
-    		}
+    	if(this.$cookies.get("login_nickName")){
+      	return this.$cookies.get("login_nickName");
+    	}
 			else{
-      			return "GUEST";
+      	return "GUEST";
 			}
  		}
 	}

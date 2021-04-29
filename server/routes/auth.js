@@ -41,7 +41,7 @@ router.post('/register', idOverlapCheck, nicknameOverlapCheck, async function (r
     profileimage: "profileImage TEST"
   });
 
-  return res.redirect("/app.html#/home");
+  return res.redirect("/app.html#/home?state=registerSuccess");
 });
 
 // login

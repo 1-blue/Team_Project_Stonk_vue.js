@@ -95,15 +95,18 @@ export default {
 
 	/* 검색버튼태그 */
 	.search__button{
-    background: linear-gradient(to right, #6478FB, #8763FB);
+    background: linear-gradient(to right, #ffd284, rgb(250, 147, 5));
     width: 15%;
     border-radius: 0 0.5em 0.5em 0;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1vw;
+    font-size: 1rem;
+    color: white;
 	}
+
+  /* #386CEB */
 
   .toggle__icon{
     display: flex;
@@ -112,6 +115,7 @@ export default {
     cursor: pointer;
     width: 12%;
     font-size: 1vw;
+    color: #F5683B;
   }
 
 	@media screen and (max-width: 768px){

@@ -11,52 +11,44 @@
     </section>
 
     <section v-else class="post__container">
-      <ul class="post__list">
-        <!-- 타이틀 -->
-        <li class="title">
-          <h1>
-            <i class="far fa-question-circle"></i>
-            {{ post.title }}
-          </h1>
-        </li>
+      <!--  -->
+      <i class="fas fa-sign-out-alt exit__icon" @click="exit"></i>
+      <!-- 타이틀 -->
+      <div class="title">
+        <h1>
+          {{ post.title }}
+        </h1>
+      </div>
+      <!-- <i class="fas fa-edit"></i> -->
 
-        <!-- 게시글 정보 -->
-        <li class="information">
-          <div class="serve__information">
-            <div class="user">
-              <router-link :to="`/user/${post.user.nickname}`" class="user__link">
-                <i class="fas fa-user"></i>
-                {{ post.user.nickname }}
-              </router-link>
-            </div>
+      <!-- 게시글 정보 -->
+      <div class="information">
+        <router-link :to="`/user/${post.user.nickname}`" class="user">
+          <i class="fas fa-user"></i>
+          {{ post.user.nickname }}
+        </router-link>
 
-            <!-- 시간 -->
-            <div class="time">
-              <i class="far fa-clock"></i>
-              {{ post.updatedAt }}
-            </div>
-          </div>
+        <!-- 시간 -->
+        <div class="time">
+          <i class="far fa-clock"></i>
+          {{ post.updatedAt }}
+        </div>
 
-          <!-- 버튼들 -->
-          <div v-if="isMinePage" class="buttons">
-            <button class="delete__button" @click="deletePost">삭제</button>
-            <router-link :to="`/post/update/${post.postid}`" class="update__button" >수정</router-link>
-          </div>
-        </li>
+        <!-- 버튼들 -->
+        <div v-if="isMinePage" class="buttons">
+          <button class="delete__button" @click="deletePost">삭제</button>
+          <router-link :to="`/post/update/${post.postid}`" class="update__button" >수정</router-link>
+        </div>
+      </div>
+      
+      <div class="contents">
+        <div class="content" v-html="getContents" />
 
         <hr />
 
-        <!-- 내용물 -->
-        <li>
-          <div v-html="getContents" />
-        </li>
-      </ul>
-
-      <hr />
-
-      <!-- 댓글 -->
-      <comment />
-
+        <!-- 댓글 -->
+        <comment />
+      </div>
     </section>
   </div>
 </template>
@@ -80,6 +72,9 @@ export default {
       if(result){
         this.$router.go(-1)   // === window.history.go()
       }
+    },
+    exit(){
+      this.$router.go(-1);
     }
   },
   computed: {
@@ -116,77 +111,108 @@ ul, li {
   list-style: none;
 }
 
+a{
+  text-decoration: none;
+}
+
+hr{
+  margin: 2rem 0;
+}
+
 .post__page__container{
   display: flex;
   justify-content: center;
 }
 
 .post__container{
-  min-width: 70%;
-  min-height: 50vh;
-  background: whitesmoke;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px black;
+  position: relative;
+  width: 100%;
+}
+
+.exit__icon{
+  position: absolute;
+  top: 34px;
+  left: 30px;
+  font-size: 3rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.title{
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  border-image: url(../../assets/post/scrollborder.png) 24 fill repeat;
+  border-image-width: 24px;
+  border-image-outset: 6px;
+  box-shadow: 0px 10px 5px #248;
+  text-shadow: 0px 2px 1px #d5864f;
 }
 
 .title h1{
   font-size: 2rem;
-  padding: 0;
-  margin: 0.5em 0 1em 0;
+  padding: 0.5rem 2rem;
+  text-align: center;
 }
 
 .information{
   display: flex;
-  justify-content: space-between;
-}
-
-.serve__information{
-  display: flex;
+  justify-content: center;
   align-items: baseline;
+  margin-bottom: 2em;
+  color: white;
+  font-size: 1em;
 }
 
 .user{
-  font-size: 1em;
-  margin-right: 1em;
-}
-
-.user__link{
+  color: inherit;
   transition: all 0.5s;
+  margin-right: 0.5em;
 }
 
-.user__link:hover{
-  color: blue;
+.user:hover{
+  text-decoration: underline;
 }
 
 .time{
-  font-size: 0.8em;
-  color: gray;
-}
-
-hr{
-  margin: 2em 0;
-}
-
-a{
-  text-decoration: none;
-  color: black;
+  font-size: inherit;
+  margin-right: 0.5em;
 }
 
 .buttons{
-  display: flex;
-  justify-content: flex-end;
+  font-size: inherit;
+  color: inherit;
 }
 
 .delete__button, .update__button{
   background: none;
+  color: inherit;
+  font-size: inherit;
   border: 0px;
   padding: 0;
-  margin-left: 1em;
-  font-size: 1em;
   cursor: pointer;
-  color: gray;
-  border-bottom: 2px solid gray;
+}
+
+.delete__button:hover, .update__button:hover{
+  text-decoration: underline;
+}
+
+.contents{
+  min-width: 90%;
+  background: #fff6b4;
+  padding: 1rem;
+  box-shadow: 0px 8px 12px #248;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.3rem;
+  border-color: #A0A0A0;
+}
+
+.content{
+  min-height: 30vh;
+  border: 1px solid #248;
+  padding: 0 2rem;
+  border-radius: 0.3em;
 }
 
 #error__message{
@@ -195,5 +221,13 @@ a{
 
 #error__message h1{
   font-size: 2rem;
+}
+
+@media screen and (max-width: 768px){
+	.exit__icon{
+    top: 40px;
+    left: 25px;
+		font-size: 2rem;
+	}
 }
 </style>

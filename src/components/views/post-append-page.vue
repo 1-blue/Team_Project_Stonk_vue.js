@@ -3,7 +3,7 @@
     <h1 v-show="error" class="error__message">
       공백을 제외하고 제목을 반드시 입력해주세요 (맨앞뒤의 공백은 제거됩니다.)
     </h1>
-    <div>
+    <div class="container">
       <!-- 타이틀박스 -->
       <div class="title__box">
         <label for="title" class="label__title">제목</label>
@@ -124,9 +124,11 @@
     <!-- 버튼 -->
     <button type="submit" v-on:click="sendPost" class="upload__button">
       <span class="upload__button__text" v-if="this.postData">
+        <i class="fas fa-upload"></i>
         업데이트
       </span>
       <span class="upload__button__text" v-else>
+        <i class="fas fa-upload"></i>
         업로드
       </span>
     </button>
@@ -268,11 +270,18 @@ export default {
   align-items: center;
   justify-content: space-between;
   min-height: 50vh;
+  border: 2mm ridge rgb(250, 147, 5);
+  background: #fbf6db;
 }
 .error__message{
   font-size: 1rem;
   color: red;
   text-align: center;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .title__box{
   display: flex;
@@ -288,38 +297,52 @@ export default {
   font-size: 2rem;
   width: 100px;
 }
+.editor__content{
+  flex-grow: 1;
+}
 .editor__content > div > p > img{
   max-width: 100%;
 }
 .menubar{
   display: flex;
-  justify-content: center;
-  margin: 3vh 0;
+  margin-top: 3vh;
+  border: 2px solid #f7ecb3;
+  border-top: 3px solid rgb(250, 147, 5);
 }
 .menubar__button{
-  border-radius: 100%;
   cursor: pointer;
+  color: #3f0f08;
   border: 1px solid navy;
   margin: 0 0.5vw;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border: 1px solid #f7ecb3;
 }
 .menubar__button:hover{
-  background-color: teal;
-  color: wheat;
+  background: rgba(63,15,8,0.06);
 }
 .ProseMirror{
-  border: 2px solid black;
+  background: #fdfaeb;
+  border: 2px solid #f7ecb3;
   width: 80vw;
+  height: 100%;     
+  /* 이거 왜 안먹히는지 모르겠음 */
 }
 .upload__button{
   position: relative;
-  width: 150px;
-  height: 75px;
+  width: 80px;
+  height: 30px;
   border: 1px solid black;
   border-radius: 10%;
   background: white;
   cursor: pointer;
   overflow: hidden;
-  margin: 5% 0 0;
+  align-self: flex-end;
+  margin-right: 25px
 }
 .upload__button::after{
   content: "";
@@ -328,12 +351,17 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: rgb(250, 147, 5);
   transform: scale(0, 1);
   transition: all 0.35s;
 }
+.upload__button:hover{
+  transform: scale(1, 1);
+  border: 1px solid rgb(250, 147, 5);
+}
 .upload__button:hover::after{
   transform: scale(1, 1);
+  border: 1px solid rgb(250, 147, 5);
 }
 .upload__button__text{
   position: relative;
@@ -341,7 +369,7 @@ export default {
   color: black;
   transition: all 0.35s;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1em;
 }
 .upload__button:hover .upload__button__text{
   color: white;

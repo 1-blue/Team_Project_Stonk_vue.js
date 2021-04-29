@@ -197,11 +197,14 @@ export default {
 
 	/* 테이블제목 색지정 */
 	#table-header > div{
-		background: rgb(66, 66, 66);
+		background: #03a007;
 	}
 
-	#table-header .table-gride {
+	#table-header > .table-gride {
 		color: whitesmoke;
+		text-shadow: 0px 2px #00321f;
+		font-size: 1.2rem;
+		font-weight: bold;
 	}
 
 	/* 테이블 각 요소마다 간격등의 값지정 */
@@ -210,12 +213,12 @@ export default {
 		border: 1px solid #816666;
 		text-align: center;
 		line-height: 60px;
-		background-color: lightgray;
+		background-color: snow;
 	}
 	
 	/* 테이블에 마우스 올렸을때 한라인 색변화 */
-	#items:hover > .table-gride{
-		background: white;
+	#items:hover .table-gride{
+		background: lightblue;
 	}
 
 	/* 이미지grid값적용 */

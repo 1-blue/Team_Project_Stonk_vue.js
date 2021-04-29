@@ -1,13 +1,16 @@
 <template>
 	<nav id="navbar">
 		<ul class="navbar__container">
-			<!-- home -->
-			<li><router-link to="/home" class="link home__link">Home</router-link></li>
-
-			<!-- community, price -->
+			<!-- home, community, price -->
 			<div class="responsive__flex__direction">
+				<li><router-link to="/home" class="link home__link">Home</router-link></li>
 				<li><router-link to="/community" class="link community__link">커뮤니티</router-link></li>
 				<li><router-link to="/price" class="link price__link">시세</router-link></li>
+			</div>
+			
+			<!-- 로고이미지 같은거 -->
+			<div class="responsive__flex__direction">
+
 			</div>
 			
 			<!-- auth -->
@@ -123,6 +126,10 @@ export default {
 		if(this.$route.query.state === "passwordChangeSuccess"){
 			this.tryLogin = true;
 			this.loginAdditionalText = "비밀번호 변경에 성공했습니다. 다시 로그인해주세요."
+		}
+		if(this.$route.query.state === "registerSuccess"){
+			this.tryLogin = true;
+			this.loginAdditionalText = "회원가입에 성공했습니다. 로그인해주세요."
 		}
 
 		const hamber = document.querySelector(".hamburger__menu");

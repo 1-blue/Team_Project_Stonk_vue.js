@@ -12,7 +12,9 @@
 				<search-box placeholder="게시글검색" name="community" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 				<!-- 게시글추가기능 -->
-				<router-link to="/post/append" class="post__append__button" v-show="isLogin">게시글추가하기</router-link>
+				<div class="post__append__button" v-show="isLogin">
+					<router-link to="/post/append">게시글추가하기</router-link>
+				</div>
 			</section>
 
 			<!-- 게시글 -->
@@ -20,7 +22,6 @@
 				<div class="post__container">
 					<!-- v-for로 게시글 반복 -->
 					<ul v-for="(post, index) in currentPosts" :key="index" v-show="!isSearch || onSearchFind(post)" class="posts">
-						<span></span><span></span><span></span><span></span><span></span>
 						<li class="post">
 								<ul class="post__inner">
 									<!-- 타이틀 -->
@@ -31,6 +32,11 @@
 									</li>
 
 									<li class="post__additional__logic">
+										<!-- 댓글개수 -->
+										<span class="comment__number">
+											답글 : {{  }}
+										</span>
+
 										<!-- update and delete -->
 										<span v-if="onLoginUser(post.user.nickname)" class="post__update__delete__button">
 											<!-- 포스트 업데이트페이지로 이동 -->
@@ -85,7 +91,7 @@ export default {
 			target: "post",
 			page: 0,							// 현재 페이지
 			divisionPage: [],			// 페이지를 지정된 개수만큼 구분한 배열
-			showPostNumber: 9,		// 보여줄 포스트 개수
+			showPostNumber: 10,		// 보여줄 포스트 개수
 			currentPosts: [],			// 보여줄 포스트들을 넣을 배열
 			pages: [],						// 밑에 페이지 넘기는데 사용할 배열
 		}
@@ -169,18 +175,15 @@ export default {
 
 <style scoped>
 .community__page__container{
-	--post-append-font-size: 2.5vw;
-	--post-append-hover-font-color: rgb(0, 238, 255);
+	--post-append-font-size: 1.7rem;
 	--community-border-color: rgb(250, 147, 5);
 	--community-background-color: rgb(255, 255, 204);
-	--community-padding: 1em;
 	--post-hover-animation-color: snow;
 	--post-decoration-size: 1em;
 	--post-decoration-background-color: #ffffcc;
 	--post-backgrond-color: rgb(255 252 77 / 70%);
 	--post-hover-backgrond-color: grey;
 	--post-title-font-size: 1.5em;
-	--post-title-hover-color: white;
 	--post-icon-hover-color: bisque;
 	--post-user-hover-color: blue;
 	--post-time-font-size: 0.5em;
@@ -205,7 +208,6 @@ a{
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin: 0 3vw;
 }
 #post__section{
 	width: 100%;
@@ -215,50 +217,23 @@ a{
 	border-radius: 1em;
 }
 .post__append__button{
+	border-image: url(../../assets/post/scrollborder.png) 24 fill repeat;
+  border-image-width: 24px;
+  border-image-outset: 6px;
 	float: right;
 	font-weight: bold;
 	font-size: var(--post-append-font-size);
-	transition: all 0.5s;
+	padding: 1rem 1.5rem;
 }
-.post__append__button:hover{
-	transition: all 0.5s;
-	color: var(--post-append-hover-font-color);
+.post__append__button > a{
+	color: #F5683B;
+}
+.post__append__button > a:hover{
+	color: #386CEB;
 }
 .post__container{
-	padding: var(--community-padding);
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-auto-rows: minmax(30vh, auto);
-	gap: 2vh 2vw;
-}
-.posts{
-	position: relative;
-}
-.posts > span{
-	display: block;
-	position: absolute;
-	transition: all 0.5s;
-	z-index: 2;
-	background: var(--post-hover-animation-color);
-}
-/* 요거 마우스올라갔을때 상하좌우에 효과를 위해 사용 */
-.posts > span:nth-child(1){ top: 0; left: 0; height: 5px; width: 0; }
-.posts > span:nth-child(2){ top: 0; right: 0; height: 0; width: 5px; }
-.posts > span:nth-child(3){ bottom: 0; right: 0; height: 5px; width: 0; }
-.posts > span:nth-child(4){ bottom: 0; left: 0; height: 0; width: 5px; }
-.posts:hover > span:nth-child(1) { width: 100%; }
-.posts:hover > span:nth-child(2) { height: 100%; }
-.posts:hover > span:nth-child(3) { width: 100%; }
-.posts:hover > span:nth-child(4) { height: 100%; }
-.posts > span:nth-child(5) {
-	top: 10px;
-	left: 10px;
-	width: var(--post-decoration-size);
-	height: var(--post-decoration-size);
-	background-color: var(--post-decoration-background-color);
-	border-radius: 100%;
-	box-shadow: 0px 0px 5px;
-	z-index: 0;
+  display: flex;
+  flex-direction: column;
 }
 .post{
 	width: 100%;
@@ -266,27 +241,20 @@ a{
 }
 .post__inner{
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  justify-content: space-between;
 	align-items: center;
-	background: var(--post-backgrond-color);
-	height: inherit;
-	transition: all 0.5s;
-	padding: 0 1em;
-	box-shadow: 5px 5px 5px gray;
-}
-.post__inner:hover{
-	opacity: 0.8;
-	background: var(--post-hover-backgrond-color);
+	padding: 0.5em 2em;
+  border-bottom: 2px solid gray;
 }
 .post__title{
 	font-size: var(--post-title-font-size);
 	font-weight: bold;
-	padding-top: 1em;
+}
+.post__title__link{
+	color: #235AB4;
 }
 .post__title__link:hover{
-	color: var(--post-title-hover-color);
-	transition: all 0.5s;
+	text-decoration: underline;
 }
 .icon{
 	margin-bottom: 1vh;
@@ -305,8 +273,6 @@ a{
 .post__additional__logic{
 	display: flex;
 	align-items: center;
-	width: 100%;
-	justify-content: flex-end;
 }
 .post__update__delete__button{
 	display: flex;
