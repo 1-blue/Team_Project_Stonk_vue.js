@@ -2,7 +2,10 @@ import axios from "axios";
 import bus from '../utils/bus.js';
 
 async function fetch(url, errorMessage) {
-    bus.$emit("on:spinner");
+    setTimeout(() => {
+        bus.$emit("on:spinner");
+    }, 500)
+    
     let data = {};
     try {
         data = await axios.get(url);
@@ -12,7 +15,9 @@ async function fetch(url, errorMessage) {
             message: `${errorMessage}... 잠시후에 다시시도해주세요`
         };
     }
-    bus.$emit("off:spinner");
+    setTimeout(() => {
+        bus.$emit("off:spinner");
+    }, 500)
     return data;
 }
 

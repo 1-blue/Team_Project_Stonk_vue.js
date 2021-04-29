@@ -11,8 +11,12 @@
 		</div>
 
     <div v-else-if="!isSignOut && !error" class="user">
-      <section class="user__information__container">
+
+      <div class="title">
         <h1>{{ user.nickname }}님의 정보</h1>
+      </div>
+      
+      <section class="user__information__container">
         <ul class="user__information">
           <li>닉네임 : {{ user.nickname }}</li>
           <li>생일 : {{ user.birth }}</li>
@@ -98,14 +102,14 @@ export default {
 <style scoped>
 .user__page__container{
   --button-color: lightyellow;
-  --title-font-size: 2rem;
+  --title-font-size: 1.2rem;
   --error-title-font-size: 3rem;
   --error-description-font-size: 1.5rem;
   --information-box-width: 400px;
   --information-box-height: 50vh;
   --information-container-padding-width: 10%;
   --information-container-padding-height: 2vh;
-  --information-container-list-interval: 1vh;
+  --information-container-list-interval: 3vh;
   --button-font-size: 1rem;
 }
 
@@ -116,8 +120,7 @@ ul, li{
   list-style: none;
 }
 h1{
-  font-size: var(--title-font-size);
-  margin: 3vh 0;
+  margin: 0;
   padding: 0;
 }
 li{
@@ -158,14 +161,26 @@ button{
     font-size: var(--error-description-font-size);
 }
 
+.title{
+  font-size: var(--title-font-size);
+  border-image: url(../../assets/post/scrollborder.png) 24 fill repeat;
+  border-image-width: 24px;
+  border-image-outset: 6px;
+  padding: 1rem 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 0px 2px 1px #d5864f;
+}
+
 /* 유저 정보 관련 css */
 .user{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .user__information__container{
-  background: linear-gradient(to bottom, #034082, #148dfc ,#6beee3);
+  border: 2mm ridge #af4207;
+  background: #fff6b4;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px;
   display: flex;
@@ -180,6 +195,7 @@ button{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  font-weight: 700;
 }
 .user__information > li{
   padding-bottom: var(--information-container-list-interval);
@@ -190,7 +206,11 @@ button{
   margin: 2vh 0;
 }
 .user__information__change__list > li{
-  margin: 0 1vw;
+  margin: 0 2vw;
+}
+.user__information__change__list > li > a, .user__information__change__list > li > button{
+  color: #af4207;
+  font-weight: bold;
 }
 .user__information__change__list > li > a:hover, .user__information__change__list > li > button:hover{
   color: mediumblue;
