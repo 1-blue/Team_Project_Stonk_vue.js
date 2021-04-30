@@ -14,7 +14,7 @@ import userPasswordUpdate from '../components/views/user-password-update.vue';
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', redirect: '/pages/home' },
+    { path: '/', redirect: '/home' },
     { path: '/home', component: homePage },
     { path: '/community', component: communityPage },
     { path: '/price', component: pricePage },

@@ -160,7 +160,7 @@ export default {
 
 <style scoped>
 .register__page__container{
-  --form-background-color: white;
+  --form-background-color: #fff6b4;
   --form-width: 450px;
   --form-height: 100%;
   --form-padding-top: 1em;
@@ -184,11 +184,12 @@ input{
   height: 5vh;
   outline: none;
   border: 0px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #af4207;
   padding: 0;
+  background: #fff6b4;
 }
 input:focus{
-  border-bottom: 2px solid rgb(74, 74, 226);
+  border-bottom: 2px solid #FA936B;
 }
 
 /*  */
@@ -197,20 +198,23 @@ input:focus{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
-  background: var(--form-background-color);
+  border: 2mm ridge #af4207;
+  background: #fff6b4;
   border-radius: 1rem;
   max-width: var(--form-width);
   height: var(--form-height);
   padding: var(--form-padding-top) 0 var(--form-padding-bottom) 0;
+
 }
 #register__container h1{
   margin: 0px;
   font-size: var(--form-title-font-size);
+  text-shadow: 0 2px 1px gray;
 }
 #register__container h3{
   margin: 0px;
   font-size: var(--form-serve-title-font-size);
+  text-shadow: 0 2px 1px gray;
 }
 #register-form{
   text-align: center;
@@ -230,7 +234,7 @@ input:focus{
 	z-index: 3;
 }
 label{
-  color: blue;
+  color: #af4207;
 }
 select{
   width: 15%;
@@ -258,10 +262,25 @@ select{
   width: 4em;
   margin: 0px 0.5em;
 }
+
+/**:disabled */
+
+.button{
+  border: 2px solid #E05409;
+}
+.button::after{
+  background: #E05409;
+}
 .button-text{
   font-size: 2em;
   font-weight: bold;
+  color: #613721;
+  text-shadow: 0 0 5px #613721;
 }
+.button:hover .button-text{
+  color: white;
+}
+
 @keyframes errorMessage{
   80%{
     transform: scale(1.3, 1.3);

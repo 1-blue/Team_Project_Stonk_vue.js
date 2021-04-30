@@ -6,7 +6,7 @@
 		</template>
 
 		<template v-else>
-			<search-box placeholder="아이템검색" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
+			<search-box placeholder="아이템검색" color="green" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 			<div id="table-header">
 				<div class="table-gride image">이미지</div>

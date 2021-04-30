@@ -1,9 +1,11 @@
 .card {
   background-color: white;
-	border-radius: 20px;
+	border-radius: 0.5rem;
   box-shadow: 0 20px 60px 0 rgba(41, 67, 100, 0.21);
   height: 420px;
   padding: 10px;
+  border: 2mm ridge rgb(250, 147, 5);
+  background-color: rgb(255, 255, 204);
 }
 
 .headline {

@@ -9,7 +9,7 @@
 		<template v-else>
 			<section id="search__append__section">
 				<!-- 검색기능 -->
-				<search-box placeholder="게시글검색" name="community" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
+				<search-box placeholder="게시글검색" name="community" color="orange" @onSearch="onSearch" @onSearchCancel="onSearchCancel" />
 
 				<!-- 게시글추가기능 -->
 				<div class="post__append__button" v-show="isLogin">

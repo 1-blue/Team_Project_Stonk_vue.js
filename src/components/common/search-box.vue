@@ -10,7 +10,7 @@
         <i class="fas fa-redo"></i>
       </span>
     </section>
-		<span class="search__button" @click="onSearch">
+		<span class="search__button" :class="{ search__button__orange: orangeColor, search__button__green: greenColor }" @click="onSearch">
 			<i class="fas fa-search"></i>
 		</span>
 	</form>
@@ -21,6 +21,7 @@ export default {
   props: {
     placeholder: String,
     name: String,
+    color: String,
   },
   data(){
     return{
@@ -62,6 +63,12 @@ export default {
         return true;
       }
       return false;
+    },
+    orangeColor(){
+      return this.color === "orange";
+    },
+    greenColor(){
+      return this.color === "green";
     }
   }
 }
@@ -95,7 +102,6 @@ export default {
 
 	/* 검색버튼태그 */
 	.search__button{
-    background: linear-gradient(to right, #ffd284, rgb(250, 147, 5));
     width: 15%;
     border-radius: 0 0.5em 0.5em 0;
     cursor: pointer;
@@ -106,7 +112,12 @@ export default {
     color: white;
 	}
 
-  /* #386CEB */
+  .search__button__orange{
+    background: linear-gradient(to right, #ffd284, rgb(250, 147, 5));
+  }
+  .search__button__green{
+    background: linear-gradient(to right, #27E833, #03A007);
+  }
 
   .toggle__icon{
     display: flex;
@@ -115,7 +126,7 @@ export default {
     cursor: pointer;
     width: 12%;
     font-size: 1vw;
-    color: #F5683B;
+    color: dimgrey;
   }
 
 	@media screen and (max-width: 768px){

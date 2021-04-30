@@ -46,12 +46,13 @@ export default {
         height: 200px;
         margin: 0px auto;
         padding: 10px 15px;
-        background-color: white;
-        border-radius: 2px;
+        border-radius: 0.5rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
         transition: all .3s ease;
         font-family: Helvetica, Arial, sans-serif;
         position:static;
+        border: 2mm ridge #af4207;
+        background: #fff6b4;
     }
     .modal-header{
         width: 100%;

@@ -71,8 +71,10 @@ export default {
 	}
 	#game__info{
 		background: whitesmoke;
-		border-radius: 20px;
+		border-radius: 0.5rem;
 		width: 100%;
+		border: 2mm ridge rgb(250, 147, 5);
+  	background-color: rgb(255, 255, 204);
 	}
 	.gane__info__title{
 		font-size: 100px;

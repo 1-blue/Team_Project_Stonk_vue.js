@@ -278,6 +278,7 @@ export default {
 	.modal-title{
 		margin-top: 0px;
 		text-align: center;
+		color: #613721;
 	}
 	.modal-body{
 		height: 130px;
@@ -290,26 +291,15 @@ export default {
 	.close-modal-btn{
 		float: right;
 		cursor: pointer;
-		color: lightslategrey;
+		color: #F05E4D;
   }
-	.button{
-		border: 2px solid rgb(143, 143, 143);
-	}
-	.button::after{
-		background: rgb(143, 143, 143);
-		transform: scale(0, 1);
-    transform-origin: 50% 0%;
-	}
-	.button-text{
-		color: gray;
-	}
 	.close-modal-btn:hover{
-		color: black;
+		color: #613721;
 	}
 	.modal-input{
 		font-size: 15px;
 		border: 0px;
-		background: lightgray;
+		background: snow;
 	}
 	.modal-input::placeholder{
 		color: gray;
@@ -333,7 +323,7 @@ export default {
 		display: flex;
 		align-items: center;
 		border-radius: 5px;
-		background: lightgray;
+		background: snow;
 		position: relative;
 	}
 	.password-icon{
@@ -362,6 +352,19 @@ export default {
 	}
 	.password-icon{
 		cursor: pointer;
+	}
+
+	.button{
+		border: 2px solid #E05409;
+	}
+	.button::after{
+		background: #E05409;
+	}
+	.button-text{
+		color: #613721;
+	}
+	.button:hover .button-text{
+		color: white;
 	}
 
 	/* 현재 페이지 a태그 색변경 */
