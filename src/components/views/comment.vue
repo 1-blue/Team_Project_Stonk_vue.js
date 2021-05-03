@@ -33,14 +33,14 @@
             <!-- 댓글의 정보 -->
             <li class="comment__info">
               <span>{{ comment.nickname }}</span>
-              <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "dd일 h : m : s") }}</span>
+              <span><i class="far fa-clock"></i> {{ commentUploadTime(comment.datetime) }}</span>
             </li>
             <!-- 댓글내용 -->
             <li class="comment__description">
               <span>{{ comment.comment }}</span>
             </li>
             <li>
-              <button class="toggle__recomment">
+              <button class="toggle__recomment" v-if="isLoggin">
                 답글달기
               </button>
               <!-- 대댓글달기 -->
@@ -56,8 +56,8 @@
             </li>
             <!-- 대댓글 -->
             <li class="recomment__show" :data-value="comment.id" v-show="recommentNumber(comment) !== 0">
-              <i class="fas fa-sort-down allow__icon"></i>
-              <i class="fas fa-sort-up allow__icon"></i>
+              <i class="fas fa-sort-down allow__icon" :data-value="comment.id"></i>
+              <i class="fas fa-sort-up allow__icon" :data-value="comment.id"></i>
               <span>답글 {{ recommentNumber(comment) }}개 보기</span>
             </li>
           </div>
@@ -76,7 +76,7 @@
               <!-- 댓글의 정보 -->
               <li class="recomment__info">
                 <span>{{ comment.nickname }}</span>
-                <span><i class="far fa-clock"></i> {{ formatDate(comment.datetime, "dd일 h : m : s") }}</span>
+                <span><i class="far fa-clock"></i> {{ commentUploadTime(comment.datetime) }}</span>
               </li>
 
               <!-- 댓글내용 -->
@@ -126,6 +126,26 @@ export default {
       };
 
       return format.replace(/mm|dd|yy|yyy|h|m|s/gi, matched => map[matched]);
+    },
+    commentUploadTime(dateTime){
+      const date = new Date(Number(dateTime));
+
+      // 초단위 경과시간
+      let time = (new Date() - date) / 1000;
+
+      if(time < 60){                              // 1분 이하인경우 (초단위로 표시)
+        return `${Math.floor(time)}초전`;
+      } else if(time < 60 * 60){                  // 1시간 이하인경우 (분단위로 표시)
+        return `${Math.floor(time / 60)}분전`;
+      } else if(time < 60 * 60 * 24){             // 1일 이하인경우 (시간단위로 표시)
+        return `${Math.floor(time / 60 / 24)}시간전`;
+      } else if(time < 60 * 60 * 24 * 31){        // 1달 이하인경우 (일단위로 표시)
+        return `${Math.floor(time / 60 / 24 / 31)}일전`;
+      } else if(time < 60 * 60 * 24 * 31 * 12){   // 1년 이하인경우 (달단위로 표시)
+        return `${Math.floor(time / 60 / 24 / 31 / 12)}달전`;
+      } else {                                    // 년 단위로 표시
+        return `${Math.floor(time / 60 / 24 / 31 / 12 / 12)}년전`;
+      }
     }
   },
   computed: {
@@ -215,7 +235,12 @@ export default {
     const allowIcon = document.querySelectorAll(".allow__icon");
 
     // 대댓글 보이는 화살표 아이콘 up / down
-    allowIcon[0].classList.add("allow__active");
+    allowIcon.forEach((v, i) => {
+      if(i % 2 !== 0){
+        return;
+      }
+      v.classList.add("allow__active");
+    });
 
     // 대댓글입력 toggle
     toggleRecomment.forEach(v => {
@@ -237,8 +262,11 @@ export default {
               return;
             }
             count++;
-            allowIcon[0].classList.toggle("allow__active");
-            allowIcon[1].classList.toggle("allow__active");
+            allowIcon.forEach((v, i) => {
+              if(v.dataset.value === e.currentTarget.dataset.value){
+                v.classList.toggle("allow__active");
+              }
+            });
           }
         });
       })

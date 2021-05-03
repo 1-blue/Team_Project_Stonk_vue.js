@@ -13,6 +13,14 @@ router.get('/', async function (req, res) {
     ]
   });
 
+  let idx = 0;
+
+  for(const value of data){
+    const commentCount = await db.comments.findAll({ where: { postid: value.postid } });
+
+    data[idx++].dataValues.commentCount = commentCount.length;
+  }
+
   res.json(data)
 });
 
@@ -43,6 +51,16 @@ router.get('/:postid', async function (req, res) {
       }
     ]
   });
+
+  // view++
+  await db.posts.update(
+    {
+      views: (data.views + 1)
+    },
+    {
+      where: { postid }
+    }
+  );
 
   return res.json(data);
 });

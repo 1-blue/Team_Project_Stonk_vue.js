@@ -32,10 +32,11 @@
 									</li>
 
 									<li class="post__additional__logic">
-										<!-- 댓글개수 -->
-										<span class="comment__number">
-											답글 : {{  }}
-										</span>
+										<!-- view, comment수 -->
+										<ul class="comment__number">
+											<li>views : {{ post.views }}</li>
+											<li>comment : {{ post.commentCount }}</li>
+										</ul>
 
 										<!-- update and delete -->
 										<span v-if="onLoginUser(post.user.nickname)" class="post__update__delete__button">
@@ -273,6 +274,13 @@ a{
 .post__additional__logic{
 	display: flex;
 	align-items: center;
+}
+.comment__number{
+	display: flex;
+	flex-direction: column;
+	font-size: 0.8em;
+	color: gray;
+	margin-right: 2em;
 }
 .post__update__delete__button{
 	display: flex;

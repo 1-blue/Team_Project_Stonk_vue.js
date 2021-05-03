@@ -205,7 +205,7 @@ hr{
   border-width: 2px;
   border-style: solid;
   border-radius: 0.3rem;
-  border-color: #A0A0A0;
+  border: 2mm ridge rgb(250, 147, 5);
 }
 
 .content{

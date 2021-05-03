@@ -27,6 +27,11 @@ module.exports = function(sequelize, DataTypes) {
     contents: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    views: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
     }
   }, {
     sequelize,

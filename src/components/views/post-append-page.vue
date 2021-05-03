@@ -334,7 +334,7 @@ export default {
 }
 .upload__button{
   position: relative;
-  width: 80px;
+  width: 90px;
   height: 30px;
   border: 1px solid black;
   border-radius: 10%;
