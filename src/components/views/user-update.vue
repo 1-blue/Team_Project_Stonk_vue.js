@@ -157,7 +157,7 @@ export default {
 <style scoped>
 .user__update__container{
   --error-font-size: 2rem;
-  --form-background-color: white;
+  --form-background-color: #fff6b4;
   --form-width: 400px;
   --form-height: 100%;
   --form-padding: 2em;
@@ -183,9 +183,10 @@ input{
   outline: none;
   border: 0px;
   border-bottom: 2px solid black;
+  background: transparent;
 }
 input:focus{
-  border-bottom: 2px solid rgb(74, 74, 226);
+  border-bottom: 2px solid #F2A235;
 }
 select{
   width: 70px;
@@ -193,7 +194,7 @@ select{
   margin-left: 13px;
 }
 label{
-  color: blue;
+  color: #af4207;
 }
 
 /* 에러메시지 */
@@ -220,6 +221,7 @@ label{
 }
 .user__information__form {
   background: var(--form-background-color);
+  border: 2mm ridge #af4207;
   border-radius: 1rem;
   width: var(--form-width);
   height: var(--form-height);
@@ -256,5 +258,19 @@ label{
   text-align: center;
   width: 3rem;
   margin: 0 1rem;
+}
+
+.button{
+  border: 2px solid #E05409;
+}
+.button::after{
+  background: #E05409;
+}
+.button-text{
+  font-weight: bold;
+  color: #613721;
+}
+.button:hover .button-text{
+  color: white;
 }
 </style>

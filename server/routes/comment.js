@@ -44,6 +44,21 @@ router.post('/', async (req, res) => {
   res.redirect(`/app.html#/post/${postid}`);
 });
 
+// 댓글삭제
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const targetComment = await db.comments.findOne({ where: { id }})
+    await db.comments.destroy({ where: { id: targetComment.id } })
+    
+  } catch (error) {
+    console.error(error);
+  }
+
+  res.send("success");
+});
+
 // 대댓글 등록
 router.post('/reComment', async (req, res) => {
   const { postid, commentid, comment } = req.body;

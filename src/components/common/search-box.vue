@@ -11,7 +11,7 @@
       </span>
     </section>
 		<span class="search__button" :class="{ search__button__orange: orangeColor, search__button__green: greenColor }" @click="onSearch">
-			<i class="fas fa-search"></i>
+			<i class="fas fa-search search__icon"></i>
 		</span>
 	</form>
 </template>
@@ -77,8 +77,8 @@ export default {
 <style scoped>
 	.search__box{
     background-color: white;
-    width: 25vw;
-    height: 7vh;
+    width: 300px;
+    height: 60px;
     border-radius: 0.5em;
 		margin-bottom: 2em;
     display: flex;
@@ -90,7 +90,7 @@ export default {
 	.search__input{
     border: 0px;
     margin: 7px 0px;
-    width: 15vw;
+    width: 60%;
     margin-left: 0.5em;
     font-size: inherit;
 	}
@@ -102,7 +102,7 @@ export default {
 
 	/* 검색버튼태그 */
 	.search__button{
-    width: 15%;
+    width: 20%;
     border-radius: 0 0.5em 0.5em 0;
     cursor: pointer;
     display: flex;
@@ -125,14 +125,23 @@ export default {
     align-items: center;
     cursor: pointer;
     width: 12%;
-    font-size: 1vw;
+    font-size: 0.85em;
     color: dimgrey;
   }
-
-	@media screen and (max-width: 768px){
+  
+  @media screen and (max-width: 768px){
     .search__box{
-      height: 4vh;
-      font-size: 0.5rem;
+      width: 200px;
+      height: 40px;
     }
-	}
+    .search__input{
+      width: 50%;
+    }
+    .toggle__icon{
+      font-size: 0.5em;
+    }
+    .search__icon{
+      font-size: 0.5em;
+    }
+  }
 </style>

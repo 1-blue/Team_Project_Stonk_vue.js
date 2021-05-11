@@ -7,7 +7,7 @@
 
     <section v-else-if="!post" id="error__message">
       <h1>이미 삭제되었거나 존재하지않은 게시글입니다.</h1>
-      <a href="/app.html#/pages/community">comunity로 돌아가기</a>
+      <a href="/app.html#/community">comunity로 돌아가기</a>
     </section>
 
     <section v-else class="post__container">
@@ -70,11 +70,11 @@ export default {
     async deletePost(){
       const result = await fetchDeletePost(this.post.postid);
       if(result){
-        this.$router.go(-1)   // === window.history.go()
+        this.$router.push('/community');
       }
     },
     exit(){
-      this.$router.go(-1);
+      this.$router.push('/community');
     }
   },
   computed: {

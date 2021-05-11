@@ -263,8 +263,6 @@ select{
   margin: 0px 0.5em;
 }
 
-/**:disabled */
-
 .button{
   border: 2px solid #E05409;
 }

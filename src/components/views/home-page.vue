@@ -10,7 +10,7 @@
 
 		<!-- 게임소개 및 설명 -->
 		<section id="game__info" class="shadow">
-			<h1 class="gane__info__title">STONK</h1>
+			<h1 class="game__info__title">STONK</h1>
 			<h3>안녕하세요{{ getName }}님</h3>
 			<p>이 게임은 스타듀벨리를 모델로 만든 농사경제게임입니다.</p>
 			<p>일단 게임에 대한 설명</p>
@@ -76,7 +76,7 @@ export default {
 		border: 2mm ridge rgb(250, 147, 5);
   	background-color: rgb(255, 255, 204);
 	}
-	.gane__info__title{
+	.game__info__title{
 		font-size: 100px;
 		text-align: center;
 		margin: 50px;

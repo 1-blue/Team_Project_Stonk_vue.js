@@ -55,6 +55,13 @@ export default {
   },
   methods: {
     async signOut(){
+      const checkString = prompt("회원탈퇴하시려면 '회원탈퇴'를 입력해주세요");
+
+      if(checkString !== "회원탈퇴"){
+        alert("회원탈퇴가 취소되었습니다.");
+        return;
+      }
+
       const result = await fetchSignOut(this.user.nickname);
       if(result.status === 200){
         this.isSignOut = true;

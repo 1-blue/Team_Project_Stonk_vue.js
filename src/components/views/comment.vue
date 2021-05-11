@@ -40,9 +40,8 @@
               <span>{{ comment.comment }}</span>
             </li>
             <li>
-              <button class="toggle__recomment" v-if="isLoggin">
-                답글달기
-              </button>
+              <button class="toggle__recomment" v-if="isLoggin">답글달기</button>
+              <button class="remove__comment" v-if="isLoggin && isMyComment" @click="removeComment(comment.id)">삭제</button>
               <!-- 대댓글달기 -->
               <form action="/api/comment/reComment" method="post" class="input__recomment">
                 <!-- 댓글아이디전송 -->
@@ -92,7 +91,7 @@
 </template>
 
 <script>
-import { fetchComments } from '../../api/fetch.js';
+import { fetchComments, fetchDeleteComments } from '../../api/fetch.js';
 
 export default {
   data() {
@@ -146,6 +145,13 @@ export default {
       } else {                                    // 년 단위로 표시
         return `${Math.floor(time / 60 / 24 / 31 / 12 / 12)}년전`;
       }
+    },
+    async removeComment(commentId){
+      const data = await fetchDeleteComments(commentId);
+      if(data === "success"){
+        return alert("댓글삭제성공");
+      }
+      alert("댓글삭제실패");
     }
   },
   computed: {
@@ -163,6 +169,10 @@ export default {
     },
     recommentBtnState(){
       return this.inputRecomment.length !== 0 ? false : true;
+    },
+    isMyComment(){
+      const nickname = this.$cookies.get("login_nickName");
+      return this.comments[0].nickname.trim() === nickname.trim();
     },
   },
   async created(){
@@ -245,8 +255,8 @@ export default {
     // 대댓글입력 toggle
     toggleRecomment.forEach(v => {
       v.addEventListener('click', () => {
-        v.nextSibling.nextSibling.classList.toggle("active")
-      })
+        v.nextSibling.nextSibling.nextSibling.nextSibling.classList.toggle("active")
+      });
     });
 
     // 대댓글 toggle
@@ -262,7 +272,7 @@ export default {
               return;
             }
             count++;
-            allowIcon.forEach((v, i) => {
+            allowIcon.forEach(v => {
               if(v.dataset.value === e.currentTarget.dataset.value){
                 v.classList.toggle("allow__active");
               }
@@ -422,7 +432,7 @@ ul, li{
   display: none;
 }
 
-.toggle__recomment{
+.toggle__recomment, .remove__comment{
   color: gray;
   border: 0;
   background: transparent;

@@ -37,6 +37,15 @@ async function fetchUser(nickname) {
     return fetch(`/api/user/${nickname}`, "user info load error");
 }
 
+async function fetchVisitPost(postid) {
+    try {
+        const data = await axios.put(`/api/post/${postid}`);
+        return data.data
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 async function fetchDeletePost(postid) {
     try {
         return await axios.delete(`/api/post/${postid}`);
@@ -58,8 +67,21 @@ async function fetchSignOut(nickname) {
 }
 
 async function fetchComments(postId) {
-    let data = await axios.get(`api/comment/${postId}`);
-    return data.data;
+    try {
+        const data = await axios.get(`api/comment/${postId}`);
+        return data.data;
+    } catch (error) {
+        console.log(error);
+    }  
+}
+
+async function fetchDeleteComments(commentId) {
+    try {
+        const data = await axios.delete(`api/comment/${commentId}`);
+        return data.data
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
@@ -68,8 +90,10 @@ export {
     fetchCommunity,
     fetchPost,
     fetchUser,
+    fetchVisitPost,
     fetchDeletePost,
     fetchLogout,
     fetchSignOut,
-    fetchComments
+    fetchComments,
+    fetchDeleteComments
 }

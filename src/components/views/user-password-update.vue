@@ -23,7 +23,9 @@
             <input type="password" name="passwordCheck" id="passwordCheck" />
           </li>
         </ul>
-        <button type="submit" class="password__submit">전송</button>
+        <button type="submit" class="password__submit">
+          <span class="btn__text">전송</span>
+        </button>
       </form>
     </section>
 
@@ -34,7 +36,9 @@
           <label for="password">기존패스워드</label>
           <input type="password" name="password" id="password" />
         </div>
-        <button type="submit" class="password__submit">전송</button>
+        <button type="submit" class="password__submit">
+          <span class="btn__text">전송</span>
+        </button>
       </form>
     </section>
   </div>
@@ -65,14 +69,14 @@ export default {
 
 <style scoped>
 .password__change__container{
-  --form-background-color: white;
+  --form-background-color: #fff6b4;
   --form-width: 400px;
   --form-height: 100%;
   --form-padding: 1rem;
   --submit-button-width: 40%;
   --submit-button-height: 50px;
-  --submit-button-color: lightskyblue;
-  --submit-button-hover-color: blue;
+  --submit-button-color: #DBB13B;
+  --submit-button-hover-color: #af4207;
   --error-font-size: 2rem;
   --error-font-color: red;
 }
@@ -95,17 +99,19 @@ input{
   outline: none;
   border: 0px;
   border-bottom: 2px solid black;
+  background: transparent;
 }
 input:focus{
-  border-bottom: 2px solid rgb(74, 74, 226);
+  border-bottom: 2px solid #F2A235;
 }
 label{
-  color: blue;
+  color: #af4207;
   white-space: nowrap;
 }
 
 .password__form{
   background: var(--form-background-color);
+  border: 2mm ridge #af4207;
   border-radius: 1rem;
   max-width: var(--form-width);
   height: var(--form-height);
@@ -130,6 +136,12 @@ label{
   margin: 1em 0;
   border: 0;
   background: var(--submit-button-color);
+  font-size: 1.3em;
+  font-weight: bold;
+  letter-spacing: 1em;
+}
+.btn__text{
+  margin-left: 1em;
 }
 .password__submit:hover{
   background: var(--submit-button-hover-color);

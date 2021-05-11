@@ -25,7 +25,7 @@
 						<li class="post">
 								<ul class="post__inner">
 									<!-- 타이틀 -->
-									<li class="post__title">
+									<li class="post__title" @click="visitPost(post.postid)">
 										<router-link :to="`/post/${post.postid}`" class="post__title__link">
 											{{ post.title }}
 										</router-link>
@@ -34,7 +34,7 @@
 									<li class="post__additional__logic">
 										<!-- view, comment수 -->
 										<ul class="comment__number">
-											<li>views : {{ post.views }}</li>
+											<li>views : {{ post.visitnumber }}</li>
 											<li>comment : {{ post.commentCount }}</li>
 										</ul>
 
@@ -63,13 +63,13 @@
 						</li>
 					</ul>
 				</div>
-					<ul class="page__router">
-						<li v-for="(item, index) in pages" :key="index">
-							<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
-								{{ item }}
-							</router-link>
-						</li>
-					</ul>
+				<ul class="page__router">
+					<li v-for="(item, index) in pages" :key="index">
+						<router-link :to="`/community/${item}`" @click.native="pageChange(item)">
+							{{ item }}
+						</router-link>
+					</li>
+				</ul>
 			</section>
 		</template>
 	</div>
@@ -77,7 +77,7 @@
 
 <script>
 import searchBox from '../common/search-box.vue';
-import { fetchDeletePost } from '../../api/fetch.js';
+import { fetchVisitPost, fetchDeletePost } from '../../api/fetch.js';
 
 export default {
 	components: {
@@ -135,6 +135,10 @@ export default {
 		pageChange(pageNumber){
 			this.page = pageNumber;
 			this.currentPosts = this.divisionPage[this.page - 1];
+		},
+		async visitPost(postId){
+			const data = await fetchVisitPost(postId);
+			console.log(data);
 		}
 	},
 	computed: {
@@ -211,8 +215,11 @@ a{
 	align-items: flex-start;
 }
 #post__section{
+	display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 60vh;
 	width: 100%;
-	height: 100%;
 	border: 2mm ridge var(--community-border-color);
 	background-color: var(--community-background-color);
 	border-radius: 1em;
@@ -313,6 +320,9 @@ a{
 @media screen and (max-width: 768px){
 	.post__container{
 		grid-template-columns: repeat(2, 1fr);
+	}
+	.post__append__button{
+		font-size: 0.8em;
 	}
 }
 

@@ -24,7 +24,7 @@ router.get('/', async function (req, res) {
   res.json(data)
 });
 
-// 게시글업로드 put으로해야하는건가
+// 게시글업로드
 router.post('/', isLoggedIn, function (req, res) {
   const { title, contents } = req.body;
   // db에 추가
@@ -52,38 +52,36 @@ router.get('/:postid', async function (req, res) {
     ]
   });
 
-  // view++
-  await db.posts.update(
-    {
-      views: (data.views + 1)
-    },
-    {
-      where: { postid }
-    }
-  );
-
   return res.json(data);
+});
+
+// visitNumber++
+router.put('/:postid', async function (req, res) {
+  const { postid } = req.params;
+
+  try {
+    const data = await db.posts.findOne({ where: { postid } });
+
+    await db.posts.update(
+      {
+        visitnumber: (data.visitnumber + 1)
+      },
+      {
+        where: { postid }
+      }
+    );
+
+    return res.send("success");
+
+  } catch (error) {
+    console.error(error);
+    return res.send(error);
+  }
 });
 
 // 게시글삭제
 router.delete('/:postid', isLoggedIn, async (req, res) => {
   const { postid } = req.params;
-
-  // 포스트와 연동된 comments의 id 및 대댓글 찾고
-  const comments = await db.comments.findAll({
-    where: { postid },
-    attributes: ['id'],
-  });
-
-  // 대댓글모두삭제
-  for(const comment of comments){
-    await db.comments.destroy({ where: { commentid: { [db.Sequelize.Op.ne]: null } } })
-  }
-
-  // 댓글모두삭제
-  for(const comment of comments){
-    await db.comments.destroy({ where: { id: comment.id } })
-  }
 
   // 포스트삭제
   await db.posts.destroy({ where: { postid } });

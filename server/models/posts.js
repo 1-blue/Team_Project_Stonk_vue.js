@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    views: {
+    visitnumber: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,

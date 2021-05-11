@@ -14,7 +14,6 @@
   import loadingSpinner from './src/components/loading-spinner.vue';
   import bus from './src/utils/bus.js';
   
-
   export default{
     router,
     components:{
