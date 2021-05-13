@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 
 const indexRouter = require('./routes/index');
 const priceRouter = require('./routes/price.js');
+const itemRouter = require('./routes/item.js');
 const authRouter = require('./routes/auth.js');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
@@ -17,6 +18,7 @@ app.use(cookieParser());
 
 app.use('/api/', indexRouter);
 app.use('/api/price', priceRouter);
+app.use('/api/item', itemRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
 app.use('/api/user', userRouter);

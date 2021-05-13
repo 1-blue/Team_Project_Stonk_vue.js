@@ -6,7 +6,7 @@ const unorderedItem = {
   "parsnip": 300,
   "parsnipSeed": 10, 
   "cauliflower": 100,
-  "cauliflowerSeed": 5, 
+  "cauliflowerSeed": 5,
   "strawberry": 500, 
   "strawberrySeed": 50, 
   "seeds": 20, 
@@ -15,6 +15,7 @@ const unorderedItem = {
   "friedEgg": 50, 
   "cheeseCauliflower": 30 
 };
+
 const itemCode = {
   "parsnip": 10,
   "parsnipSeed": 20, 
@@ -40,7 +41,7 @@ router.get('/', function (req, res) {
     requestCounter++;
   }
   
-  res.send(unorderedItem)
+  res.json(unorderedItem)
 });
 
 /* GET Item priece list */

@@ -25,22 +25,41 @@
 			<div id="table-body">
 				<div v-for="(imageName, index) in itemNameList" :key="index">
 					<span v-show="!isSearch || onSearchFind(imageName)" id="items">
-						<div class="table-gride image" ><img :src="getPath(imageName)" :alt="imageName"></div>
+						<div class="table-gride image"><img :src="getPath(imageName)" :alt="imageName" @click="onClickItem(imageName)" /></div>
 						<div class="table-gride name">{{ imageName }}</div>
 						<div class="table-gride price">{{ getPrice(imageName) }}</div>
 					</span>
 				</div>
 			</div>
+
+			<!-- 로그인창 -->
+			<app-modal v-if="tttttt" @close="tttttt = false" class="modal-mask">
+				<h2 slot="header" class="modal-title">
+					아이템정보
+					<i class="fas fa-times close-modal-btn" @click="tttttt = !tttttt"></i>
+				</h2>
+				
+				<div slot="body" class="modal-body">
+					<img :src="getPath(clickItem)" :alt="clickItem" class="click__item__image"/>
+					<div>이름 : {{ clickItem }}</div>
+					<div>가격 : {{ items[`${clickItem}`] }}</div>
+					<div>설명 : {{ clickItemInformation }}</div>
+				</div>
+			</app-modal>
+
 		</template>
 	</div>
 </template>
 
 <script>
 import searchBox from '../common/search-box.vue';
+import appModal from '../common/app-modal.vue';
+import { fetchItemInformation } from '../../api/fetch.js'
 
 export default {	
 	components: {
-		searchBox
+		searchBox,
+		appModal
 	},
 	data(){
 		return{
@@ -53,6 +72,9 @@ export default {
 			reloadTimerId: 0,
 			error: "",
 			items: [],
+			clickItem: "",
+			clickItemInformation: "",
+			tttttt: false,
 		}
 	},
 	methods: {
@@ -66,7 +88,6 @@ export default {
 			this.targetItem = searchItem;
 			this.isSearch = true;
 		},
-
 
 		// 검색기능 OFF
 		onSearchCancel(){
@@ -152,6 +173,16 @@ export default {
 			this.items = Object.fromEntries(arr);
 
 			this.itemNameList = Object.keys(this.items);
+		},
+
+		// 아이템 상세정보 띄우기
+		async onClickItem(name){
+			this.clickItem = name;
+			// 예외처리추가해야하
+			const temp = await fetchItemInformation(name)
+			this.clickItemInformation = temp.data
+
+			this.tttttt = true;
 		}
 	},
 	computed: {
@@ -187,6 +218,7 @@ export default {
 		width: 50px;
 		height: 50px;
 		margin-top: 5px;
+		cursor: pointer;
 	}
 
 	/* 테이블제목들이랑 아이템들 정렬을 위해 값적용 */
@@ -262,5 +294,33 @@ export default {
 		margin-right: 10px;
 		cursor: pointer;
 		color: white;
+	}
+
+	.modal-title{
+		text-align: center;
+		margin: 0;
+	}
+
+	.close-modal-btn{
+		float: right;
+		cursor: pointer;
+		color: #F05E4D;
+		margin-top: 4px;
+  }
+
+	.modal-body{
+		margin-top: 10px;
+	}
+
+	.modal-body > div{
+		padding-bottom: 5px;
+	}
+
+	.click__item__image{
+		float: left;
+		width: 100px;
+		height: 100px;
+		margin-right: 10px;
+		margin-top: 0;
 	}
 </style>

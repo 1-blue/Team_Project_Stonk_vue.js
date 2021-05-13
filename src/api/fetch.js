@@ -25,6 +25,10 @@ function fetchItems() {
     return fetch(`/api/price`, "price load error");
 }
 
+async function fetchItemInformation(name) {
+    return fetch(`/api/item/${name}`, "item infomation load error");
+}
+
 async function fetchCommunity() {
     return fetch(`/api/post`, "community load error");
 }
@@ -84,9 +88,9 @@ async function fetchDeleteComments(commentId) {
     }
 }
 
-
 export {
     fetchItems,
+    fetchItemInformation,
     fetchCommunity,
     fetchPost,
     fetchUser,

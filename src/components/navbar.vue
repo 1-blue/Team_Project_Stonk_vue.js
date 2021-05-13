@@ -39,19 +39,21 @@
 			<div slot="body" class="modal-body">
 				<div class="modal">
 					<form :action="loginUrl" method="post">
-							<span class="login-fail-message">{{loginAdditionalText}}</span>
-							<div class="modal-input-holder">
-								<div class="modal-input-id">
-									<input type="text" placeholder="아이디" name="id" class="modal-input" size=15 />
-								</div>
-								<div class="modal-input-password">
-									<input :type="checkPasswordShow" placeholder="비밀번호" name="pw" class="modal-input" size=15 />
-									<i class="fas fa-eye password-icon" v-show="showPassword" @click="onShowPassword"></i>
-									<i class="fas fa-eye-slash password-icon" v-show="!showPassword" @click="onShowPassword"></i>
-								</div>
+						<span class="login-fail-message">{{loginAdditionalText}}</span>
+						<div class="modal-input-holder">
+							<div class="modal-input-id">
+								<input type="text" placeholder="아이디" name="id" class="modal-input" size=15 />
 							</div>
-							<button class="modal-btn button"> <h3 class="button-text">로그인</h3></button>
-						</form>
+							<div class="modal-input-password">
+								<input :type="checkPasswordShow" placeholder="비밀번호" name="pw" class="modal-input" size=15 />
+								<i class="fas fa-eye password-icon" v-show="showPassword" @click="onShowPassword"></i>
+								<i class="fas fa-eye-slash password-icon" v-show="!showPassword" @click="onShowPassword"></i>
+							</div>
+						</div>
+						<button class="modal-btn button">
+							<h3 class="button-text">로그인</h3>
+						</button>
+					</form>
 				</div>
 
 				<div class="modal-link">
