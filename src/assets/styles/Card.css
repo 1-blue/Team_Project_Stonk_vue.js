@@ -3,7 +3,7 @@
 	border-radius: 0.5rem;
   box-shadow: 0 20px 60px 0 rgba(41, 67, 100, 0.21);
   height: 420px;
-  padding: 10px;
+  padding: 0px;
   border: 2mm ridge rgb(250, 147, 5);
   background-color: rgb(255, 255, 204);
 }
@@ -14,10 +14,19 @@
 
 .card-icon {
   pointer-events: none;
-  width: 180px;
-  padding: 40px 20px 0px 20px;
+  height: 100%;
+
+  padding: 0px;
 }
 
 .card-content {
   padding: 20px;
+}
+.aligner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aligner-item{
+  max-width: 50%;
 }

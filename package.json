@@ -30,6 +30,7 @@
     "axios": "^0.21.1",
     "bcrypt-nodejs": "^0.0.3",
     "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",

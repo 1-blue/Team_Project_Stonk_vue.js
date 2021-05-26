@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
+  <div class="card aligner">
     <img
-      class="card-icon"
-      :src="require(`../assets/svg/${imgName}`)"
+      class="card-icon aligner-item"
+      :src="`/src/assets/${imgName}`"
       alt="card icon"
     />
     <div class='card-content'>
